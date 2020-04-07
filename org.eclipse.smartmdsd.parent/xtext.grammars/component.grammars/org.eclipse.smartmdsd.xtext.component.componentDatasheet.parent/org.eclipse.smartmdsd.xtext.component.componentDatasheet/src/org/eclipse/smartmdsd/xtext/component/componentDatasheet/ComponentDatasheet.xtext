@@ -1,0 +1,36 @@
+/********************************************************************************
+ * Copyright (c) 2019 Technische Hochschule Ulm, Servicerobotics Ulm, Germany
+ * 
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Contributors:
+ *   Alex Lotz, Dennis Stampfer, Matthias Lutz
+ ********************************************************************************/
+grammar org.eclipse.smartmdsd.xtext.component.componentDatasheet.ComponentDatasheet with org.eclipse.smartmdsd.xtext.base.genericDatasheet.GenericDatasheet
+
+import "http://www.eclipse.org/smartmdsd/component/componentDatasheet" 
+import "http://www.eclipse.org/smartmdsd/base/genericDatasheet" as genericDatasheet
+import "http://www.eclipse.org/smartmdsd/component/componentDefinition" as componentDefinition
+import "http://www.eclipse.org/smartmdsd/component/coordinationExtension" as coordination
+
+
+ComponentDatasheet returns ComponentDatasheet:
+	'ComponentDatasheet' component=[componentDefinition::ComponentDefinition]
+	'{'
+		GenericDatasheetModel
+	'}';
+
+@Override 
+AbstractDatasheetElement returns genericDatasheet::AbstractDatasheetElement:
+	DatasheetProperty | MandatoryDatasheetElement | ComponentPortDatasheet
+;
+
+ComponentPortDatasheet:
+	'ComponentPortDatasheet' port=[componentDefinition::ComponentPort] '{'
+		(properties+=DatasheetProperty)*
+	'}'
+;

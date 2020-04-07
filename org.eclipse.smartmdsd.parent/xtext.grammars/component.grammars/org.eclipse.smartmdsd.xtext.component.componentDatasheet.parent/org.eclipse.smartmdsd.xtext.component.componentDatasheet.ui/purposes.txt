@@ -1,0 +1,12 @@
+Sensor-Access
+Actuator-Access
+Localization
+Navigation
+Mapping
+Mobile-Base
+Manipulation
+Planner
+Object-Recognition
+Text-To-Speech
+Speech-To-Text
+Simulation

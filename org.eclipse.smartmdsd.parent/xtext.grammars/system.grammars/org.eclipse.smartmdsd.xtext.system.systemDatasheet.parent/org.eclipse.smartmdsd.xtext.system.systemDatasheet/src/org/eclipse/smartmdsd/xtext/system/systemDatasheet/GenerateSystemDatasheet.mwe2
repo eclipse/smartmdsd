@@ -1,0 +1,64 @@
+module org.eclipse.smartmdsd.xtext.system.systemDatasheet.GenerateSystemDatasheet
+
+import org.eclipse.xtext.xtext.generator.*
+import org.eclipse.xtext.xtext.generator.model.project.*
+
+var rootPath = ".."
+var copyrightFileHeader = 
+"/********************************************************************************
+ * Copyright (c) 2019 Technische Hochschule Ulm, Servicerobotics Ulm, Germany
+ * 
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Contributors:
+ *   Alex Lotz, Dennis Stampfer, Matthias Lutz
+ ********************************************************************************/"
+
+Workflow {
+	
+	component = XtextGenerator {
+		configuration = {
+			project = StandardProjectConfig {
+				baseName = "org.eclipse.smartmdsd.xtext.system.systemDatasheet"
+				rootPath = rootPath
+				eclipsePlugin = {
+					enabled = true
+				}
+				createEclipseMetaData = true
+			}
+			code = {
+				encoding = "UTF-8"
+				lineDelimiter = "\n"
+				fileHeader = copyrightFileHeader
+				preferXtendStubs = true
+			}
+		}
+		language = StandardLanguage {
+			name = "org.eclipse.smartmdsd.xtext.system.systemDatasheet.SystemDatasheet"
+			fileExtensions = "systemDatasheet"
+			referencedResource = "platform:/resource/org.eclipse.smartmdsd.ecore.system.systemDatasheet/model/systemDatasheet.genmodel"
+			
+			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment2 auto-inject {}
+
+			formatter = {
+				generateStub = true
+			}
+
+			serializer = {
+				generateStub = false
+			}
+			validator = {
+				// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+				// Generates checks for @Deprecated grammar annotations, an IssueProvider and a corresponding PropertyPage
+				generateDeprecationValidation = true
+			}
+			junitSupport = {
+				junitVersion = "5"
+			}
+		}
+	}
+}
