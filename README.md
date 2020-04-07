@@ -6,7 +6,7 @@ The SmartMDSD Toolchain is an Eclipse-based Integrated Development Environment (
 
 For more information about the SmartMDSD Toolchain, documentation, and tutorials, please visit the [**Servicerobotik Ulm Wiki**](https://wiki.servicerobotik-ulm.de/smartmdsd-toolchain:start).
 
-Please also read the **[Release Notes](ReleaseNotes.md)** to see what's new in the latest relase.
+Please also read the **[Release Notes](ReleaseNotes.md)** to see what's new in the latest release.
 
 ## Installation Instructions
 
