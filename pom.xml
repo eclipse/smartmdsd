@@ -25,15 +25,23 @@
 
 	<properties>
 		<!-- These are the shared version definitions -->
-		<eclipse-platform>2019-12</eclipse-platform>
-		<tycho-version>1.5.1</tycho-version>
+		<eclipse-platform>2020-06</eclipse-platform>
+		<tycho-version>1.7.0</tycho-version>
 		<maven.compiler.version>3.1.0</maven.compiler.version>
+		<eclipse.maven.cbi.version>1.1.5</eclipse.maven.cbi.version>
 		<!-- Here are some default property configurations -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- We use the Java compiler version 1.8 for source and target -->
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>cbi</id>
+			<url>https://repo.eclipse.org/content/repositories/cbi-releases/</url>
+		</pluginRepository>
+	</pluginRepositories>
 	
 	<build>
 		<!-- override default "src/main/java" source directory layout which is not correct for Eclipse plugins anyways (removes warnings) -->
@@ -86,6 +94,20 @@
 						<goals>
 							<goal>p2-metadata</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.cbi.maven.plugins</groupId>
+				<artifactId>eclipse-jarsigner-plugin</artifactId>
+				<version>${eclipse.maven.cbi.version}</version>
+				<executions>
+					<execution>
+						<id>sign</id>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+						<phase>verify</phase>
 					</execution>
 				</executions>
 			</plugin>
