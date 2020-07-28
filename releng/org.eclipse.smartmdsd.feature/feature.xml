@@ -19,6 +19,10 @@
       %licenseID
    </license>
 
+   <requires>
+      <import feature="org.eclipse.cdt" version="9.11.1.202006011430" match="greaterOrEqual"/>
+   </requires>
+
    <plugin
          id="org.eclipse.smartmdsd.xtext.system.componentArchitecture.ide"
          download-size="0"

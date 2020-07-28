@@ -532,7 +532,7 @@
       </menuContribution>
       <menuContribution
             allPopups="false"
-            locationURI="popup:org.smartmdsd.navigator.view">
+            locationURI="popup:org.eclipse.smartmdsd.navigator.view">
          <command
                commandId="org.eclipse.smartmdsd.ui.codeGeneratorTrigger"
                icon="icons/manual-gear.png"
@@ -603,7 +603,7 @@
          <command
                commandId="org.eclipse.smartmdsd.ui.terminal"
                icon="icons/terminal.png"
-               label="Open In Terminal"
+               label="Open Path In Terminal"
                style="push">
          </command>
       </menuContribution>
