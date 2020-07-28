@@ -12,5 +12,6 @@
 	<modules>
 		<module>org.eclipse.smartmdsd.targets</module>
 		<module>org.eclipse.smartmdsd.feature</module>
+		<module>org.eclipse.smartmdsd.repository</module>
 	</modules>
 </project>
