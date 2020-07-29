@@ -36,7 +36,7 @@ public class DiagramSnapshotManager implements SessionManagerListener {
 			for(DView view: session.getOwnedViews()) {
 				String viewpointName = view.getViewpoint().getName();
 				for(DRepresentationDescriptor descr: view.getOwnedRepresentationDescriptors()) {
-					if(descr.getName().contentEquals(projectName)) {
+					if(descr.getName().startsWith(projectName)) {
 						String imageName = projectName + viewpointName.replaceAll("Viewpoint", "") + ".jpg";
 //						System.out.println("ImageName: "+imageName);
 						Display.getDefault().asyncExec(

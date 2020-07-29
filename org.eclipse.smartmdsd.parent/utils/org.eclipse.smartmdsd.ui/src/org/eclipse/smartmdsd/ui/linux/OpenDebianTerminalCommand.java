@@ -57,7 +57,7 @@ public class OpenDebianTerminalCommand extends AbstractHandler {
 			final ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
 			final ILaunchConfigurationType terminalLauncher = launchManager.getLaunchConfigurationType(DebianTerminalLauncher.LAUNCHER_ID);
 			final IProject project = currentResource.getProject();
-			WorkspaceJob openTerminalJob = new WorkspaceJob(""){
+			WorkspaceJob openTerminalJob = new WorkspaceJob("Open Terminal Window"){
 				@Override
 				public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 					ILaunchConfigurationWorkingCopy terminalLauncherConfiguration = terminalLauncher.newInstance(project, project.getName());
