@@ -264,16 +264,16 @@ public class DiagramHelperServices {
 	}
 	
 	public static EObject importModels(DDiagram diagram, String modelFolder, String modelFileExtension, Boolean deselectProjects) {
-		// we delegate the import handling to the new Eclipse command "org.smartmdsd.navigator.imports"
+		// we delegate the import handling to the new Eclipse command "org.eclipse.smartmdsd.navigator.imports"
 		triggerModelImportCommand();
 		return diagram;
 	}
 	
 	public static void triggerModelImportCommand() {
-		// we delegate the import handling to the new Eclipse command "org.smartmdsd.navigator.imports"
+		// we delegate the import handling to the new Eclipse command "org.eclipse.smartmdsd.navigator.imports"
 		IHandlerService handlerService = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(IHandlerService.class);
 		try {
-			handlerService.executeCommand("org.smartmdsd.navigator.imports", null);
+			handlerService.executeCommand("org.eclipse.smartmdsd.navigator.imports", null);
 		} catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
 			e.printStackTrace();
 		}

@@ -7,4 +7,22 @@
 	       name="componentArchitecture">
     </component>
   </extension>
+  <extension
+        point="org.eclipse.ui.views">
+     <view
+           category="org.eclipse.smartmdsd.navigator.views"
+           class="org.eclipse.smartmdsd.sirius.system.componentArchitecture.design.SystemParameterViewPart"
+           icon="icons/Parameter.gif"
+           id="org.eclipse.smartmdsd.sirius.system.componentArchitecture.design.SystemParamView"
+           name="System Parameter Editor View"
+           restorable="true">
+     </view>
+  </extension>
+  <extension
+        point="org.eclipse.sirius.externalJavaAction">
+     <javaActions
+           actionClass="org.eclipse.smartmdsd.sirius.system.componentArchitecture.design.OpenSystemParameterEditorAction"
+           id="OpenSystemParameterEditor">
+     </javaActions>
+  </extension>
 </plugin>
