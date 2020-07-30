@@ -10,5 +10,7 @@ Please also read the **[Release Notes](ReleaseNotes.md)** to see what's new in t
 
 ## Installation Instructions
 
-*coming soon*
+See instructions provided here:
+
+[**projects.eclipse.org/projects/modeling.smartmdsd/downloads**](https://projects.eclipse.org/projects/modeling.smartmdsd/downloads)
 
