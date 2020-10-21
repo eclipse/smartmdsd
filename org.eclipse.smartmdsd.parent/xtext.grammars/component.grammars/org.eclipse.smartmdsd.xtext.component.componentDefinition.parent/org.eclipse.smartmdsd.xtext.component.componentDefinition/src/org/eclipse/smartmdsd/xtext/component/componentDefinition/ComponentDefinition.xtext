@@ -23,6 +23,7 @@ import "http://www.eclipse.org/smartmdsd/behavior/skillRealization" as skillReal
 import "http://www.eclipse.org/smartmdsd/component/seronetExtension" as seronet
 import "http://www.eclipse.org/smartmdsd/base/stateMachine" as stateMach
 import "http://www.eclipse.org/smartmdsd/base/mixedport" as mixedport
+import "http://www.eclipse.org/smartmdsd/component/componentDependencyGraphExtension" as dg
 
 ComponentDefModel returns component::ComponentDefModel:
 	{component::ComponentDefModel}
@@ -101,11 +102,16 @@ InputPort returns component::InputPort:
 ;
 
 ComponentPortExtension returns component::ComponentPortExtension: 
-	SupportedMiddleware
+	SupportedMiddleware | ComponentDependencyObject
 ;
 
 SupportedMiddleware returns seronet::SupportedMiddleware: 
 	'SupportedMiddleware' (default?='default')? middleware=RoboticMiddleware (';')?
+;
+
+ComponentDependencyObject returns dg::ComponentDependencyObject:
+	{dg::ComponentDependencyObject}
+	'ComponentDependencyObject' name=EString (';')?
 ;
 
 Activity returns component::Activity:

@@ -52,6 +52,7 @@ Workflow {
 			referencedResource = "platform:/resource/org.eclipse.smartmdsd.ecore.component.coordinationExtension/model/coordinationExtension.genmodel"
 			referencedResource = "platform:/resource/org.eclipse.smartmdsd.ecore.component.seronetExtension/model/seronetExtension.genmodel"
 			referencedResource = "platform:/resource/org.eclipse.smartmdsd.ecore.component.componentDefinition/model/componentDefinition.genmodel"
+			referencedResource = "platform:/resource/org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension/model/componentDependencyGraphExtension.genmodel"
 			
 			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment2 auto-inject {}
 

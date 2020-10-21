@@ -1109,4 +1109,18 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
