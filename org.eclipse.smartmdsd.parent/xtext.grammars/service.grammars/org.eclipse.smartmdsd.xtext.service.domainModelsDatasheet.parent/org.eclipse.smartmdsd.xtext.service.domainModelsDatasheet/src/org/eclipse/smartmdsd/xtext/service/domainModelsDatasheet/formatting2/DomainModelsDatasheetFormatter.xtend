@@ -27,5 +27,10 @@ class DomainModelsDatasheetFormatter extends GenericDatasheetFormatter {
 		ropen.append[newLine]
 		interior(ropen, rclose)[indent]
 		rclose.prepend[newLine]
+		
+		for(element: domainModelsDatasheet.elements) {
+			element.format
+			element.append[newLine]
+		}
 	}
 }

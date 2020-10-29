@@ -31,6 +31,7 @@ class ComponentDatasheetFormatter extends GenericDatasheetFormatter {
 		
 		for(element: componentDatasheet.elements) {
 			element.format
+			element.append[newLine]
 		}
 	}
 	

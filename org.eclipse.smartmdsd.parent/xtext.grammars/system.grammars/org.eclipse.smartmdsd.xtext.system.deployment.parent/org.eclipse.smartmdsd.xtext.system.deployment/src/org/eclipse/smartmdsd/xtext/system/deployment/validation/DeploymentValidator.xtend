@@ -16,6 +16,8 @@ import org.eclipse.xtext.validation.Check
 import org.eclipse.smartmdsd.ecore.system.deployment.NamingService
 import org.eclipse.smartmdsd.ecore.system.deployment.DeploymentModel
 import org.eclipse.smartmdsd.ecore.system.deployment.TargetPlatformReference
+import org.eclipse.smartmdsd.ecore.system.deployment.DeploymentPackage
+import org.eclipse.smartmdsd.ecore.system.deployment.ComponentArtefact
 
 /**
  * This class contains custom validation rules. 
@@ -28,7 +30,8 @@ class DeploymentValidator extends AbstractDeploymentValidator {
 	public static val MULTIPLE_NAMING_SERVICES = DEPLOYMENT_ISSUE_PREFIX + "MultipleNamingServices"
 	public static val MISSING_NETWORK_INTERFACE = DEPLOYMENT_ISSUE_PREFIX + "MissingNetworkInterface"
 	public static val MISSING_UPLOAD_DIRECTORY = DEPLOYMENT_ISSUE_PREFIX + "MissingUploadDirectory"
-//	public static val MISSING_LOGIN_ACCOUNT = DEPLOYMENT_ISSUE_PREFIX + "MissingLoginAccount"
+	public static val NO_TARGET_PLATFORMS_DEFINED = DEPLOYMENT_ISSUE_PREFIX + "NoTargetPlatformsDefined"
+	public static val MISSING_COMPONENT_ARTEFACT = DEPLOYMENT_ISSUE_PREFIX + "MissingComponentArtefact"
 	
 	@Check
 	def checkSingleNamingService(NamingService ns) {
@@ -59,5 +62,25 @@ class DeploymentValidator extends AbstractDeploymentValidator {
 //				null, MISSING_LOGIN_ACCOUNT
 //			)
 //		}
+	}
+	
+	@Check
+	def hasTargetPlatforms(DeploymentModel model) {
+		if(!model.elements.exists[it instanceof TargetPlatformReference]) {
+			warning("At least one TargetPlatformReference has to be defined.", DeploymentPackage.Literals.DEPLOYMENT_MODEL__NAME, NO_TARGET_PLATFORMS_DEFINED)
+		}
+	}
+	
+	@Check
+	def allComponentArtefactsAvailable(DeploymentModel model) {
+		for(component: model.componentArch.components) {
+			if(!model.elements.filter(ComponentArtefact).exists[it.component == component]) {
+				warning("ComponentInstance "+component.name+" is not used in the deployment model",
+					DeploymentPackage.Literals.DEPLOYMENT_MODEL__NAME, 
+					MISSING_COMPONENT_ARTEFACT,
+					component.name
+				)
+			}
+		}
 	}
 }

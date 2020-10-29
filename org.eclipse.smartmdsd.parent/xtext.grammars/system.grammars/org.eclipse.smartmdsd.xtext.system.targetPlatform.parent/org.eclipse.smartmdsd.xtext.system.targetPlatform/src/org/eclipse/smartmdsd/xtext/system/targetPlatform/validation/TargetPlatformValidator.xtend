@@ -12,6 +12,9 @@
  ********************************************************************************/
 package org.eclipse.smartmdsd.xtext.system.targetPlatform.validation
 
+import org.eclipse.xtext.validation.Check
+import org.eclipse.smartmdsd.ecore.system.targetPlatform.TargetPlatformModel
+import org.eclipse.smartmdsd.ecore.system.targetPlatform.TargetPlatformPackage
 
 /**
  * This class contains custom validation rules. 
@@ -20,15 +23,13 @@ package org.eclipse.smartmdsd.xtext.system.targetPlatform.validation
  */
 class TargetPlatformValidator extends AbstractTargetPlatformValidator {
 	
-//	public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					TargetPlatformPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
+	public static val NO_TARGET_PLATFORMS = "no_target_platforms"
+	
+	@Check
+	def hasATargetPlatformDefinition(TargetPlatformModel model) {
+		if(model.elements.empty) {
+			warning("At least one TargetPlatform should be defined", TargetPlatformPackage.Literals.TARGET_PLATFORM_MODEL__NAME, NO_TARGET_PLATFORMS)
+		}
+	}
 	
 }

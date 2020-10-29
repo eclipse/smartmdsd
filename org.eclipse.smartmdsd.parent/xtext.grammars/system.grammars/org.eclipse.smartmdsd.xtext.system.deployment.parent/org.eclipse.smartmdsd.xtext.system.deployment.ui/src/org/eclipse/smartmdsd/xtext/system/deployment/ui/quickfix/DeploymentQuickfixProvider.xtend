@@ -24,6 +24,12 @@ import org.eclipse.xtext.resource.XtextResource
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.smartmdsd.ecore.system.targetPlatform.NetworkInterface
 import org.eclipse.smartmdsd.xtext.system.deployment.validation.DeploymentValidator
+import com.google.inject.Inject
+import org.eclipse.smartmdsd.xtext.indexer.XtextResourceIndex
+import org.eclipse.smartmdsd.ecore.system.targetPlatform.TargetPlatformPackage
+import org.eclipse.smartmdsd.ecore.system.targetPlatform.TargetPlatformDefinition
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.smartmdsd.ecore.system.deployment.DeploymentUtility
 
 /**
  * Custom quickfixes.
@@ -31,6 +37,7 @@ import org.eclipse.smartmdsd.xtext.system.deployment.validation.DeploymentValida
  * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#quick-fixes
  */
 class DeploymentQuickfixProvider extends DefaultQuickfixProvider {
+	@Inject XtextResourceIndex index;
 	
 	@Fix(DeploymentValidator.MULTIPLE_NAMING_SERVICES)
 	def fixDuplicateOperationModeBinding(Issue issue, IssueResolutionAcceptor acceptor) {
@@ -88,6 +95,29 @@ class DeploymentQuickfixProvider extends DefaultQuickfixProvider {
 //			}
 //		}
 //	}
+	@Fix(DeploymentValidator.NO_TARGET_PLATFORMS_DEFINED)
+	def addDefaultDeployment(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 
+			'Add default deployment target', 
+			'Add default deployment target', '') [
+			element, context |
+			val model = (element as DeploymentModel)
+			val targets = index.getVisibleEObjectDescriptions(model, TargetPlatformPackage.eINSTANCE.targetPlatformDefinition)
+			if(!targets.empty) {
+				val object = targets.head.EObjectOrProxy
+				if(object.eIsProxy) {
+					val target = EcoreUtil.resolve(object, model);
+					if(target instanceof TargetPlatformDefinition) {
+						// create a new default target reference
+						val ref = DeploymentUtility.addDefaultTargetReference(model, target)
+						// add all missing component artefacts
+						DeploymentUtility.addAllMissingComponentArtefacts(model, ref)
+					}
+				}
+			}
+			
+		]
+	}
 	
 	def private EObject getEObject(Issue issue) {
 		val modificationContext = modificationContextFactory.createModificationContext(issue);
@@ -98,5 +128,22 @@ class DeploymentQuickfixProvider extends DefaultQuickfixProvider {
 				}
 			});
 		return object;
+	}
+	
+	@Fix(DeploymentValidator.MISSING_COMPONENT_ARTEFACT)
+	def createMissingComponentArtefact(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 
+			'Create missing component-artefact '+issue.data.get(0), 
+			'Create missing component-artefact '+issue.data.get(0), '') [
+			element, context |
+				val model = (element as DeploymentModel)
+				val target = model.elements.findFirst[it instanceof TargetPlatformReference]
+				if(target instanceof TargetPlatformReference) {
+					val component = model.componentArch.components.findFirst[it.name == issue.data.get(0)]
+					if(component !== null) {
+						DeploymentUtility.addComponentArtefact(model, component, target)
+					}
+				}
+			]
 	}
 }

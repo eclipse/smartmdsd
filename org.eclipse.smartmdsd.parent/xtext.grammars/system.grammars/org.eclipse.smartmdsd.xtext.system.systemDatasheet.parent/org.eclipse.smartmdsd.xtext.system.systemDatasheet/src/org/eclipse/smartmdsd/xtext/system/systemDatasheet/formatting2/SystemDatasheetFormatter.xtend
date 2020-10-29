@@ -27,5 +27,10 @@ class SystemDatasheetFormatter extends GenericDatasheetFormatter {
 		ropen.append[newLine]
 		interior(ropen, rclose)[indent]
 		rclose.prepend[newLine]
+		
+		for(element: systemDatasheet.elements) {
+			element.format
+			element.append[newLine]
+		}
 	}
 }

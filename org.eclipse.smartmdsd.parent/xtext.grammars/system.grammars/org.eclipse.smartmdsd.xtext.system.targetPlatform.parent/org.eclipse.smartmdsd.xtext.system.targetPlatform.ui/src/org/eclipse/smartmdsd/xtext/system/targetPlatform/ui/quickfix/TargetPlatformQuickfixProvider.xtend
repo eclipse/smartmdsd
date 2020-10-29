@@ -13,6 +13,12 @@
 package org.eclipse.smartmdsd.xtext.system.targetPlatform.ui.quickfix
 
 import org.eclipse.smartmdsd.xtext.service.roboticMiddleware.ui.quickfix.RoboticMiddlewareQuickfixProvider
+import org.eclipse.xtext.ui.editor.quickfix.Fix
+import org.eclipse.smartmdsd.xtext.system.targetPlatform.validation.TargetPlatformValidator
+import org.eclipse.xtext.validation.Issue
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
+import org.eclipse.smartmdsd.ecore.system.targetPlatform.TargetPlatformModel
+import org.eclipse.smartmdsd.ecore.system.targetPlatform.TargetPlatformUtility
 
 /**
  * Custom quickfixes.
@@ -21,13 +27,12 @@ import org.eclipse.smartmdsd.xtext.service.roboticMiddleware.ui.quickfix.Robotic
  */
 class TargetPlatformQuickfixProvider extends RoboticMiddlewareQuickfixProvider {
 
-//	@Fix(TargetPlatformValidator.INVALID_NAME)
-//	def capitalizeName(Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, 'Capitalize name', 'Capitalize the name.', 'upcase.png') [
-//			context |
-//			val xtextDocument = context.xtextDocument
-//			val firstLetter = xtextDocument.get(issue.offset, 1)
-//			xtextDocument.replace(issue.offset, 1, firstLetter.toUpperCase)
-//		]
-//	}
+	@Fix(TargetPlatformValidator.NO_TARGET_PLATFORMS)
+	def defineLocalhostTarget(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Define a default Localhost target', 'Define a default Localhost target', '') [
+			element, context |
+			val model = (element as TargetPlatformModel)
+			TargetPlatformUtility.addDefaultLocalhostTarget(model)
+		]
+	}
 }

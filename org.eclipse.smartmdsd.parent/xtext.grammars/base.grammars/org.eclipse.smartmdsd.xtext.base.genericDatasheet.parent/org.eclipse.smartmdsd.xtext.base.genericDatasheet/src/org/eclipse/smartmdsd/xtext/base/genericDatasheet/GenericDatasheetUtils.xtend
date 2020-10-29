@@ -22,7 +22,8 @@ class GenericDatasheetUtils {
 	def static Collection<String> getSpdxLicenseNames() {
 		val result = newArrayList
 		try {
-			var url = new URL("platform:/plugin/org.xtext.base.genericDatasheet/spdx-licenses.txt");
+			val uri = "platform:/plugin/" + GenericDatasheetUtils.package.name + "/spdx-licenses.txt"
+			var url = new URL(uri);
 			val inputStream = url.openConnection().getInputStream();
 			val in = new BufferedReader(new InputStreamReader(inputStream));
 			var String inputLine;
