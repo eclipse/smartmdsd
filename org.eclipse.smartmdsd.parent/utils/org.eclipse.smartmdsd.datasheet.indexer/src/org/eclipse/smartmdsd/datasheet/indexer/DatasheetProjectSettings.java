@@ -41,11 +41,15 @@ public class DatasheetProjectSettings {
 	public static String UNIT_NODE_KEY = "unit";
 	public static String SEMANTIC_URI_NODE_KEY = "semanticURI";
 	
+	public static String SHORT_DESCRIPTION_KEY = "shortDescription";
+	
+	private IProject project;
 	private ProjectScope settings;
 	private IEclipsePreferences rootNode;
 	private Preferences projectNode;
 
 	public DatasheetProjectSettings(IProject project) {
+		this.project = project;
 		// we use the ProjectScope to store/read metadata name-value pairs
 		settings = new ProjectScope(project);
 		// this will create a hidden file within the project folder ".settings"
@@ -57,12 +61,46 @@ public class DatasheetProjectSettings {
 	}
 	
 	/**
+	 * This method checks if the the project still exists and is open.
+	 * If the project has been closed or deleted in the meantime, then
+	 * the project properties will become invalid.
+	 * @return true if is valid; false otherwise
+	 */
+	public boolean isValid() {
+		return project.isAccessible();
+	}
+	
+	public String getShortDescription(String defaultValue) {
+		return projectNode.get(SHORT_DESCRIPTION_KEY, defaultValue);
+	}
+	
+	public void setShortDescription(String shortDescription) {
+		projectNode.put(SHORT_DESCRIPTION_KEY, shortDescription);
+	}
+	
+	/**
 	 * This method returns the main node which is used by default
 	 * to store all global preferences
 	 * @return the main project node
 	 */
 	public Preferences getMainPropertyNode(String name) {
 		return projectNode.node(name);
+	}
+	
+	/**
+	 * This method checks if a main property with the given name exists.
+	 * @param name the property name
+	 * @return true if it exists or false otherwise
+	 */
+	public boolean hasMainPropertyNode(String name) {
+		try {
+			if(isValid()) return projectNode.nodeExists(name);
+		} catch (BackingStoreException e) {
+			e.printStackTrace();
+		} catch(IllegalStateException ex) {
+			ex.printStackTrace();
+		}
+		return false;
 	}
 	
 	/**
@@ -174,6 +212,8 @@ public class DatasheetProjectSettings {
 			}
 		} catch (BackingStoreException e) {
 			e.printStackTrace();
+		} catch(IllegalStateException ex) {
+			ex.printStackTrace();
 		}
 		return result;
 	}
@@ -195,6 +235,8 @@ public class DatasheetProjectSettings {
 			}
 		} catch (BackingStoreException e) {
 			e.printStackTrace();
+		} catch(IllegalStateException ex) {
+			ex.printStackTrace();
 		}
 		return result;
 	}
@@ -216,6 +258,8 @@ public class DatasheetProjectSettings {
 			}
 		} catch (BackingStoreException e) {
 			e.printStackTrace();
+		} catch(IllegalStateException ex) {
+			ex.printStackTrace();
 		}
 		return result;
 	}
@@ -237,6 +281,8 @@ public class DatasheetProjectSettings {
 			}
 		} catch (BackingStoreException e) {
 			e.printStackTrace();
+		} catch(IllegalStateException ex) {
+			ex.printStackTrace();
 		}
 		return result;
 	}

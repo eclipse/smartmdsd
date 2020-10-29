@@ -60,20 +60,34 @@ public class WorkspaceDatasheetIndexer {
 	 */
 	public void reloadWorkspaceMetadataIndex() {
 		for(IProject project: ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
-			String projectName = project.getName();
-			if(project.isOpen()) {
-				// create a new entry if it is not yet indexed
-				if(!index.containsKey(projectName)) {
-					index.put(projectName, new DatasheetProjectSettings(project));
-				}
-			} else {
-				if(index.containsKey(projectName)) {
-					index.remove(projectName);
-				}
+			updateProjectIndex(project);
+		}
+		// remove all invalid values
+		index.values().removeIf(value -> !value.isValid());
+	}
+	
+	/** creates or cleans-up the index for a given project depending on whether the project is accessible or not
+	 * 
+	 * If the provided project is accessible, and there is no index yet, then a new index entry is created.
+	 * If the given project is not accessible, the index entry is removed thus cleaning up dangling references.
+	 * 
+	 * @param project the project to be added or removed depending on its isAccessible state 
+	 */
+	public void updateProjectIndex(IProject project) {
+		String projectName = project.getName();
+		if(project.isAccessible()) {
+			// create a new entry if it is not yet indexed
+			if(!index.containsKey(projectName)) {
+				index.put(projectName, new DatasheetProjectSettings(project));
+			}
+		} else {
+			// remove index as project is not accessible anymore
+			if(index.containsKey(projectName)) {
+				index.remove(projectName);
 			}
 		}
 	}
-	
+
 	/**
 	 * Clear all entries in the internal index.
 	 */
@@ -89,7 +103,9 @@ public class WorkspaceDatasheetIndexer {
 	public Set<String> getAllIndexedPropertyNames() {
 		Set<String> unique_property_names = new HashSet<String>();
 		for(DatasheetProjectSettings metadata: index.values()) {
-			unique_property_names.addAll(metadata.getAllPropertyNames());
+			if(metadata.isValid()) {
+				unique_property_names.addAll(metadata.getAllPropertyNames());
+			}
 		}
 		return unique_property_names;
 	}
@@ -107,7 +123,9 @@ public class WorkspaceDatasheetIndexer {
 	public Set<String> getAllMatchingPropertyValues(String propertyName) {
 		Set<String> all_values = new HashSet<String>();
 		for(DatasheetProjectSettings metadata: index.values()) {
-			all_values.addAll(metadata.getAllPropertyValues(propertyName));
+			if(metadata.isValid()) {
+				all_values.addAll(metadata.getAllPropertyValues(propertyName));
+			}
 		}
 		return all_values;
 	}
@@ -125,7 +143,9 @@ public class WorkspaceDatasheetIndexer {
 	public Set<String> getAllMatchingPropertyUnits(String propertyName) {
 		Set<String> all_units = new HashSet<String>();
 		for(DatasheetProjectSettings metadata: index.values()) {
-			all_units.addAll(metadata.getAllPropertyUnits(propertyName));
+			if(metadata.isValid()) {
+				all_units.addAll(metadata.getAllPropertyUnits(propertyName));
+			}
 		}
 		return all_units;
 	}
@@ -143,7 +163,9 @@ public class WorkspaceDatasheetIndexer {
 	public Set<String> getAllMatchingPropertySemanticURIs(String propertyName) {
 		Set<String> all_uris = new HashSet<String>();
 		for(DatasheetProjectSettings metadata: index.values()) {
-			all_uris.addAll(metadata.getAllPropertySemanticURIs(propertyName));
+			if(metadata.isValid()) {
+				all_uris.addAll(metadata.getAllPropertySemanticURIs(propertyName));
+			}
 		}
 		return all_uris;
 	}
@@ -167,6 +189,17 @@ public class WorkspaceDatasheetIndexer {
 			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 			if(project.exists() && project.isOpen()) {
 				metadata = index.put(projectName, new DatasheetProjectSettings(project));
+			}
+		}
+		return metadata;
+	}
+	
+	public DatasheetProjectSettings getDatasheetSettingsFor(IProject project) {
+		DatasheetProjectSettings metadata = null;
+		if(project != null && project.isAccessible()) {
+			metadata = index.get(project.getName());
+			if(metadata == null) {
+				metadata = index.put(project.getName(), new DatasheetProjectSettings(project));
 			}
 		}
 		return metadata;

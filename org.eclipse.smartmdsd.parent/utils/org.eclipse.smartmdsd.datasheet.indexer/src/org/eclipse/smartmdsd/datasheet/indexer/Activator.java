@@ -12,6 +12,7 @@
  ********************************************************************************/
 package org.eclipse.smartmdsd.datasheet.indexer;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -25,11 +26,13 @@ public class Activator extends AbstractUIPlugin {
 
 	// The shared instance
 	private static Activator plugin;
+	private WorkspaceChangedListener listener;
 	
 	/**
 	 * The constructor
 	 */
 	public Activator() {
+		listener = new WorkspaceChangedListener();
 	}
 
 	@Override
@@ -37,12 +40,14 @@ public class Activator extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 		WorkspaceDatasheetIndexer.getInstance().reloadWorkspaceMetadataIndex();
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener);
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(listener);
 	}
 
 	/**

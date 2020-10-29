@@ -29,6 +29,7 @@ import org.eclipse.smartmdsd.ecore.base.genericDatasheet.MandatoryDatasheetEleme
 import org.eclipse.smartmdsd.ecore.base.genericDatasheet.DatasheetProperty
 import org.eclipse.smartmdsd.ecore.base.genericDatasheet.AbstractDatasheetElement
 import org.eclipse.smartmdsd.ecore.base.genericDatasheet.GenericDatasheetModel
+import org.eclipse.smartmdsd.ecore.base.genericDatasheet.MandatoryDatasheetElementNames
 
 class GenericDatasheetProjectPropertiesUpdater extends XtextDocumentProvider {
 	override protected doSaveDocument(IProgressMonitor monitor, Object element, IDocument document, boolean overwrite) throws CoreException {
@@ -58,9 +59,13 @@ class GenericDatasheetProjectPropertiesUpdater extends XtextDocumentProvider {
 				var index = 0;
 				for(element: resource.datasheetElements) {
 					if(element instanceof MandatoryDatasheetElement) {
-						val property_node = settings.getMainPropertyNode(element.name.literal);
-						settings.updatePropertyValue(property_node, index, element.value)
-						index++;
+						if(element.name.equals(MandatoryDatasheetElementNames.SHORT_DESCRIPTION)) {
+							settings.shortDescription = element.value
+						} else {
+							val property_node = settings.getMainPropertyNode(element.name.literal);
+							settings.updatePropertyValue(property_node, index, element.value)
+							index++;
+						}
 					} else if(element instanceof DatasheetProperty) {
 						val property_node = settings.getMainPropertyNode(element.name);
 						settings.updatePropertyValue(property_node, index, element.value, element.unit)
