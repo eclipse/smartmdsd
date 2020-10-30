@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.eclipse.smartmdsd.base" version="0.0.0">
+      <category name="SmartMDSD"/>
+   </feature>
+   <feature id="org.eclipse.smartmdsd.base.source" version="0.0.0">
+      <category name="SmartMDSD.source"/>
+   </feature>
+   <category-def name="SmartMDSD" label="Eclipse SmartMDSD">
+      <description>
+         This category clusters model-driven development tools around the design and implementation of component-based robotcs software.
+      </description>
+   </category-def>
+   <category-def name="SmartMDSD.source" label="Eclipse SmartMDSD (Sources)">
+      <description>
+         This category clusters the internal implementation of the SmartMDSD plugins.
+      </description>
+   </category-def>
+</site>

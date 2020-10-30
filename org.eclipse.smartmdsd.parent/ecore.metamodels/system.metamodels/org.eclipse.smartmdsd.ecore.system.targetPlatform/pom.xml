@@ -12,4 +12,13 @@
 		<artifactId>system.metamodels</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.smartmdsd"
       label="%featureName"
-      version="3.14.0.qualifier"
+      version="3.15.0.qualifier"
       provider-name="%providerName"
       license-feature="org.eclipse.license"
       license-feature-version="0.0.0">
@@ -21,7 +21,7 @@
 
    <requires>
       <import feature="org.eclipse.cdt" version="9.0.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.sirius.specifier" version="6.0.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.smartmdsd.base" version="1.0.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
@@ -39,21 +39,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.xtext.base.docuterminals"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.behavior.taskDefinition.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.base.basicAttributes"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -74,13 +60,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.xtext.service.parameterDefinition.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.ecore.system.compArchSeronetExtension"
          download-size="0"
          install-size="0"
@@ -89,13 +68,6 @@
 
    <plugin
          id="org.eclipse.smartmdsd.ecore.component.coordinationExtension"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.roboticMiddleware.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -116,49 +88,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.ecore.base.mixedport.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.communicationPattern"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.communicationObject.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.ecore.system.datasheetPropertyChecks.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.roboticMiddleware.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.serviceDefinition.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.componentMode.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -172,77 +102,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.ecore.base.basicAttributes"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.componentMode.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.behavior.taskDefinition"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.communicationObject"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.base.genericDatasheet.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.parameterDefinition.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.skillDefinition"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.serviceDefinition.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.base.basicAttributes.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.base.stateMachine.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.parameterDefinition"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -257,13 +117,6 @@
 
    <plugin
          id="org.eclipse.smartmdsd.ecore.system.activityArchitecture.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.serviceDefinition"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -305,13 +158,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.ecore.service.parameterDefinition.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.ecore.system.systemDatasheet"
          download-size="0"
          install-size="0"
@@ -347,13 +193,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.xtext.service.skillDefinition.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtend.smartsoft.generator"
          download-size="0"
          install-size="0"
@@ -362,13 +201,6 @@
 
    <plugin
          id="org.eclipse.smartmdsd.ecore.behavior.taskDefinition"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.communicationObject"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -403,35 +235,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.ecore.service.communicationObject.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.base.basicAttributes.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.skillDefinition"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.ecore.behavior.taskDefinition.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.base.stateMachine.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -459,20 +263,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.xtext.service.parameterDefinition"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.coordinationPattern.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.ecore.system.componentArchitecture.edit"
          download-size="0"
          install-size="0"
@@ -480,21 +270,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.xtext.service.componentMode"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.system.targetPlatform.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.base.basicAttributes.edit"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -536,13 +312,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.ecore.base.documentation.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.system.systemParameter"
          download-size="0"
          install-size="0"
@@ -551,20 +320,6 @@
 
    <plugin
          id="org.eclipse.smartmdsd.ecore.system.compArchBehaviorExtension"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.domainModelsDatasheet"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.domainModelsDatasheet.edit"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -586,20 +341,6 @@
 
    <plugin
          id="org.eclipse.smartmdsd.xtext.component.componentDefinition"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.skillDefinition.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.base.documentation"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -683,13 +424,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.xtext.base.genericDatasheet.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.behavior.skillRealization"
          download-size="0"
          install-size="0"
@@ -711,13 +445,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.xtext.base.docuterminals.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.system.causeEffectChain.ide"
          download-size="0"
          install-size="0"
@@ -732,49 +459,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.ecore.base.genericDatasheet"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.base.mixedport"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.domainModelsDatasheet.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.coordinationPattern"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.ecore.behavior.skillRealization.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.base.stateMachine"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.roboticMiddleware.edit"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -816,28 +501,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.ecore.service.serviceDefinition"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.domainModelsDatasheet.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.system.activityArchitecture.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.base.genericDatasheet"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -852,13 +516,6 @@
 
    <plugin
          id="org.eclipse.smartmdsd.ecore.component.componentParameter"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.domainModelsDatasheet"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -886,13 +543,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.xtext.service.serviceDefinition.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.system.systemParameter.ui"
          download-size="0"
          install-size="0"
@@ -901,13 +551,6 @@
 
    <plugin
          id="org.eclipse.smartmdsd.xtext.system.deployment.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.base.docuterminals.ide"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -977,20 +620,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.ecore.service.componentMode"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.base.stateMachine.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.behavior.taskRealization.ide"
          download-size="0"
          install-size="0"
@@ -998,49 +627,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.xtext.service.roboticMiddleware"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.roboticMiddleware"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.componentMode.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.ecore.service.communicationPattern.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.skillDefinition.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.system.systemDatasheet"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.base.genericDatasheet.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -1082,13 +669,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.smartmdsd.ecore.base.stateMachine"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.smartmdsd.xtext.system.activityArchitecture.ui"
          download-size="0"
          install-size="0"
@@ -1097,13 +677,6 @@
 
    <plugin
          id="org.eclipse.smartmdsd.sirius.system.componentArchitecture.design"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.smartmdsd.xtext.service.communicationObject.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
