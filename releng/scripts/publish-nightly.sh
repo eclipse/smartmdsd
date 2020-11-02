@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$PLATFORM" -o -z $WORKSPACE ] 
+if [[ -z "$PLATFORM" || -z $WORKSPACE ]] 
 then
   echo "PLATFORM or WORKSPACE not defined => abort script."
   exit 1
@@ -11,17 +11,8 @@ fi
 # the type of the build for publishing
 BUILD_TYPE="nightly"
 
-# parse the currently build release version from main feature jar
-JAR_PREFIX="org.eclipse.smartmdsd.toolchain_"
-FEATURE_JAR_PATH=`find $WORKSPACE -name ${JAR_PREFIX}*.jar`
-if [ -z $FEATURE_JAR_PATH ]
-then
-  echo "${JAR_PREFIX}feature jar not found => abort script"
-  exit -1
-fi
-FEATURE_JAR=`basename $FEATURE_JAR_PATH`
-# version length is expected tobe 4 chars long (e.g. 3.15)
-RELEASE_VERSION=${FEATURE_JAR:${#JAR_PREFIX}:4}
+# the nightly release is cleared with every build
+RELEASE_VERSION="3.x"
 
 # the smartmdsd SSH account
 SSH_ACCOUNT="genie.smartmdsd@projects-storage.eclipse.org"

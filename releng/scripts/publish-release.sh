@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$PLATFORM" -o -z $WORKSPACE ] 
+if [[ -z "$PLATFORM" || -z $WORKSPACE ]]
 then
   echo "PLATFORM or WORKSPACE not defined => abort script."
   exit 1
