@@ -39,4 +39,4 @@ ssh $SSH_ACCOUNT rm -rf $SMARTMDSD_REPO_PATH
 ssh $SSH_ACCOUNT mkdir -p $SMARTMDSD_REPO_PATH
 
 # publish smartmdsd repo files
-scp -r "$WORKSPACE/releng/org.eclipse.smartmdsd.repository/target/repository/*" $SSH_ACCOUNT:$SMARTMDSD_REPO_PATH
+scp -r $WORKSPACE/releng/org.eclipse.smartmdsd.repository/target/repository/* $SSH_ACCOUNT:$SMARTMDSD_REPO_PATH
