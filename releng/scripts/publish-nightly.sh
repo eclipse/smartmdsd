@@ -29,8 +29,8 @@ ssh $SSH_ACCOUNT rm -rf $SMARTMDSD_REPO_PATH
 ssh $SSH_ACCOUNT mkdir -p $SMARTMDSD_REPO_PATH
 
 # publish composite repo files
-scp "$WORKSPACE/releng/org.eclipse.smartmdsd.composite.repository/*" $SSH_ACCOUNT:$SMARTMDSD_REPO_PATH
+scp $WORKSPACE/releng/org.eclipse.smartmdsd.composite.repository/* $SSH_ACCOUNT:$SMARTMDSD_REPO_PATH
 # publish base repo files
-scp -r "$WORKSPACE/releng/org.eclipse.smartmdsd.base.repository/target/repository" $SSH_ACCOUNT:$SMARTMDSD_REPO_PATH/base
+scp -r $WORKSPACE/releng/org.eclipse.smartmdsd.base.repository/target/repository $SSH_ACCOUNT:$SMARTMDSD_REPO_PATH/base
 # publish toolchain repo files
-scp -r "$WORKSPACE/releng/org.eclipse.smartmdsd.toolchain.repository/target/repository" $SSH_ACCOUNT:$SMARTMDSD_REPO_PATH/toolchain
+scp -r $WORKSPACE/releng/org.eclipse.smartmdsd.toolchain.repository/target/repository $SSH_ACCOUNT:$SMARTMDSD_REPO_PATH/toolchain
