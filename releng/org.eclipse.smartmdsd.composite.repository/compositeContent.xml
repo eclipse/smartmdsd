@@ -4,6 +4,6 @@
     type='org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository' version='1.0.0'>
   <children size='2'>
     <child location='base'/>
-    <child location='tools'/>
+    <child location='toolchain'/>
   </children>
 </repository>
