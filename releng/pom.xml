@@ -11,9 +11,9 @@
 	</parent>
 	<modules>
 		<module>org.eclipse.smartmdsd.targets</module>
-		<module>org.eclipse.smartmdsd.feature</module>
 		<module>org.eclipse.smartmdsd.base.feature</module>
-		<module>org.eclipse.smartmdsd.repository</module>
+		<module>org.eclipse.smartmdsd.toolchain.feature</module>
 		<module>org.eclipse.smartmdsd.base.repository</module>
+		<module>org.eclipse.smartmdsd.toolchain.repository</module>
 	</modules>
 </project>
