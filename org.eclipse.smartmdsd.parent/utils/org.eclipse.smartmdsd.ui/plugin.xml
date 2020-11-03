@@ -175,67 +175,6 @@
       </menuContribution>
       <menuContribution
             allPopups="false"
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-         <menu
-               icon="icons/tools.png"
-               label="SmartMDSD">
-              <visibleWhen
-                     checkEnabled="false">
-                  <or>
-                     <with variable="activeWorkbenchWindow.activePerspective">
-                        <equals
-                              value="org.eclipse.smartmdsd.ui.perspectives.domainExpert">
-                        </equals>
-                     </with>
-                     <with variable="activeWorkbenchWindow.activePerspective">
-                        <equals
-                              value="org.eclipse.smartmdsd.ui.perspectives.componentSupplier">
-                        </equals>
-                     </with>
-                     <with variable="activeWorkbenchWindow.activePerspective">
-                        <equals
-                              value="org.eclipse.smartmdsd.ui.perspectives.systemBuilder">
-                        </equals>
-                     </with>
-                  </or>
-               </visibleWhen>
-            <command
-                  commandId="org.eclipse.smartmdsd.ui.autocodegen"
-                  icon="icons/auto-gear.png"
-                  label="Toggle Auto Code-Generation"
-                  style="toggle">
-            </command>
-            <command
-                  commandId="org.eclipse.smartmdsd.ui.codeGeneratorTrigger"
-                  icon="icons/manual-gear.png"
-                  label="Run Code-Generation"
-                  style="push">
-            </command>
-            <command
-                  commandId="org.eclipse.ui.project.buildProject"
-                  icon="icons/tools2.png"
-                  label="Build Project"
-                  style="push">
-            </command>
-            <command
-                  commandId="org.eclipse.smartmdsd.ui.deployment"
-                  icon="icons/robot.png"
-                  label="Deployment Action"
-                  style="push">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.eclipse.smartmdsd.ui.perspectives.systemBuilder">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
             locationURI="popup:org.eclipse.ui.projectConfigure">
          <command
                commandId="org.eclipse.smartmdsd.ui.toggleProjectNature"
