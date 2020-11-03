@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.smartmdsd.ecore.component.componentDefinition,
  org.eclipse.smartmdsd.xtext.component.componentDefinition.ui,
  org.eclipse.smartmdsd.xtext.service.serviceDefinition.ui,
- org.eclipse.smartmdsd.xtext.component.componentParameter.ui
+ org.eclipse.smartmdsd.xtext.component.componentParameter.ui,
+ org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: %providerName

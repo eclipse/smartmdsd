@@ -996,6 +996,7 @@
         <groups href="platform:/plugin/org.eclipse.sirius.properties.defaultrules/model/properties.odesign#//@extensions.0/@categories.0/@groups.0"/>
         <groups href="#//@extensions.0/@categories.0/@groups.0"/>
         <groups href="#//@extensions.0/@categories.0/@groups.1"/>
+        <groups href="#//@extensions.0/@categories.0/@groups.2"/>
       </pages>
       <groups name="OpcUaDeviceClient" labelExpression="Extended Properties" domainClass="seronetExtension::OpcUaDeviceClient" semanticCandidateExpression="var:self">
         <controls xsi:type="properties:ButtonDescription" name="OpenXmlFile" labelExpression="Open XML File:" helpExpression="Open an XML file containing the device's information model" buttonLabelExpression="Open XML File">
@@ -1018,6 +1019,15 @@
         <controls xsi:type="properties:CheckboxDescription" name="ACE_SmartSoft" labelExpression="ACE/SmartSoft Backend" helpExpression="Activate ACE/SmartSoft Support" valueExpression="service:self.hasACEMW()">
           <initialOperation>
             <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="service:self.updateACEMW(newValue)"/>
+          </initialOperation>
+        </controls>
+      </groups>
+      <groups name="DependencyGraphObjects" labelExpression="Dependency-Graph Object" domainClass="componentDependencyGraphExtension::ComponentDependencyObject" semanticCandidateExpression="feature:extensions">
+        <controls xsi:type="properties:TextDescription" name="DGObject" labelExpression="DG-Object Name:" valueExpression="feature:name">
+          <initialOperation>
+            <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool:SetValue" featureName="name" valueExpression="var:newValue"/>
+            </firstModelOperations>
           </initialOperation>
         </controls>
       </groups>
