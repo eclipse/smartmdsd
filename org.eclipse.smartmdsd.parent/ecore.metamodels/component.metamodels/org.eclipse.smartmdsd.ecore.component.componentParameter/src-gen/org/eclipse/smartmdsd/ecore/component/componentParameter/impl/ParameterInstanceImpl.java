@@ -161,7 +161,6 @@ public class ParameterInstanceImpl extends AbstractParameterInstanceImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (parameterDef != null) {
 			return getParameterDef().getName();
@@ -174,7 +173,6 @@ public class ParameterInstanceImpl extends AbstractParameterInstanceImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (parameterDef != null);
 	}

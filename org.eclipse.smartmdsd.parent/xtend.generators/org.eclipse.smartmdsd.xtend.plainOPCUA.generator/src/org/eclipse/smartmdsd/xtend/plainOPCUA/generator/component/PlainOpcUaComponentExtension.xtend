@@ -35,8 +35,8 @@ class PlainOpcUaComponentExtension  {
 	'''
 	«getCopyright()»
 	
-	#ifndef PLAINOPCUACOMPONENTEXTENSION_H_
-	#define PLAINOPCUACOMPONENTEXTENSION_H_
+	#ifndef PLAINOPCUA_«component.name.toUpperCase»_EXTENSION_H_
+	#define PLAINOPCUA_«component.name.toUpperCase»_EXTENSION_H_
 	
 	#include "«component.componentExtensionHeaderFilename»"
 	
@@ -79,7 +79,7 @@ class PlainOpcUaComponentExtension  {
 		virtual void destroy() override;
 	};
 	
-	#endif /* PLAINOPCUACOMPONENTEXTENSION_H_ */
+	#endif /* PLAINOPCUA_«component.name.toUpperCase»_EXTENSION_H_ */
 	'''
 	
 	

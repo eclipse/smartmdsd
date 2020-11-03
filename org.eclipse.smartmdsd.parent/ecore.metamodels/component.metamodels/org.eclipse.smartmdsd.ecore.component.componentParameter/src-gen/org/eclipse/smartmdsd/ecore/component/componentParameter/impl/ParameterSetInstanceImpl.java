@@ -159,7 +159,6 @@ public class ParameterSetInstanceImpl extends AbstractComponentParameterImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (paramSet != null) {
 			return getParamSet().getName();
@@ -172,7 +171,6 @@ public class ParameterSetInstanceImpl extends AbstractComponentParameterImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (paramSet != null);
 	}

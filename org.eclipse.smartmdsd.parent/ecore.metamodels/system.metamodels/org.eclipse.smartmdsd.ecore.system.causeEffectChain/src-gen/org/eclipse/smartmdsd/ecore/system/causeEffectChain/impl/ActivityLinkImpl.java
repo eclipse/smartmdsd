@@ -83,7 +83,6 @@ public class ActivityLinkImpl extends AbstractChainLinkImpl implements ActivityL
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (ref != null) {
 			return getRef().getName();
@@ -96,7 +95,6 @@ public class ActivityLinkImpl extends AbstractChainLinkImpl implements ActivityL
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (ref != null);
 	}

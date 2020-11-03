@@ -170,7 +170,6 @@ public class TriggerInstanceImpl extends AbstractParameterInstanceImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (triggerDef != null) {
 			return getTriggerDef().getName();
@@ -183,7 +182,6 @@ public class TriggerInstanceImpl extends AbstractParameterInstanceImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (triggerDef != null);
 	}

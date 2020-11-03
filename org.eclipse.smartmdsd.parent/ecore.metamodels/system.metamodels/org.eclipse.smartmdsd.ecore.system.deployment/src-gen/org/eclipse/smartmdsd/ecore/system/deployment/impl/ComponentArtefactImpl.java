@@ -190,7 +190,6 @@ public class ComponentArtefactImpl extends AbstractDeploymentElementImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (component != null) {
 			return getComponent().getName();
@@ -203,7 +202,6 @@ public class ComponentArtefactImpl extends AbstractDeploymentElementImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (component != null);
 	}

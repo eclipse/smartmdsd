@@ -104,7 +104,7 @@ class CommObjectCMakeGenerator {
 	ELSE()
 		# find and include all external package definitions (if there are any needed)
 		FOREACH(DEPENDENCY IN ITEMS @«repo.repoNamespace»_DEPENDENCIES@)
-			FIND_PACKAGE(${DEPENDENCY} PATHS $ENV{SMART_ROOT_ACE}/modules /opt/smartSoftAce/modules)
+			FIND_PACKAGE(${DEPENDENCY} PATHS $ENV{SMART_ROOT_ACE} $ENV{SMART_ROOT_ACE}/modules /opt/smartSoftAce/modules)
 		ENDFOREACH(DEPENDENCY)
 	ENDIF()
 	

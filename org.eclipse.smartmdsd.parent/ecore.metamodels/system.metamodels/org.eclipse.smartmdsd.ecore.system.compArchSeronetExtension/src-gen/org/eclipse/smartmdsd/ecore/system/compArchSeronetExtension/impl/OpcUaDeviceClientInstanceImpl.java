@@ -150,7 +150,6 @@ public class OpcUaDeviceClientInstanceImpl extends ComponentInstanceExtensionImp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (deviceClient != null) {
 			return getDeviceClient().getName();
@@ -163,7 +162,6 @@ public class OpcUaDeviceClientInstanceImpl extends ComponentInstanceExtensionImp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (deviceClient != null);
 	}

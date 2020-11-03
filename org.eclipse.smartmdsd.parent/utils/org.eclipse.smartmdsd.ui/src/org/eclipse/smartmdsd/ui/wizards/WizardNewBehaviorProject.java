@@ -12,6 +12,9 @@
  ********************************************************************************/
 package org.eclipse.smartmdsd.ui.wizards;
 
+import java.io.ByteArrayInputStream;
+
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -39,6 +42,12 @@ public class WizardNewBehaviorProject extends AbstractProjectCreationWizard {
 
 	@Override
 	protected void customizeProject(IProject project, IFolder modelFolder, IProgressMonitor monitor) throws CoreException {
+		// add a dummy CMakeLists.txt file so that the project builder does not show build errors anymore
+		IFolder smartsoft = project.getFolder("smartsoft");
+		smartsoft.create(true, true, monitor);
+		IFile cmake = smartsoft.getFile("CMakeLists.txt");
+		String cmake_string = "cmake_minimum_required(VERSION 3.5)\nproject("+project.getName()+")";
+		cmake.create(new ByteArrayInputStream(cmake_string.getBytes()), true, monitor);
 	}
 
 	@Override

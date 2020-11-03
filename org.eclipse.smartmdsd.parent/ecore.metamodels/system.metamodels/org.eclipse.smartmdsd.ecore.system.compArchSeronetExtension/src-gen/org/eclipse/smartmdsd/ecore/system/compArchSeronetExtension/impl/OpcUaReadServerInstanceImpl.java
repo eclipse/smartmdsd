@@ -106,7 +106,6 @@ public class OpcUaReadServerInstanceImpl extends ComponentInstanceExtensionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (readServer != null) {
 			return getReadServer().getName();
@@ -119,7 +118,6 @@ public class OpcUaReadServerInstanceImpl extends ComponentInstanceExtensionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (readServer != null);
 	}

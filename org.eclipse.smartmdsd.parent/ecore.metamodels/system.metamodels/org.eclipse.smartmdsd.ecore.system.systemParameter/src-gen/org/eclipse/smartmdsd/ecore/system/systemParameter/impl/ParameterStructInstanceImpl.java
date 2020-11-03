@@ -126,7 +126,6 @@ public class ParameterStructInstanceImpl extends ComponentInstanceExtensionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (parameter != null) {
 			return getParameter().getName();
@@ -139,7 +138,6 @@ public class ParameterStructInstanceImpl extends ComponentInstanceExtensionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (parameter != null);
 	}

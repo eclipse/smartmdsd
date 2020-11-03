@@ -64,9 +64,7 @@ class ComponentCMakeGenerator {
 		SMART_COMPONENT_PROJECT()
 		
 		# find SmartSoft package
-		#FIND_SMARTSOFT(3.0)
-		#FIXME: generalize this
-		FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE}/modules)
+		FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE} $ENV{SMART_ROOT_ACE}/modules)
 		
 		# generte doxygen documentation
 		SMART_COMPONENT_GENERATE_DOC()

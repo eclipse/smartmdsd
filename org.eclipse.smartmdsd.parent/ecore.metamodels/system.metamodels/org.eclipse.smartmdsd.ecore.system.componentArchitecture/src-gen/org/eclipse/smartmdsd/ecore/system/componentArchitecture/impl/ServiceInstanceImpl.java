@@ -126,7 +126,6 @@ public abstract class ServiceInstanceImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (port != null) {
 			return getPort().getName();
@@ -139,7 +138,6 @@ public abstract class ServiceInstanceImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (port != null);
 	}

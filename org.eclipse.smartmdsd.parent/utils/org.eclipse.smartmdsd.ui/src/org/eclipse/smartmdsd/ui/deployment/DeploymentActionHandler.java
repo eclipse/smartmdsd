@@ -47,7 +47,7 @@ public class DeploymentActionHandler extends AbstractHandler {
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
 					try {
-						String launcherName = project.getName();
+						String launcherName = project.getName()+"Deployment";
 						ILaunchConfigurationWorkingCopy deploymentLauncherConfiguration = deploymentLauncher.newInstance(project, launcherName);
 						// the only mandatory parameter is the current project name
 						deploymentLauncherConfiguration.setAttribute(DeplyomentLauncher.ATTR_PROJECT_NAME, project.getName());

@@ -90,6 +90,19 @@ public class InputPortLinkImpl extends AbstractComponentLinkImpl implements Inpu
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public String getName() {
+		if (inputPort != null) {
+			return getInputPort().getName();
+		}
+		return "";
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override

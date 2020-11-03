@@ -42,6 +42,8 @@ import org.eclipse.smartmdsd.ecore.service.serviceDefinition.ServiceRepoVersion;
 import org.eclipse.smartmdsd.ecore.service.skillDefinition.SkillDefinitionFactory;
 import org.eclipse.smartmdsd.ecore.service.skillDefinition.SkillDefinitionModel;
 import org.eclipse.smartmdsd.ecore.service.skillDefinition.SkillDefinitionRepository;
+import org.eclipse.smartmdsd.ecore.base.genericDatasheet.DatasheetProperty;
+import org.eclipse.smartmdsd.ecore.base.genericDatasheet.DefaultDatasheetProperties;
 import org.eclipse.smartmdsd.ecore.base.genericDatasheet.GenericDatasheetFactory;
 import org.eclipse.smartmdsd.ecore.base.genericDatasheet.MandatoryDatasheetElement;
 import org.eclipse.smartmdsd.ecore.base.genericDatasheet.MandatoryDatasheetElementNames;
@@ -183,8 +185,24 @@ public class DomainModelsFactory extends AbstractSelectedModelsFactory {
 		datasheet.getElements().add(baseURI);
 		MandatoryDatasheetElement short_description = GenericDatasheetFactory.eINSTANCE.createMandatoryDatasheetElement();
 		short_description.setName(MandatoryDatasheetElementNames.SHORT_DESCRIPTION);
-		short_description.setValue("TODO: add short description for "+getProject().getName()+" datasheet");
+		short_description.setValue("A short description for the "+getProject().getName()+" datasheet");
 		datasheet.getElements().add(short_description);
+		
+		DatasheetProperty supplier = GenericDatasheetFactory.eINSTANCE.createDatasheetProperty();
+		supplier.setName(DefaultDatasheetProperties.SUPPLIER.getLiteral());
+		supplier.setValue("Acme Corporation");
+		datasheet.getElements().add(supplier);
+		
+		DatasheetProperty homepage = GenericDatasheetFactory.eINSTANCE.createDatasheetProperty();
+		homepage.setName(DefaultDatasheetProperties.HOMEPAGE.getLiteral());
+		homepage.setValue("http://www.example.com");
+		datasheet.getElements().add(homepage);
+		
+		DatasheetProperty purpose = GenericDatasheetFactory.eINSTANCE.createDatasheetProperty();
+		purpose.setName(DefaultDatasheetProperties.PURPOSE.getLiteral());
+		purpose.setValue("Example");
+		datasheet.getElements().add(purpose);
+		
 		return datasheet;
 	}
 }

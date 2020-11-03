@@ -126,7 +126,6 @@ public class NetworkInterfaceSelectionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (network != null) {
 			return getNetwork().getName();
@@ -139,7 +138,6 @@ public class NetworkInterfaceSelectionImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (network != null);
 	}

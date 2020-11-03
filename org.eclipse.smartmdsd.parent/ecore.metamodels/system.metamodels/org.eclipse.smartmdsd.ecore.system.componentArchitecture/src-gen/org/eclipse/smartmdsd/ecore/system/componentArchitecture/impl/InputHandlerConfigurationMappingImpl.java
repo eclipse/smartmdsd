@@ -97,7 +97,6 @@ public class InputHandlerConfigurationMappingImpl extends ComponentInstanceConfi
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (handler != null) {
 			return getHandler().getName();
@@ -110,7 +109,6 @@ public class InputHandlerConfigurationMappingImpl extends ComponentInstanceConfi
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (handler != null);
 	}

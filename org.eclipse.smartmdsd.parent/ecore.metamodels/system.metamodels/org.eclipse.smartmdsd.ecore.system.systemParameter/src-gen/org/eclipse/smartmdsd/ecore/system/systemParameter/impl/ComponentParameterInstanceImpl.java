@@ -175,7 +175,6 @@ public class ComponentParameterInstanceImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (componentInstance != null) {
 			return getComponentInstance().getName();
@@ -188,7 +187,6 @@ public class ComponentParameterInstanceImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (componentInstance != null);
 	}

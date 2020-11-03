@@ -83,7 +83,6 @@ public class InputHandlerLinkImpl extends AbstractChainLinkImpl implements Input
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (ref != null) {
 			return getRef().getName();
@@ -96,7 +95,6 @@ public class InputHandlerLinkImpl extends AbstractChainLinkImpl implements Input
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (ref != null);
 	}

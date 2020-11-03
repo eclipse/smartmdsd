@@ -126,7 +126,6 @@ public class LoginAccountSelectionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (login != null) {
 			return getLogin().getName();
@@ -139,7 +138,6 @@ public class LoginAccountSelectionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (login != null);
 	}

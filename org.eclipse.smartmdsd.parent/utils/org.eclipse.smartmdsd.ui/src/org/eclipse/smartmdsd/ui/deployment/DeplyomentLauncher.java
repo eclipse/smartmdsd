@@ -14,6 +14,7 @@ package org.eclipse.smartmdsd.ui.deployment;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -55,6 +56,14 @@ public class DeplyomentLauncher extends LaunchConfigurationDelegate {
 					Process process = DebugPlugin.exec(commands, workingDir.getLocation().toFile());
 					String processLabel = shell + " " + skript;
 					DebugPlugin.newProcess(launch, process, processLabel);
+					try {
+						// wait until the deployment process actually terminates (otherwise it will run asynchronously in the background)
+						process.waitFor();
+						System.out.println("refresh project "+projectName+" after deployment.");
+						project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			} else {
 				System.out.println("Skip the deployment-action as the selected project "+project.getName()+" does not have a System project-nature.");

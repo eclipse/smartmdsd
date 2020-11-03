@@ -97,7 +97,6 @@ public class ActivityConfigurationMappingImpl extends ComponentInstanceConfigura
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getName() {
 		if (activity != null) {
 			return getActivity().getName();
@@ -110,7 +109,6 @@ public class ActivityConfigurationMappingImpl extends ComponentInstanceConfigura
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isSetName() {
 		return (activity != null);
 	}
