@@ -1,3 +1,11 @@
+SmartMDSD Toolchain v3.15
+	* The main feature org.eclipse.smartmdsd has been split into two features org.eclipse.smartmdsd.base and org.eclipse.smartmdsd.toolchain to support more fine grained attachement points for external projects
+	* Create a composite update site that allows installing the two features either together or separately
+	* Add some experimental Dependency Graph extensions
+	* Add multiple robustness improvements and bug-fixes
+	* Add support for Eclipse base version 2020-09
+-- Fr, 06 Nov. 2020
+
 SmartMDSD Toolchain v3.14
 	* Renamed plugins to satisfy Eclipse Project recommendations
 	* Setup maven/tycho based build infrastructure

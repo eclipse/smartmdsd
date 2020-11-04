@@ -2,6 +2,10 @@
 
 This file contains the release notes for the SmartMDSD Toolchain version 3.x. For each release, it provides important information to users to support them in switching from one specific version the previous version. This includes information and instructions how to migrate content from one version to another.
 
+## v3.15
+
+This release is mostly concerned around a few bug-fixes and some internal restructuring (including splitting the main feature into two features). At the user-interface these changes are not visible though.
+
 ## v3.14
 
 This is the first release under the Eclipse Foundation roof. While the main functionality remained the same as of release v3.13, the plugins have been renamed following the guidelines from the Eclipse Project Handbook:
