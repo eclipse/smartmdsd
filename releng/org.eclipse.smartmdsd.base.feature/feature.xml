@@ -20,7 +20,7 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.sirius.specifier" version="6.0.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.cdt" version="9.0.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
