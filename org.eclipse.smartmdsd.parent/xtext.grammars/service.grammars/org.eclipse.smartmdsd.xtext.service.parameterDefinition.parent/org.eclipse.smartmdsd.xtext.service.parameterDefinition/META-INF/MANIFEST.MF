@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.smartmdsd.ecore.service.parameterDefinition,
  org.eclipse.xtend.lib;bundle-version="2.14.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.eclipse.smartmdsd.xtext.indexer
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: defaultParameterLib,
  org.eclipse.smartmdsd.xtext.service.parameterDefinition,
  org.eclipse.smartmdsd.xtext.service.parameterDefinition.formatting2,

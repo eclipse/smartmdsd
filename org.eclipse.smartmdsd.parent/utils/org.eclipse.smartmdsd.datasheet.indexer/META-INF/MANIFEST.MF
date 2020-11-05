@@ -7,7 +7,7 @@ Bundle-Activator: org.eclipse.smartmdsd.datasheet.indexer.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.smartmdsd.datasheet.indexer
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.smartmdsd.datasheet.indexer

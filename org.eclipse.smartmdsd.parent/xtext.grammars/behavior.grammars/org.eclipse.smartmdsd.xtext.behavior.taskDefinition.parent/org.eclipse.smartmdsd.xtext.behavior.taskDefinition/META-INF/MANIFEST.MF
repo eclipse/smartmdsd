@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.smartmdsd.ecore.behavior.taskDefinition,
  org.eclipse.xtext.util,
  org.eclipse.xtend.lib;bundle-version="2.14.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.behavior.taskDefinition.serializer,
  org.eclipse.smartmdsd.xtext.behavior.taskDefinition.formatting2,
  org.eclipse.smartmdsd.xtext.behavior.taskDefinition.services,

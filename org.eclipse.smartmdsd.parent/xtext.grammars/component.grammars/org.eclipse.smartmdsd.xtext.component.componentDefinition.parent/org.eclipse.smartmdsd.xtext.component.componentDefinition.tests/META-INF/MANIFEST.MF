@@ -13,5 +13,5 @@ Require-Bundle: org.eclipse.smartmdsd.xtext.component.componentDefinition,
  org.eclipse.xtext.xbase.testing,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
  org.eclipse.smartmdsd.ecore.component.performanceExtension
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.component.componentDefinition.tests;x-internal=true

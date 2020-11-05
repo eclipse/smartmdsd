@@ -20,7 +20,7 @@ Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension,
  org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension.impl,
  org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension.util

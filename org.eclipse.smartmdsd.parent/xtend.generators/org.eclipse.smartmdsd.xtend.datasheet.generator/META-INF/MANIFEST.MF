@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.smartmdsd.xtend.datasheet.generator;singleton:=
 Bundle-Version: 3.7.0.qualifier
 Bundle-Vendor: Servicerobotics Ulm
 Automatic-Module-Name: org.eclipse.smartmdsd.xtend.datasheet.generator
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.commands,
  org.eclipse.core.resources,

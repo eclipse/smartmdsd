@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.smartmdsd.ecore.base.genericDatasheet,
  org.eclipse.xtext.util,
  org.eclipse.xtend.lib;bundle-version="2.14.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.base.genericDatasheet.scoping,
  org.eclipse.smartmdsd.xtext.base.genericDatasheet,
  org.eclipse.smartmdsd.xtext.base.genericDatasheet.validation,

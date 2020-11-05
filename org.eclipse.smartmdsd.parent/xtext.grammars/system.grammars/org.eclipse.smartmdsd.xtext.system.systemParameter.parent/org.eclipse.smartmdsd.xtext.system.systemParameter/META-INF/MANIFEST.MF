@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.smartmdsd.ecore.system.systemParameter,
  org.eclipse.xtend.lib;bundle-version="2.14.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.system.systemParameter.formatting2,
  org.eclipse.smartmdsd.xtext.system.systemParameter.services,
  org.eclipse.smartmdsd.xtext.system.systemParameter.parser.antlr.internal,

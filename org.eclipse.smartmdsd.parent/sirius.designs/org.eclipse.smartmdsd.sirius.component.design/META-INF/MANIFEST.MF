@@ -25,6 +25,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.smartmdsd.xtext.component.componentParameter.ui,
  org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: %providerName
 Automatic-Module-Name: org.eclipse.smartmdsd.sirius.component.design

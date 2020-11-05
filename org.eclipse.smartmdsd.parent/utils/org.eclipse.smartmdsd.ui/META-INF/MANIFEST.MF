@@ -55,7 +55,7 @@ Require-Bundle: com.google.inject,
  org.eclipse.smartmdsd.xtext.system.causeEffectChain.ui,
  org.eclipse.smartmdsd.ecore.system.systemDatasheet,
  org.eclipse.smartmdsd.xtext.system.systemDatasheet.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.smartmdsd.ui
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Servicerobotics Ulm

@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.smartmdsd.ecore.system.datasheetPropertyChecks,
  org.eclipse.smartmdsd.datasheet.indexer,
  org.eclipse.smartmdsd.ecore.base.genericDatasheet,
  org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.system.datasheetPropertyChecks.parser.antlr.internal,
  org.eclipse.smartmdsd.xtext.system.datasheetPropertyChecks,
  org.eclipse.smartmdsd.xtext.system.datasheetPropertyChecks.serializer,

@@ -21,7 +21,7 @@ Require-Bundle: org.eclipse.smartmdsd.xtext.service.domainModelsDatasheet,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
  org.eclipse.xtend.lib;bundle-version="2.14.0";resolution:=optional
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.service.domainModelsDatasheet.ui.quickfix,
  org.eclipse.smartmdsd.xtext.service.domainModelsDatasheet.ui.contentassist,
  org.eclipse.smartmdsd.xtext.service.domainModelsDatasheet.ui.internal

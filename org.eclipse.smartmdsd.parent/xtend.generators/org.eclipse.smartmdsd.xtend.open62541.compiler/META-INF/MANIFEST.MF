@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.smartmdsd.xtend.open62541.compiler
 Bundle-Version: 3.8.0.qualifier
 Bundle-Vendor: Servicerobotics Ulm
 Automatic-Module-Name: org.eclipse.smartmdsd.xtend.open62541.compiler
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.core.runtime,
  com.google.inject,
  org.eclipse.xtext,

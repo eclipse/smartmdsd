@@ -17,6 +17,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.smartmdsd.xtext.system.targetPlatform.ui,
  org.eclipse.smartmdsd.xtext.system.componentArchitecture.ui
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: %providerName
 Automatic-Module-Name: org.eclipse.smartmdsd.sirius.system.deployment.design

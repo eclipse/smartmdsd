@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.smartmdsd.ecore.service.roboticMiddleware,
  org.eclipse.xtext.util,
  org.eclipse.xtend.lib;bundle-version="2.14.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.service.roboticMiddleware.parser.antlr.internal,
  org.eclipse.smartmdsd.xtext.service.roboticMiddleware.generator,
  org.eclipse.smartmdsd.xtext.service.roboticMiddleware.services,

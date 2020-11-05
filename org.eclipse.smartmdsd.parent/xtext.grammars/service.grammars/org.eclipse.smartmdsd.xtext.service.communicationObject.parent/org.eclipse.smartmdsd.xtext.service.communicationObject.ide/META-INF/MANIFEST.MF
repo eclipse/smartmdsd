@@ -13,6 +13,6 @@ Require-Bundle: org.eclipse.smartmdsd.xtext.service.communicationObject,
  org.eclipse.smartmdsd.xtext.base.docuterminals,
  org.eclipse.smartmdsd.xtext.base.basicAttributes,
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.service.communicationObject.ide.contentassist.antlr.internal,
  org.eclipse.smartmdsd.xtext.service.communicationObject.ide.contentassist.antlr

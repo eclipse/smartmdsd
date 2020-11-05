@@ -15,5 +15,5 @@ Require-Bundle: org.eclipse.smartmdsd.xtext.component.componentParameter,
  org.eclipse.smartmdsd.xtext.component.componentDefinition,
  org.eclipse.smartmdsd.xtext.service.parameterDefinition,
  org.eclipse.smartmdsd.xtext.base.basicAttributes
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.component.componentParameter.tests;x-internal=true

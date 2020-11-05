@@ -32,8 +32,8 @@
 		<!-- Here are some default property configurations -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- We use the Java compiler version 1.8 for source and target -->
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 	
 	<build>

@@ -16,5 +16,5 @@ Require-Bundle: org.eclipse.smartmdsd.xtext.service.serviceDefinition,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.service.serviceDefinition.tests;x-internal=true

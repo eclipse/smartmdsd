@@ -4,7 +4,7 @@ Bundle-Name: BehaviorGenerator
 Bundle-SymbolicName: org.eclipse.smartmdsd.xtend.behavior.generator;singleton:=true
 Bundle-Version: 3.7.0.qualifier
 Automatic-Module-Name: org.eclipse.smartmdsd.xtend.behavior.generator
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.commands,
  org.eclipse.core.resources,

@@ -12,5 +12,5 @@ Require-Bundle: org.eclipse.smartmdsd.xtext.service.domainModelsDatasheet,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.service.domainModelsDatasheet.tests;x-internal=true

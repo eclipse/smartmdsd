@@ -13,6 +13,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.smartmdsd.sirius.utils,
  org.eclipse.smartmdsd.ecore.system.targetPlatform
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: %providerName
 Automatic-Module-Name: org.eclipse.smartmdsd.sirius.system.targetPlatform.design
