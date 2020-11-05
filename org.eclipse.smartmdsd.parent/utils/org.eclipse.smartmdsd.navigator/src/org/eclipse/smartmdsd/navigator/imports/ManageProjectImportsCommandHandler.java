@@ -41,7 +41,6 @@ import org.eclipse.ui.dialogs.ListSelectionDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
-import org.eclipse.smartmdsd.navigator.imports.ImportedProjectsElement;
 import org.eclipse.smartmdsd.ui.factories.JavaProjectFactory;
 import org.eclipse.smartmdsd.ui.natures.AbstractSmartMDSDNature;
 import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
