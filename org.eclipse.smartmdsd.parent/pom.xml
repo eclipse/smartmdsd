@@ -16,8 +16,8 @@
 
 	<properties>
 		<!-- These are the shared version definitions -->
-		<xtextVersion>2.22.0</xtextVersion>
-		<mwe2Version>2.11.3</mwe2Version>
+		<xtextVersion>2.20.0</xtextVersion>
+		<mwe2Version>2.11.1</mwe2Version>
 		<!-- Define overridable properties for tycho-surefire-plugin -->
 		<platformSystemProperties></platformSystemProperties>
 		<moduleProperties></moduleProperties>
