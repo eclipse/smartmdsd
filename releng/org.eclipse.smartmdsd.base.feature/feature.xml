@@ -19,10 +19,6 @@
       %licenseID
    </license>
 
-   <requires>
-      <import feature="org.eclipse.cdt" version="9.0.0" match="greaterOrEqual"/>
-   </requires>
-
    <plugin
          id="org.eclipse.smartmdsd.ecore.base.basicAttributes"
          download-size="0"
