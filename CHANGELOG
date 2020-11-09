@@ -3,8 +3,8 @@ SmartMDSD Toolchain v3.15
 	* Create a composite update site that allows installing the two features either together or separately
 	* Add some experimental Dependency Graph extensions
 	* Add multiple robustness improvements and bug-fixes
-	* Add support for Eclipse base version 2020-09
--- Fr, 06 Nov. 2020
+	* Update support for Eclipse base version 2020-09
+-- Mo, 09 Nov. 2020
 
 SmartMDSD Toolchain v3.14
 	* Renamed plugins to satisfy Eclipse Project recommendations
