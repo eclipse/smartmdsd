@@ -94,17 +94,6 @@ public class ComponentParametersRefImpl extends DerivedComponentElementImpl impl
 		}
 		return "";
 	}
-	
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public boolean isSetName() {
-		return slave != null;
-	}
 
 	/**
 	 * <!-- begin-user-doc -->

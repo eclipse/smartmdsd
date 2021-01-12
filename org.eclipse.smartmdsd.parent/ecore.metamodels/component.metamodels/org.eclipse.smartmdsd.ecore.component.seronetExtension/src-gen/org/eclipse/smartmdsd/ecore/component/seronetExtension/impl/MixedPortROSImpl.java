@@ -75,6 +75,7 @@ public class MixedPortROSImpl extends DerivedComponentElementImpl implements Mix
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@Override
 	public String getName() {
 		if (port != null) {
 			return getPort().getName();

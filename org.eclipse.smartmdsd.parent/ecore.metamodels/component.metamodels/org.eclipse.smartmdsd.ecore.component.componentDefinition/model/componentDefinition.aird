@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
-  <viewpoint:DAnalysis uid="_TK_RYDK9EeqwY5XzYwayBw" selectedViews="_TL0X0DK9EeqwY5XzYwayBw" version="14.3.0.201909031200">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
+  <viewpoint:DAnalysis uid="_TK_RYDK9EeqwY5XzYwayBw" selectedViews="_TL0X0DK9EeqwY5XzYwayBw" version="14.3.1.202003261200">
     <semanticResources>componentDefinition.ecore</semanticResources>
     <semanticResources>componentDefinition.genmodel</semanticResources>
     <semanticResources>platform:/resource/org.eclipse.smartmdsd.ecore.base.documentation/model/documentation.ecore</semanticResources>
@@ -888,6 +888,140 @@
     <semanticResources>java:/Objects/org.eclipse.smartmdsd.ecore.component.componentDefinition.ComponentDefinition</semanticResources>
     <semanticResources>java:/Objects/org.eclipse.smartmdsd.ecore.component.componentDefinition.InputPortLink</semanticResources>
     <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.Procedures</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ArrayLiterals</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.Pure</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.HotSpotIntrinsicCandidate</semanticResources>
+    <semanticResources>java:/Objects/java.lang.Module</semanticResources>
+    <semanticResources>java:/Objects/java.lang.WeakPairMap</semanticResources>
+    <semanticResources>java:/Objects/java.io.ObjectInputFilter</semanticResources>
+    <semanticResources>java:/Objects/java.lang.System</semanticResources>
+    <semanticResources>java:/Objects/java.io.Console</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.misc.Unsafe</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.vm.annotation.ForceInline</semanticResources>
+    <semanticResources>java:/Objects/java.lang.StackFrameInfo</semanticResources>
+    <semanticResources>java:/Objects/java.lang.StackWalker</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.reflect.CallerSensitive</semanticResources>
+    <semanticResources>java:/Objects/java.lang.module.ModuleDescriptor</semanticResources>
+    <semanticResources>java:/Objects/java.lang.ModuleLayer</semanticResources>
+    <semanticResources>java:/Objects/java.lang.module.Configuration</semanticResources>
+    <semanticResources>java:/Objects/java.lang.module.Resolver</semanticResources>
+    <semanticResources>java:/Objects/java.lang.module.ModuleFinder</semanticResources>
+    <semanticResources>java:/Objects/java.lang.module.ModuleReference</semanticResources>
+    <semanticResources>java:/Objects/java.lang.module.ModuleReader</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.reflect.FieldAccessor</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.reflect.ReflectionFactory</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.reflect.ConstructorAccessor</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.reflect.MethodAccessor</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.reflect.LangReflectAccess</semanticResources>
+    <semanticResources>java:/Objects/java.security.SecureRandomParameters</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.vm.annotation.Stable</semanticResources>
+    <semanticResources>java:/Objects/java.lang.module.ResolvedModule</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.vm.annotation.Contended</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.misc.JavaSecurityAccess</semanticResources>
+    <semanticResources>java:/Objects/java.lang.invoke.VarHandle</semanticResources>
+    <semanticResources>java:/Objects/java.lang.invoke.VarForm</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.perf.PerfCounter</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.perf.Perf</semanticResources>
+    <semanticResources>java:/Objects/java.time.temporal.ChronoUnit</semanticResources>
+    <semanticResources>java:/Objects/java.net.spi.URLStreamHandlerProvider</semanticResources>
+    <semanticResources>java:/Objects/java.util.regex.IntHashSet</semanticResources>
+    <semanticResources>java:/Objects/java.util.ServiceLoader</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.module.ServicesCatalog</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.loader.ClassLoaderValue</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.loader.AbstractClassLoaderValue</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.misc.JavaLangAccess</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.reflect.ConstantPool</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.ref.PhantomCleanable</semanticResources>
+    <semanticResources>java:/Objects/java.lang.ref.PhantomReference</semanticResources>
+    <semanticResources>java:/Objects/java.lang.invoke.CallSite</semanticResources>
+    <semanticResources>java:/Objects/java.lang.invoke.MethodHandleNatives</semanticResources>
+    <semanticResources>java:/Objects/java.lang.NoSuchMethodError</semanticResources>
+    <semanticResources>java:/Objects/java.lang.IncompatibleClassChangeError</semanticResources>
+    <semanticResources>java:/Objects/java.lang.PublicMethods</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.vm.annotation.DontInline</semanticResources>
+    <semanticResources>java:/Objects/java.lang.ref.Cleaner</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.ThreadFactory</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.vm.annotation.ReservedStackAccess</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.ref.CleanerImpl</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.ref.SoftCleanable</semanticResources>
+    <semanticResources>java:/Objects/java.lang.invoke.ClassSpecializer</semanticResources>
+    <semanticResources>java:/Objects/sun.security.util.MessageDigestSpi2</semanticResources>
+    <semanticResources>java:/Objects/javax.crypto.SecretKey</semanticResources>
+    <semanticResources>java:/Objects/javax.security.auth.Destroyable</semanticResources>
+    <semanticResources>java:/Objects/javax.security.auth.DestroyFailedException</semanticResources>
+    <semanticResources>java:/Objects/java.lang.NamedPackage</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.misc.JavaLangInvokeAccess</semanticResources>
+    <semanticResources>java:/Objects/java.util.spi.ResourceBundleProvider</semanticResources>
+    <semanticResources>java:/Objects/java.lang.LayerInstantiationException</semanticResources>
+    <semanticResources>java:/Objects/java.lang.InternalError</semanticResources>
+    <semanticResources>java:/Objects/java.lang.VirtualMachineError</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.org.objectweb.asm.ModuleVisitor</semanticResources>
+    <semanticResources>java:/Objects/java.util.ServiceConfigurationError</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.org.objectweb.asm.ModuleWriter</semanticResources>
+    <semanticResources>java:/Objects/java.io.BufferedReader</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.ref.WeakCleanable</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.module.ModuleTarget</semanticResources>
+    <semanticResources>java:/Objects/sun.util.resources.Bundles</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.misc.JavaUtilResourceBundleAccess</semanticResources>
+    <semanticResources>java:/Objects/java.lang.invoke.ResolvedMethodName</semanticResources>
+    <semanticResources>java:/Objects/sun.util.locale.provider.FallbackLocaleProviderAdapter</semanticResources>
+    <semanticResources>java:/Objects/sun.util.locale.provider.JRELocaleProviderAdapter</semanticResources>
+    <semanticResources>java:/Objects/sun.text.spi.JavaTimeDateTimePatternProvider</semanticResources>
+    <semanticResources>java:/Objects/java.io.FileOutputStream</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.misc.JavaIOFileDescriptorAccess</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.CollectionLiterals</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.Pair</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.InputOutput</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ArrayExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.BigDecimalExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.BigIntegerExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.BooleanExtensions</semanticResources>
+    <semanticResources>java:/Objects/com.google.common.primitives.Booleans</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ByteExtensions</semanticResources>
+    <semanticResources>java:/Objects/java.lang.Math</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.CharacterExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ComparableExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.DoubleExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.FloatExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.FunctionExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.IntegerExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ExclusiveRange</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.IntegerRange</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.IterableExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.IteratorExtensions</semanticResources>
+    <semanticResources>java:/Objects/com.google.common.collect.Iterators</semanticResources>
+    <semanticResources>java:/Objects/com.google.common.collect.AbstractIndexedListIterator</semanticResources>
+    <semanticResources>java:/Objects/com.google.common.collect.PeekingIterator</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ListExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.LongExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.MapExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.internal.UnmodifiableMergingMapView</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ObjectExtensions</semanticResources>
+    <semanticResources>java:/Objects/com.google.common.base.Objects</semanticResources>
+    <semanticResources>java:/Objects/com.google.common.base.ExtraObjectsMethodsForWeb</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ProcedureExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ShortExtensions</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.StringExtensions</semanticResources>
+    <semanticResources>java:/Objects/java.lang.Runtime</semanticResources>
+    <semanticResources>java:/Objects/java.lang.Process</semanticResources>
+    <semanticResources>java:/Objects/java.lang.ProcessHandle</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.CompletableFuture</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.CompletionStage</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.ScheduledFuture</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.Delayed</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.ScheduledThreadPoolExecutor</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.ThreadPoolExecutor</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.RejectedExecutionHandler</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.BlockingQueue</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.ScheduledExecutorService</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.RunnableScheduledFuture</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.FutureTask</semanticResources>
+    <semanticResources>java:/Objects/jdk.internal.misc.JavaUtilZipFileAccess</semanticResources>
+    <semanticResources>java:/Objects/java.util.Spliterators</semanticResources>
+    <semanticResources>java:/Objects/java.io.RandomAccessFile</semanticResources>
+    <semanticResources>java:/Objects/java.util.concurrent.atomic.AtomicBoolean</semanticResources>
+    <semanticResources>java:/Objects/java.security.spec.PSSParameterSpec</semanticResources>
+    <semanticResources>java:/Objects/java.security.PrivateKey</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_TL0X0DK9EeqwY5XzYwayBw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_TMP1ozK9EeqwY5XzYwayBw" name="componentDefinition" repPath="#_TMGEoDK9EeqwY5XzYwayBw" changeId="41ed4716-c33a-48f2-b909-c84395fb22ca">

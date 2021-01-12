@@ -1038,7 +1038,7 @@ public class ComponentDefinitionPackageImpl extends EPackageImpl implements Comp
 		initEClass(derivedComponentElementEClass, DerivedComponentElement.class, "DerivedComponentElement", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDerivedComponentElement_Name(), ecorePackage.getEString(), "name", null, 1, 1,
-				DerivedComponentElement.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID,
+				DerivedComponentElement.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		// Create resource
