@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.smartmdsd.ecore.component.componentDefinition;singleton:=true
 Automatic-Module-Name: org.eclipse.smartmdsd.ecore.component.componentDefinition
-Bundle-Version: 3.4.0.qualifier
+Bundle-Version: 3.5.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
