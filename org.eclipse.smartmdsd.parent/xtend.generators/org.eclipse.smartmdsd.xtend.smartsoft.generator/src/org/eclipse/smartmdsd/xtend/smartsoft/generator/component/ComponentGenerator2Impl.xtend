@@ -85,6 +85,7 @@ class ComponentGenerator2Impl extends AbstractGenerator {
 			
 			// cmake
 			fsa.generateFile("CMakeLists.txt", ExtendedOutputConfigurationProvider::SMARTSOFT_OUTPUT, comp.CMakeListsUserFileContent);
+			fsa.generateFile(".gitignore", ExtendedOutputConfigurationProvider::SMARTSOFT_OUTPUT, comp.compileDefaultGitignore);
 			fsa.generateFile("ComponentProject.cmake", comp.generateCmakeProjectFile);
 			fsa.generateFile(comp.name+"Dependencies.cmake.in", comp.generateCmakeDependenciesFile);
 //			fsa.generateFile("GenerateDebianControl.cmake",c.generateCMakeDebianControlFile);
@@ -123,6 +124,11 @@ class ComponentGenerator2Impl extends AbstractGenerator {
 			}
 		}
 	}
+	
+	def compileDefaultGitignore(ComponentDefinition comp)
+	'''
+	build/
+	'''
 	
 	def compileToolchainVersionFile(ComponentDefinition comp)
 	'''
