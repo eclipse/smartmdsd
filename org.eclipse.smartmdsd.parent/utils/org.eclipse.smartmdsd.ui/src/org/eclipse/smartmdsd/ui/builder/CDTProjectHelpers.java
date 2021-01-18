@@ -58,9 +58,40 @@ public class CDTProjectHelpers {
 		return cfgs;
 	}
 	
+    public static boolean isSmartMDSDBuilderActive(IProject project) {
+    	boolean hasSmartMDSDBuilder = false;
+		IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
+		IConfiguration configs[] = buildInfo.getManagedProject().getConfigurations();
+		for(IConfiguration config: configs) {
+			// we check for the name instead of ID as the ID was not set correctly for older projects
+			if(config.getBuilder().getName().startsWith("SmartMDSD")) {
+				hasSmartMDSDBuilder = true;
+			}
+		}
+    	return hasSmartMDSDBuilder;
+    }
+	
+	public static IBuilder getSmartMDSDBuilder() {
+	    for(IBuilder builder: ManagedBuildManager.getRealBuilders()) {
+	    	if(builder.getId().equals(SmartMDSDManagedBuildConfigurator.BUILDER_ID)) {
+	    		return builder;
+	    	}
+	    }
+		return null;
+	}
+	
+	public static IBuilder getDefaultGNUBuilder() {
+		for(IBuilder builder: ManagedBuildManager.getRealBuilders()) {
+			// we use the first CDT managed builder that appears in the real-builders list
+			if(builder.getId().startsWith("cdt.managedbuild.")) {
+				return builder;
+			}
+		}
+		return null;
+	}
+	
 	// code inspired from http://cdt-devel-faq.wikidot.com/
-	public static void addDefaultSettingsTo(IProject project, String activeBuildType, IProgressMonitor monitor) throws CoreException, BuildException  
-	{
+	public static void addDefaultSettingsTo(IProject project, String activeBuildType, IProgressMonitor monitor) throws CoreException, BuildException {
 		SubMonitor subMonitor = SubMonitor.convert(monitor, "Set default CDT Settings", 100);
 		CProjectNature.addCNature(project, subMonitor.split(20));
 		CCProjectNature.addCCNature(project, subMonitor.split(20));
@@ -69,32 +100,38 @@ public class CDTProjectHelpers {
 		// create build info and managed project
 		List<IConfiguration> supportedConfigurations = getSupportedConfigurations();
 		ManagedBuildManager.createBuildInfo(project);
-		IManagedProject managedProject = ManagedBuildManager.createManagedProject(project, supportedConfigurations.get(0).getProjectType());
-		
+		IManagedProject managedProject = ManagedBuildManager.createManagedProject(project,
+				supportedConfigurations.get(0).getProjectType());
+
+		// the registered SmartMDSD builder
+		IBuilder smartmdsdBuilder = getSmartMDSDBuilder();
+
 		for (IConfiguration configuration : supportedConfigurations) {
 			subMonitor.split(20);
-		    String id = ManagedBuildManager.calculateChildId(configuration.getId(), null);
+			// builder-suffix is either "debug" or "release"
+			String builderSuffix = configuration.getName().toLowerCase();
+			// builder ID is constructed from the builder base ID and the builder suffix
+			String builderID = ManagedBuildManager.calculateChildId(SmartMDSDManagedBuildConfigurator.BUILDER_ID, builderSuffix);
 
-		    // clone the configuration and set the artifact name
-		    IConfiguration configurationClone = managedProject.createConfiguration(configuration, id);
-		    configurationClone.setArtifactName("${ProjName}");
-		    
-		    // change the builder to the smartmdsd.builder if it is configured
-		    for(IBuilder builder: ManagedBuildManager.getRealBuilders()) {
-		    	if(builder.getId().equals(SmartMDSDManagedBuildConfigurator.BUILDER_ID)) {
-		    		configurationClone.changeBuilder(builder, id, builder.getName());
-		    	}
-		    }
+			// clone the configuration and set the artifact name
+			IConfiguration configurationClone = managedProject.createConfiguration(configuration, builderID);
+			configurationClone.setArtifactName("${ProjName}");
 
-		    // activate parallel build
-		    configurationClone.getEditableBuilder().setParallelBuildOn(true);
-		    
-		    // creates/add the configuration to the project description
-		    cProjectDescription.createConfiguration(ManagedBuildManager.CFG_DATA_PROVIDER_ID, configurationClone.getConfigurationData());
+			if (smartmdsdBuilder != null) {
+				// configure smartmdsd builder
+				configurationClone.changeBuilder(smartmdsdBuilder, builderID, smartmdsdBuilder.getName());
+			}
+
+			// activate parallel build
+			configurationClone.getEditableBuilder().setParallelBuildOn(true);
+
+			// creates/add the configuration to the project description
+			cProjectDescription.createConfiguration(ManagedBuildManager.CFG_DATA_PROVIDER_ID,
+					configurationClone.getConfigurationData());
 		}
 		subMonitor.split(20);
 		CoreModel.getDefault().setProjectDescription(project, cProjectDescription);
-		
+
 		// activate the provided build type, i.e. Debug/Release
 		IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
 		buildInfo.setDefaultConfiguration(activeBuildType);
@@ -104,22 +141,20 @@ public class CDTProjectHelpers {
 		IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
 		IConfiguration configs[] = buildInfo.getManagedProject().getConfigurations();
 		boolean hasChanges = false;
-		for(IConfiguration config: configs) {
-			// only change the builder if it is not yet the SmartMDSD Builder
-			if(!config.getBuilder().getId().equals(SmartMDSDManagedBuildConfigurator.BUILDER_ID)) {
-				// change the builder to the smartmdsd.builder if it is configured as a real builder
-				for(IBuilder builder: ManagedBuildManager.getRealBuilders()) {
-					if(builder.getId().equals(SmartMDSDManagedBuildConfigurator.BUILDER_ID)) {
-						String id = ManagedBuildManager.calculateChildId(config.getId(), null);
-						config.changeBuilder(builder, id, builder.getName());
-						hasChanges = true;
-						try {
-							// activate parallel build (just in case it was deactivated before)
-							config.getEditableBuilder().setParallelBuildOn(true);
-						} catch (CoreException e) {
-							e.printStackTrace();
-						}
-					}
+		IBuilder smartmdsdBuilder = getSmartMDSDBuilder();
+		if(smartmdsdBuilder != null) {
+			for(IConfiguration config: configs) {
+				// builder-suffix is either "debug" or "release"
+				String builderSuffix = config.getName().toLowerCase();
+				// builder ID is constructed from the builder base ID and the builder suffix
+				String builderID = ManagedBuildManager.calculateChildId(smartmdsdBuilder.getId(), builderSuffix);
+				config.changeBuilder(smartmdsdBuilder, builderID, smartmdsdBuilder.getName());
+				try {
+					// activate parallel build (just in case it was deactivated before)
+					config.getEditableBuilder().setParallelBuildOn(true);
+					hasChanges = true;
+				} catch (CoreException e) {
+					e.printStackTrace();
 				}
 			}
 		}
@@ -133,23 +168,17 @@ public class CDTProjectHelpers {
 		IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
 		IConfiguration configs[] = buildInfo.getManagedProject().getConfigurations();
 		boolean hasChanges = false;
-		for(IConfiguration config: configs) {
-			// only reset the builder if it is the SmartMDSD Builder
-			if(!config.getBuilder().getId().equals(SmartMDSDManagedBuildConfigurator.BUILDER_ID)) {
-				// change the builder to the smartmdsd.builder if it is configured as a real builder
-				for(IBuilder builder: ManagedBuildManager.getRealBuilders()) {
-					// we use the first CDT managed builder that appears in the real-builders list
-					if(builder.getId().startsWith("cdt.managedbuild.")) {
-						String id = ManagedBuildManager.calculateChildId(config.getId(), null);
-						config.changeBuilder(builder, id, builder.getName());
-						hasChanges = true;
-						try {
-							// reset parallel build flag to false
-							config.getEditableBuilder().setParallelBuildOn(false);
-						} catch (CoreException e) {
-							e.printStackTrace();
-						}
-					}
+		IBuilder gnuBuilder = getDefaultGNUBuilder();
+		if(gnuBuilder != null) {
+			for(IConfiguration config: configs) {
+				String builderID = ManagedBuildManager.calculateChildId(gnuBuilder.getId(), null);
+				config.changeBuilder(gnuBuilder, builderID, gnuBuilder.getName());
+				try {
+					// reset parallel build flag to false
+					config.getEditableBuilder().setParallelBuildOn(false);
+					hasChanges = true;
+				} catch (CoreException e) {
+					e.printStackTrace();
 				}
 			}
 		}
