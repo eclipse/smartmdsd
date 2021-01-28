@@ -15,10 +15,14 @@ package org.eclipse.smartmdsd.ui.builder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.cdt.core.CCProjectNature;
+import org.eclipse.cdt.core.CCorePlugin;
 import org.eclipse.cdt.core.CProjectNature;
 import org.eclipse.cdt.core.model.CoreModel;
+import org.eclipse.cdt.core.model.ICProject;
+import org.eclipse.cdt.core.settings.model.ACSettingEntry;
 import org.eclipse.cdt.core.settings.model.CIncludePathEntry;
 import org.eclipse.cdt.core.settings.model.ICConfigurationDescription;
 import org.eclipse.cdt.core.settings.model.ICFolderDescription;
@@ -223,5 +227,58 @@ public class CDTProjectHelpers {
 		}
 		
 		CoreModel.getDefault().setProjectDescription(project, projectDescription);
+	}
+	
+	public static boolean addFurtherCdtIncludesTo(IProject project, Map<String,Boolean> includes) throws CoreException 
+	{
+		boolean settings_changed = false;
+		ICProjectDescriptionManager mngr = CoreModel.getDefault().getProjectDescriptionManager();
+		ICProjectDescription projectDescription = mngr.getProjectDescription(project);
+
+		for(ICConfigurationDescription configDescription : projectDescription.getConfigurations()) {
+			ICFolderDescription projectRoot = configDescription.getRootFolderDescription();
+			for (ICLanguageSetting setting : projectRoot.getLanguageSettings()) {
+				String languageId = setting.getLanguageId();
+				if(languageId != null && languageId.equals("org.eclipse.cdt.core.g++")) {
+					List<ICLanguageSettingEntry> includePathSettings = setting.getSettingEntriesList(ICSettingEntry.INCLUDE_PATH);
+
+					for(Map.Entry<String, Boolean> includeEntry: includes.entrySet()) {
+						String includeString = includeEntry.getKey();
+						boolean already_included = false;
+						for(ICLanguageSettingEntry entry: includePathSettings) {
+							if(entry instanceof ACSettingEntry) {
+								ACSettingEntry settingEntry = (ACSettingEntry)entry;
+								if(settingEntry.getName().contentEquals(includeString)) {
+									already_included = true;
+								}
+							}
+						}
+						// we only add new includes
+						// existing includes will not be changed because there might be settings manually added by the user
+						// this implies that old settings must be manually cleaned up by the user (maybe this is not the best behavior)
+						// if we would want to really update the settings, then we would need to track which settings have been set before
+						// and compare those to the new ones
+						if(!already_included) {
+							settings_changed = true;
+							if(includeEntry.getValue() == true) {
+								includePathSettings.add(new CIncludePathEntry(includeString, ICSettingEntry.VALUE_WORKSPACE_PATH));
+							} else {
+								includePathSettings.add(new CIncludePathEntry(includeString, ICSettingEntry.LOCAL));
+							}
+						}
+					}
+					setting.setSettingEntries(ICSettingEntry.INCLUDE_PATH, includePathSettings);
+				}
+			}
+		}
+		if(settings_changed) {
+			CoreModel.getDefault().setProjectDescription(project, projectDescription);
+		}
+		return settings_changed;
+	}
+	
+	public static void triggerCdtIndexRebuildFor(String projectName) {
+		ICProject cproject = CoreModel.getDefault().getCModel().getCProject(projectName);
+		CCorePlugin.getIndexManager().reindex(cproject);
 	}
 }
