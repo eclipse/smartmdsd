@@ -13,5 +13,11 @@
             class="org.eclipse.smartmdsd.ecore.system.componentArchitecture.ComponentArchitecturePackage"
             genModel="model/componentArchitecture.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.smartmdsd.ui.SmartMDSDModelFactoryEP">
+      <ModelFactory
+            class="org.eclipse.smartmdsd.ecore.system.componentArchitecture.SmartMDSDSystemComponentArchitectureFactory">
+      </ModelFactory>
+   </extension>
 
 </plugin>

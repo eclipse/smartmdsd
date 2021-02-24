@@ -13,5 +13,11 @@
             class="org.eclipse.smartmdsd.ecore.system.systemParameter.SystemParameterPackage"
             genModel="model/systemParameter.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.smartmdsd.ui.SmartMDSDModelFactoryEP">
+      <ModelFactory
+            class="org.eclipse.smartmdsd.ecore.system.systemParameter.SmartMDSDSystemParameterFactory">
+      </ModelFactory>
+   </extension>
 
 </plugin>

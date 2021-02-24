@@ -1022,6 +1022,14 @@
     <semanticResources>java:/Objects/java.util.concurrent.atomic.AtomicBoolean</semanticResources>
     <semanticResources>java:/Objects/java.security.spec.PSSParameterSpec</semanticResources>
     <semanticResources>java:/Objects/java.security.PrivateKey</semanticResources>
+    <semanticResources>../src/org/eclipse/smartmdsd/ecore/component/componentDefinition/SmartMDSDComponentDefinitionFactory.xtend</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.smartmdsd.ui.factories.ISmartMDSDModelFactory</semanticResources>
+    <semanticResources>java:/Objects/java.lang.Override</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.smartmdsd.ecore.component.componentDefinition.ComponentDefinitionPackage</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.smartmdsd.ecore.component.componentDefinition.ComponentDefinitionFactory</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.smartmdsd.ecore.component.componentDefinition.ComponentDefModel</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.smartmdsd.ecore.component.componentDefinition.ServiceRepoImport</semanticResources>
+    <semanticResources>java:/Objects/org.eclipse.smartmdsd.ecore.component.componentDefinition.RequestPortLink</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_TL0X0DK9EeqwY5XzYwayBw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_TMP1ozK9EeqwY5XzYwayBw" name="componentDefinition" repPath="#_TMGEoDK9EeqwY5XzYwayBw" changeId="41ed4716-c33a-48f2-b909-c84395fb22ca">

@@ -13,5 +13,11 @@
             class="org.eclipse.smartmdsd.ecore.system.deployment.DeploymentPackage"
             genModel="model/deployment.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.smartmdsd.ui.SmartMDSDModelFactoryEP">
+      <ModelFactory
+            class="org.eclipse.smartmdsd.ecore.system.deployment.SmartMDSDDeploymentFactory">
+      </ModelFactory>
+   </extension>
 
 </plugin>

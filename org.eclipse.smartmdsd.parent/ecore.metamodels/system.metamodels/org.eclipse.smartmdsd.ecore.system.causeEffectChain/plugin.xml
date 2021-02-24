@@ -13,5 +13,11 @@
             class="org.eclipse.smartmdsd.ecore.system.causeEffectChain.CauseEffectChainPackage"
             genModel="model/causeEffectChain.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.smartmdsd.ui.SmartMDSDModelFactoryEP">
+      <ModelFactory
+            class="org.eclipse.smartmdsd.ecore.system.causeEffectChain.SmartMDSDCauseEffectChainFactory">
+      </ModelFactory>
+   </extension>
 
 </plugin>

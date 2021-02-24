@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.smartmdsd.ecore.system.activityArchitecture;singleton:=true
 Automatic-Module-Name: org.eclipse.smartmdsd.ecore.system.activityArchitecture
-Bundle-Version: 3.6.0.qualifier
+Bundle-Version: 3.7.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -12,5 +12,7 @@ Export-Package: org.eclipse.smartmdsd.ecore.system.activityArchitecture,
  org.eclipse.smartmdsd.ecore.system.activityArchitecture.impl,
  org.eclipse.smartmdsd.ecore.system.activityArchitecture.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.smartmdsd.ui;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy

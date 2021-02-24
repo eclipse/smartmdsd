@@ -16,9 +16,7 @@ package org.eclipse.smartmdsd.ecore.service.domainModelsDatasheet
 import java.util.Collection
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.smartmdsd.ui.factories.ISmartMDSDModelFactory
-import org.eclipse.smartmdsd.ecore.base.genericDatasheet.GenericDatasheetFactory
-import org.eclipse.smartmdsd.ecore.base.genericDatasheet.MandatoryDatasheetElementNames
-import org.eclipse.smartmdsd.ecore.base.genericDatasheet.DefaultDatasheetProperties
+import org.eclipse.smartmdsd.ecore.base.genericDatasheet.GenericDatasheetUtils
 
 class SmartMDSDDomainModelsDatasheetFactory implements ISmartMDSDModelFactory {
 	override getEPackage() {
@@ -32,29 +30,9 @@ class SmartMDSDDomainModelsDatasheetFactory implements ISmartMDSDModelFactory {
 	override createDefaultModel(String projectName, Collection<EObject> parentModels) {
 		val datasheet = DomainModelsDatasheetFactory.eINSTANCE.createDomainModelsDatasheet();
 		datasheet.setName(projectName);
-		val baseURI = GenericDatasheetFactory.eINSTANCE.createMandatoryDatasheetElement();
-		baseURI.setName(MandatoryDatasheetElementNames.BASE_URI);
-		baseURI.setValue("http://www.servicerobotik-ulm.de");
-		datasheet.getElements().add(baseURI);
-		val short_description = GenericDatasheetFactory.eINSTANCE.createMandatoryDatasheetElement();
-		short_description.setName(MandatoryDatasheetElementNames.SHORT_DESCRIPTION);
-		short_description.setValue("A short description for the "+projectName+" datasheet");
-		datasheet.getElements().add(short_description);
 		
-		val supplier = GenericDatasheetFactory.eINSTANCE.createDatasheetProperty();
-		supplier.setName(DefaultDatasheetProperties.SUPPLIER.getLiteral());
-		supplier.setValue("No supplier specified");
-		datasheet.getElements().add(supplier);
-		
-		val homepage = GenericDatasheetFactory.eINSTANCE.createDatasheetProperty();
-		homepage.setName(DefaultDatasheetProperties.HOMEPAGE.getLiteral());
-		homepage.setValue("http://www.example.com");
-		datasheet.getElements().add(homepage);
-		
-		val purpose = GenericDatasheetFactory.eINSTANCE.createDatasheetProperty();
-		purpose.setName(DefaultDatasheetProperties.PURPOSE.getLiteral());
-		purpose.setValue("Example");
-		datasheet.getElements().add(purpose);
+		// add the default datasheet elements to the new datasheet model
+		GenericDatasheetUtils.addDefaultDatasheetElements(datasheet, projectName)
 		
 		return datasheet;
 	}

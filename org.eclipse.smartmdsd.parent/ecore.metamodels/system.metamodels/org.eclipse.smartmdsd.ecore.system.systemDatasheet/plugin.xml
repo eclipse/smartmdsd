@@ -13,5 +13,11 @@
             class="org.eclipse.smartmdsd.ecore.system.systemDatasheet.SystemDatasheetPackage"
             genModel="model/systemDatasheet.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.smartmdsd.ui.SmartMDSDModelFactoryEP">
+      <ModelFactory
+            class="org.eclipse.smartmdsd.ecore.system.systemDatasheet.SmartMDSDSystemDatasheetFactory">
+      </ModelFactory>
+   </extension>
 
 </plugin>

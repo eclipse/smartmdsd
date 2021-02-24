@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.smartmdsd.ecore.system.systemDatasheet;singleton:=true
 Automatic-Module-Name: org.eclipse.smartmdsd.ecore.system.systemDatasheet
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -13,5 +13,7 @@ Export-Package: org.eclipse.smartmdsd.ecore.system.systemDatasheet,
  org.eclipse.smartmdsd.ecore.system.systemDatasheet.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.smartmdsd.ecore.base.genericDatasheet;visibility:=reexport,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.smartmdsd.ui;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy

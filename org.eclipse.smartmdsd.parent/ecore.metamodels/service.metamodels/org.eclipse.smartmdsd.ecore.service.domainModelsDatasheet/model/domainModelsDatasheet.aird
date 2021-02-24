@@ -883,6 +883,7 @@
     <semanticResources>java:/Objects/org.eclipse.emf.ecore.EEnum</semanticResources>
     <semanticResources>java:/Objects/org.eclipse.emf.ecore.EEnumLiteral</semanticResources>
     <semanticResources>java:/Objects/org.eclipse.smartmdsd.ecore.base.genericDatasheet.DefaultDatasheetProperties</semanticResources>
+    <semanticResources>platform:/resource/org.eclipse.smartmdsd.ecore.base.genericDatasheet/src/org/eclipse/smartmdsd/ecore/base/genericDatasheet/GenericDatasheetUtils.xtend</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_sRmvkDIEEeq0zfGbUU0OKA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_sSEpozIEEeq0zfGbUU0OKA" name="domainModelsDatasheet" repPath="#_sR64oDIEEeq0zfGbUU0OKA" changeId="e4a38b92-1382-4eb8-9689-5d62886c90fd">
