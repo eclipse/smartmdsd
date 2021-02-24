@@ -7,4 +7,10 @@
 	       name="targetPlatform">
     </component>
   </extension>
+  <extension
+        point="org.eclipse.smartmdsd.ui.SmartMDSDModelContributionEP">
+     <SiriusContribution
+           class="org.eclipse.smartmdsd.sirius.system.targetPlatform.design.SmartMDSDSiriusTargetPlatform">
+     </SiriusContribution>
+  </extension>
 </plugin>

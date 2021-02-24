@@ -44,4 +44,10 @@
            id="DeleteComponentParameterModelFile">
      </javaActions>
   </extension>
+  <extension
+        point="org.eclipse.smartmdsd.ui.SmartMDSDModelContributionEP">
+     <SiriusContribution
+           class="org.eclipse.smartmdsd.sirius.component.design.SmartMDSDSiriusComponentDefinition">
+     </SiriusContribution>
+  </extension>
 </plugin>

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.smartmdsd.sirius.system.deployment.design;singleton:=true
-Bundle-Version: 3.4.0.qualifier
+Bundle-Version: 3.5.0.qualifier
 Bundle-Activator: org.eclipse.smartmdsd.sirius.system.deployment.design.Activator
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.smartmdsd.xtext.indexer,
  org.eclipse.smartmdsd.ecore.system.deployment,
  org.eclipse.smartmdsd.xtext.system.targetPlatform.ui,
- org.eclipse.smartmdsd.xtext.system.componentArchitecture.ui
+ org.eclipse.smartmdsd.xtext.system.componentArchitecture.ui,
+ org.eclipse.smartmdsd.ui;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: %providerName

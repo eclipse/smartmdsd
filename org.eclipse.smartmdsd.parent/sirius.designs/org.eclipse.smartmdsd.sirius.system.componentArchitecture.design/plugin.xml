@@ -25,4 +25,10 @@
            id="OpenSystemParameterEditor">
      </javaActions>
   </extension>
+  <extension
+        point="org.eclipse.smartmdsd.ui.SmartMDSDModelContributionEP">
+     <SiriusContribution
+           class="org.eclipse.smartmdsd.sirius.system.componentArchitecture.design.SmartMDSDSiriusSystemArchitecture">
+     </SiriusContribution>
+  </extension>
 </plugin>

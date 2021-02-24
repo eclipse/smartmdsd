@@ -7,4 +7,10 @@
 	       name="deployment">
     </component>
   </extension>
+  <extension
+        point="org.eclipse.smartmdsd.ui.SmartMDSDModelContributionEP">
+     <SiriusContribution
+           class="org.eclipse.smartmdsd.sirius.system.deployment.design.SmartMDSDSiriusDeployment">
+     </SiriusContribution>
+  </extension>
 </plugin>

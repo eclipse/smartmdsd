@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.smartmdsd.sirius.component.design;singleton:=true
-Bundle-Version: 3.4.0.qualifier
+Bundle-Version: 3.5.0.qualifier
 Bundle-Activator: org.eclipse.smartmdsd.sirius.component.design.Activator
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -23,7 +23,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.smartmdsd.xtext.component.componentDefinition.ui,
  org.eclipse.smartmdsd.xtext.service.serviceDefinition.ui,
  org.eclipse.smartmdsd.xtext.component.componentParameter.ui,
- org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension
+ org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension,
+ org.eclipse.smartmdsd.ui;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: %providerName
