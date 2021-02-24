@@ -14,7 +14,7 @@
 package org.eclipse.smartmdsd.ui.wizards;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -43,9 +43,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.smartmdsd.ui.Activator;
+import org.eclipse.smartmdsd.ui.models.SmartMDSDModelingLanguage;
 import org.eclipse.smartmdsd.ui.preferences.SmartMDSDPreferencesPage;
 import org.eclipse.smartmdsd.ui.natures.AbstractSmartMDSDNature;
-import org.eclipse.smartmdsd.ui.natures.LanguageInterface;
 import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
 
 public class SmartMDSDModelTypeSelectionPage extends WizardPage {
@@ -69,8 +69,8 @@ public class SmartMDSDModelTypeSelectionPage extends WizardPage {
 				for(SmartMDSDNatureEnum natureEnum: SmartMDSDNatureEnum.values()) {
 					if(project.hasNature(natureEnum.getId()) == true) {
 						AbstractSmartMDSDNature nature = natureEnum.getSmartMDSDNatureFrom(project);
-						LanguageInterface[] allSupportedLanguages = nature.getAllSupportedLanguages();
-						final List<LanguageInterface> filteredLanguageList = filterLanguageEntries(allSupportedLanguages, project);
+						Collection<SmartMDSDModelingLanguage> allSupportedLanguages = nature.getAllSupportedLanguages();
+						final Collection<SmartMDSDModelingLanguage> filteredLanguageList = filterLanguageEntries(allSupportedLanguages, project);
 						Display.getDefault().asyncExec(new Runnable() {
 							@Override
 							public void run() {
@@ -93,13 +93,13 @@ public class SmartMDSDModelTypeSelectionPage extends WizardPage {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				AbstractSmartMDSDNature nature = natureEnum.createSmartMDSDNatureObject();
-				LanguageInterface[] allSupportedLanguages = nature.getAllSupportedLanguages();
+				Collection<SmartMDSDModelingLanguage> allSupportedLanguages = nature.getAllSupportedLanguages();
 				if(allSupportedLanguages != null) {
 					Display.getDefault().asyncExec(new Runnable() {
 						@Override
 						public void run() {
 							// this updates the Wizard GUI and thus needs to be executed within the GUI thread
-							setTableContent(Arrays.asList(allSupportedLanguages));
+							setTableContent(allSupportedLanguages);
 						}
 					});
 				}
@@ -183,12 +183,12 @@ public class SmartMDSDModelTypeSelectionPage extends WizardPage {
     	return result;
     }
 	
-	private List<LanguageInterface> filterLanguageEntries(LanguageInterface[] allSupportedLanguages, IProject project) {
+	private Collection<SmartMDSDModelingLanguage> filterLanguageEntries(Collection<SmartMDSDModelingLanguage> allSupportedLanguages, IProject project) {
 		String modelFolderName = Activator.getDefault().getPreferenceStore().getString(SmartMDSDPreferencesPage.PROP_MODELS_FOLDER);
 		IFolder modelFolder = project.getFolder(modelFolderName);
 		if(modelFolder.exists()) {
-			List<LanguageInterface> filteredLanguages = new ArrayList<LanguageInterface>();
-			for(LanguageInterface entry: allSupportedLanguages) {
+			List<SmartMDSDModelingLanguage> filteredLanguages = new ArrayList<SmartMDSDModelingLanguage>();
+			for(SmartMDSDModelingLanguage entry: allSupportedLanguages) {
 				IFile modelFile = modelFolder.getFile(project.getName()+"."+entry.getModelFileExtension());
 				if(!modelFile.exists()) {
 					filteredLanguages.add(entry);
@@ -196,17 +196,17 @@ public class SmartMDSDModelTypeSelectionPage extends WizardPage {
 			}
 			return filteredLanguages;
 		}
-		return Arrays.asList(allSupportedLanguages);
+		return allSupportedLanguages;
 	}
 	
-	private void setTableContent(List<LanguageInterface> languageEntries) {
+	private void setTableContent(Collection<SmartMDSDModelingLanguage> languageEntries) {
 		// generate table input data
 		List<String> newModelTypes = new ArrayList<String>();
 		List<String> preselectedModelTypes = new ArrayList<String>();
-		for(LanguageInterface entry: languageEntries) {
-			newModelTypes.add(entry.getKey());
+		for(SmartMDSDModelingLanguage entry: languageEntries) {
+			newModelTypes.add(entry.getLanguageName());
 			if(entry.isDefaultLanguage()) {
-				preselectedModelTypes.add(entry.getKey());
+				preselectedModelTypes.add(entry.getLanguageName());
 			}
 		}
 		// set current table contents

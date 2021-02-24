@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.smartmdsd.ui.builder.CDTProjectHelpers;
-import org.eclipse.smartmdsd.ui.factories.AbstractSelectedModelsFactory;
+import org.eclipse.smartmdsd.ui.factories.SmartMDSDModelFactory;
 import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
 
 public class WizardNewDomainModelsProject extends AbstractProjectCreationWizard {
@@ -43,7 +43,7 @@ public class WizardNewDomainModelsProject extends AbstractProjectCreationWizard 
 		
 		// since the domain models do not have any graphical representations, we just open all
 		// created textual models
-		AbstractSelectedModelsFactory modelsFactory = getCurrentNatureEnum().createModelsFactory(project, modelFolder);
+		SmartMDSDModelFactory modelsFactory = new SmartMDSDModelFactory(project, modelFolder);
 		modelsFactory.openSelectedModelsInEditor(workbench, pageTwo.getSelectedModelTypes());
 	}
 

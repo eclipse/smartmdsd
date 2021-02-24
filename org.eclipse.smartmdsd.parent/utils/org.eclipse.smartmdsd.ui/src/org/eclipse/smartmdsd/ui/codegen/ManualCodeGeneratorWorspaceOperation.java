@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 Technische Hochschule Ulm, Servicerobotics Ulm, Germany
+ * Copyright (c) 2021 Technische Hochschule Ulm, Servicerobotics Ulm, Germany
  * headed by Prof. Dr. Christian Schlegel
  * 
  * This program and the accompanying materials are made available under the
@@ -13,27 +13,26 @@
  ********************************************************************************/
 package org.eclipse.smartmdsd.ui.codegen;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
+import org.eclipse.smartmdsd.ui.Activator;
+import org.eclipse.smartmdsd.ui.factories.JavaProjectFactory;
+import org.eclipse.smartmdsd.ui.models.SmartMDSDModelingLanguage;
+import org.eclipse.smartmdsd.ui.natures.AbstractSmartMDSDNature;
+import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureHelpers;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -45,28 +44,18 @@ import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
 import org.osgi.framework.Bundle;
-import org.eclipse.smartmdsd.ui.Activator;
-import org.eclipse.smartmdsd.ui.factories.JavaProjectFactory;
-import org.eclipse.smartmdsd.ui.natures.AbstractSmartMDSDNature;
-import org.eclipse.smartmdsd.ui.natures.LanguageInterface;
-import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureHelpers;
 
 import com.google.inject.Injector;
 
-public class ManualCodeGeneratorWorkspaceJob extends WorkspaceJob {
+public class ManualCodeGeneratorWorspaceOperation extends WorkspaceModifyOperation {
 	private IResource resource;
-	private IWorkbenchWindow window;
 	private MessageConsole messageConsole;
 	
-	public static final String CONSOLE_ID = "SmarMDSD Code-Generator";
+	public static final String CONSOLE_NAME = "SmarMDSD Code-Generator";
 	
-	public ManualCodeGeneratorWorkspaceJob(IResource resource, final IWorkbenchWindow window) {
-		super("Generate code for "+resource.getName());
+	public ManualCodeGeneratorWorspaceOperation(IResource resource) {
 		this.resource = resource;
-		this.window = window;
 		this.messageConsole = findCodeGeneratorConsole();
-		// automatically set the scheduling rule to the provided project
-		this.setRule(resource.getProject());
 	}
 	
 	private MessageConsole findCodeGeneratorConsole() {
@@ -74,31 +63,32 @@ public class ManualCodeGeneratorWorkspaceJob extends WorkspaceJob {
 		IConsoleManager consoleManager = plugin.getConsoleManager();
 		IConsole[] existing = consoleManager.getConsoles();
 		for (int i = 0; i < existing.length; i++) {
-			if (existing[i].getName().equals(CONSOLE_ID))
+			if (existing[i].getName().equals(CONSOLE_NAME))
 				return (MessageConsole) existing[i];
 		}
 		
 		// no console found, so create a new one
 		Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
 		ImageDescriptor codeGeneratorIcon = ImageDescriptor.createFromURL(bundle.getEntry("icons/manual-gear.png"));
-		MessageConsole codeGeneratorConsole = new MessageConsole(CONSOLE_ID, codeGeneratorIcon);
+		MessageConsole codeGeneratorConsole = new MessageConsole(CONSOLE_NAME, codeGeneratorIcon);
 		consoleManager.addConsoles(new IConsole[]{codeGeneratorConsole});
 		return codeGeneratorConsole;
 	}
 	
 	@Override
-	public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
+	protected void execute(IProgressMonitor monitor)
+			throws CoreException, InvocationTargetException, InterruptedException {
 		final AbstractSmartMDSDNature smartMDSDnature = SmartMDSDNatureHelpers.getFirstSmartMDSDNatureFrom(resource.getProject());
 		if(smartMDSDnature == null) {
 			// this project does not have a valid SmartMDSDNature (we skip building it)
-			return Status.OK_STATUS;
+			return;
 		}
 		
 		// use a message console to print-out info messages
 		messageConsole.clearConsole();
 		
 		// bring the console window tab to foreground
-		showConsoleWindow(messageConsole);
+		ConsolePlugin.getDefault().getConsoleManager().showConsoleView(messageConsole);
 		
 		// create new console-message stream
 		MessageConsoleStream out = messageConsole.newMessageStream();
@@ -115,14 +105,14 @@ public class ManualCodeGeneratorWorkspaceJob extends WorkspaceJob {
 			if (monitor.isCanceled()) {
 				// cancel requested -> stop generating code
 				out.print("code genearion cancelled!");
-				return Status.CANCEL_STATUS;
+				return;
 			}
 			
 			// advance the submonitor by 10 ticks
 			subMonitor.split(10);
 
 			// the default editor for a specific model file will give us the associated language-ID
-			LanguageInterface language = smartMDSDnature.getLanguageInterfaceFrom(modelResource);
+			SmartMDSDModelingLanguage language = smartMDSDnature.getLanguageFrom(modelResource);
 			// the editor can be null if the file extension is unknown
 			if(language != null) {
 				Injector injector = language.getInjector();
@@ -152,7 +142,7 @@ public class ManualCodeGeneratorWorkspaceJob extends WorkspaceJob {
 		    		if (monitor.isCanceled()) {
 						// cancel requested -> stop generating code
 		    			out.print("code genearion cancelled!");
-						return Status.CANCEL_STATUS;
+						return;
 					}
 			    	
 		    		if(hasErrors == true) {
@@ -169,20 +159,5 @@ public class ManualCodeGeneratorWorkspaceJob extends WorkspaceJob {
 				} // end if(resource.isLoaded())
 			} // end if(editor != null) {
 		} // end for(modelResource: modelFiles)
-		return Status.OK_STATUS;
-	}
-
-	private void showConsoleWindow(IConsole console) {
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					IConsoleView view = (IConsoleView)window.getActivePage().showView(IConsoleConstants.ID_CONSOLE_VIEW);
-					view.display(console);
-				} catch (PartInitException e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 }

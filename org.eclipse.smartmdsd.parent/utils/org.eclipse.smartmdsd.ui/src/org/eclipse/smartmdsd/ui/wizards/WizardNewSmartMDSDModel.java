@@ -29,9 +29,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.smartmdsd.ui.Activator;
 import org.eclipse.smartmdsd.ui.preferences.SmartMDSDPreferencesPage;
-import org.eclipse.smartmdsd.ui.factories.AbstractSelectedModelsFactory;
 import org.eclipse.smartmdsd.ui.factories.ModelingProjectFactory;
-import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
+import org.eclipse.smartmdsd.ui.factories.SmartMDSDModelFactory;
 
 public class WizardNewSmartMDSDModel extends Wizard implements INewWizard {
 	
@@ -74,21 +73,15 @@ public class WizardNewSmartMDSDModel extends Wizard implements INewWizard {
 					String modelFolderName = Activator.getDefault().getPreferenceStore().getString(SmartMDSDPreferencesPage.PROP_MODELS_FOLDER);
 					IFolder modelFolder = selectedProject.getFolder(modelFolderName);
 					if(modelFolder.exists()) {
-						for(SmartMDSDNatureEnum natureEnum: SmartMDSDNatureEnum.values()) {
-							if(selectedProject.hasNature(natureEnum.getId())) {
-								AbstractSelectedModelsFactory selectedModelsFactory = natureEnum.createModelsFactory(selectedProject, modelFolder);
-								if(selectedModelsFactory != null) {
-									List<String> selectedModelTypes = pageTwo.getSelectedModelTypes();
-									boolean creationSucceeded = selectedModelsFactory.createSelectedModels(selectedModelTypes, monitor);
-									if(creationSucceeded) {
-										selectedModelsFactory.openSelectedModelsInEditor(workbench, selectedModelTypes);
-										Session session = ModelingProjectFactory.getProjectSession(selectedProject, monitor);
-										if(session != null) {
-											ModelingProjectFactory.selectViewpoints(selectedProject, session, selectedModelTypes, monitor);
-											ModelingProjectFactory.openSelectedDiagramEditorsForSession(selectedProject, session, selectedModelTypes, monitor);
-										}
-									}
-								}
+						SmartMDSDModelFactory modelsFactory = new SmartMDSDModelFactory(selectedProject, modelFolder);
+						List<String> selectedModelTypes = pageTwo.getSelectedModelTypes();
+						boolean creationSucceeded = modelsFactory.createSelectedModels(selectedModelTypes, monitor);
+						if(creationSucceeded) {
+							modelsFactory.openSelectedModelsInEditor(workbench, selectedModelTypes);
+							Session session = ModelingProjectFactory.getProjectSession(selectedProject, monitor);
+							if(session != null) {
+								ModelingProjectFactory.selectViewpoints(selectedProject, session, selectedModelTypes, monitor);
+								ModelingProjectFactory.openSelectedDiagramEditorsForSession(selectedProject, session, selectedModelTypes, monitor);
 							}
 						}
 					}

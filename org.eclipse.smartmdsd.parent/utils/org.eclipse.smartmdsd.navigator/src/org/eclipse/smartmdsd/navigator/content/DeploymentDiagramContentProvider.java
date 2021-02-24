@@ -13,12 +13,13 @@
  ********************************************************************************/
 package org.eclipse.smartmdsd.navigator.content;
 
+import org.eclipse.smartmdsd.ecore.system.deployment.DeploymentPackage;
 import org.eclipse.smartmdsd.ui.natures.SystemNature;
 
 public class DeploymentDiagramContentProvider extends AbstractSiriusDiagramContentProvider {
 	@Override
 	protected String getModelFileExtension() {
-		return SystemNature.DSL.Deployment.getModelFileExtension();
+		return SystemNature.getDSL(DeploymentPackage.eINSTANCE).getModelFileExtension();
 	}
 
 }

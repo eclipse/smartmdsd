@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="SmartMDSDProjectCreationEP" name="SmartMDSDProjectCreation" schema="schema/SmartMDSDProjectCreationEP.exsd"/>
+   <extension-point id="SmartMDSDModelContributionEP" name="SmartMDSDModelContribution" schema="schema/SmartMDSDModelContributionEP.exsd"/>
+   <extension-point id="SmartMDSDModelFactoryEP" name="SmartMDSDModelFactory" schema="schema/SmartMDSDModelFactoryEP.exsd"/>
    <extension
          point="org.eclipse.ui.commands">
       <category
@@ -474,7 +477,7 @@
             locationURI="popup:org.eclipse.smartmdsd.navigator.view">
          <command
                commandId="org.eclipse.smartmdsd.ui.codeGeneratorTrigger"
-               icon="icons/manual-gear.png"
+               icon="icons/manual-gear-16.png"
                label="Run Code-Generation"
                style="push">
               <visibleWhen
@@ -500,7 +503,7 @@
          </command>
          <command
                commandId="org.eclipse.ui.project.buildProject"
-               icon="icons/tools2.png"
+               icon="icons/tools-16.png"
                label="Build Project"
                style="push">
               <visibleWhen
@@ -526,7 +529,7 @@
          </command>
          <command
                commandId="org.eclipse.smartmdsd.ui.deployment"
-               icon="icons/robot.png"
+               icon="icons/robot-16.png"
                label="Deployment Action"
                style="push">
             <visibleWhen
@@ -842,13 +845,6 @@
             public="false">
       </launchConfigurationType>
       <launchConfigurationType
-            delegate="org.eclipse.smartmdsd.ui.builder.CMakeLauncher"
-            id="org.eclipse.smartmdsd.ui.launch.cmake"
-            modes="run, debug"
-            name="CMake"
-            public="false">
-      </launchConfigurationType>
-      <launchConfigurationType
             delegate="org.eclipse.smartmdsd.ui.linux.DebianTerminalLauncher"
             id="org.eclipse.smartmdsd.ui.debianTerminalLauncher"
             modes="run, debug"
@@ -862,11 +858,6 @@
             configTypeID="org.eclipse.smartmdsd.ui.launch.deployment"
             icon="icons/robot.png"
             id="org.eclipse.smartmdsd.ui.launch.deploymentImage">
-      </launchConfigurationTypeImage>
-      <launchConfigurationTypeImage
-            configTypeID="org.eclipse.smartmdsd.ui.launch.cmake"
-            icon="icons/cmake_logo.png"
-            id="org.eclipse.smartmdsd.ui.launch.cmakeImage">
       </launchConfigurationTypeImage>
    </extension>
    <extension

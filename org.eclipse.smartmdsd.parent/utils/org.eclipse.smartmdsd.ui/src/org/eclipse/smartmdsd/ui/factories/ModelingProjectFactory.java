@@ -32,8 +32,8 @@ import org.eclipse.sirius.ui.business.api.dialect.DialectUIManager;
 import org.eclipse.sirius.ui.tools.api.project.ModelingProjectManager;
 import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
 import org.eclipse.sirius.viewpoint.DView;
+import org.eclipse.smartmdsd.ui.models.SmartMDSDModelingLanguage;
 import org.eclipse.smartmdsd.ui.natures.AbstractSmartMDSDNature;
-import org.eclipse.smartmdsd.ui.natures.LanguageInterface;
 import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureHelpers;
 
 public class ModelingProjectFactory {
@@ -87,7 +87,7 @@ public class ModelingProjectFactory {
 		for(String modelTypeName: selectedModelTypes) {
 			AbstractSmartMDSDNature nature = SmartMDSDNatureHelpers.getFirstSmartMDSDNatureFrom(project);
 			if(nature != null) {
-				LanguageInterface dsl = nature.getLanguageInterfaceOf(modelTypeName);
+				SmartMDSDModelingLanguage dsl = nature.getLanguage(modelTypeName);
 				if(dsl != null) {
 					String viewpointName = dsl.getSiriusViewpointName();
 					if(viewpointName != null) {
@@ -107,7 +107,7 @@ public class ModelingProjectFactory {
 		for(String modelTypeName: selectedModelTypes) {
 			AbstractSmartMDSDNature nature = SmartMDSDNatureHelpers.getFirstSmartMDSDNatureFrom(project);
 			if(nature != null) {
-				LanguageInterface dsl = nature.getLanguageInterfaceOf(modelTypeName);
+				SmartMDSDModelingLanguage dsl = nature.getLanguage(modelTypeName);
 				if(dsl != null) {
 					String viewpointName = dsl.getSiriusViewpointName();
 					if(viewpointName != null) {
@@ -128,7 +128,7 @@ public class ModelingProjectFactory {
 	public static EList<DRepresentationDescriptor> getRepresentationsFor(IResource modelFile, Session session) throws CoreException {
 		IProject project = modelFile.getProject();
 		AbstractSmartMDSDNature nature = SmartMDSDNatureHelpers.getFirstSmartMDSDNatureFrom(project);
-		LanguageInterface dsl = nature.getLanguageInterfaceFrom(modelFile);
+		SmartMDSDModelingLanguage dsl = nature.getLanguageFrom(modelFile);
 		if(dsl != null) {
 			String viewpointName = dsl.getSiriusViewpointName();
 			if(viewpointName != null) {

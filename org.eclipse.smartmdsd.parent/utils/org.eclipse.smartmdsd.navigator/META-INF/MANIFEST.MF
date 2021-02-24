@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SmartMDSD-Navigator
 Bundle-SymbolicName: org.eclipse.smartmdsd.navigator;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Activator: org.eclipse.smartmdsd.navigator.Activator
 Require-Bundle: com.google.inject,
  org.eclipse.jface,
@@ -18,7 +18,10 @@ Require-Bundle: com.google.inject,
  org.eclipse.smartmdsd.ui,
  org.eclipse.sirius.diagram,
  org.eclipse.sirius.diagram.ui,
- org.eclipse.sirius.ext.base
+ org.eclipse.sirius.ext.base,
+ org.eclipse.smartmdsd.ecore.component.componentDefinition,
+ org.eclipse.smartmdsd.ecore.system.componentArchitecture,
+ org.eclipse.smartmdsd.ecore.system.deployment
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.smartmdsd.navigator
 Bundle-ActivationPolicy: lazy

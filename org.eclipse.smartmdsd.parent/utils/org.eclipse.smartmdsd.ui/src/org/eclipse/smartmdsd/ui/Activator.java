@@ -13,6 +13,8 @@
  ********************************************************************************/
 package org.eclipse.smartmdsd.ui;
 
+import org.eclipse.smartmdsd.ui.factories.SmartMDSDModelFactory;
+import org.eclipse.smartmdsd.ui.natures.AbstractSmartMDSDNature;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -37,6 +39,11 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		
+		// initialize the internal language registry
+		AbstractSmartMDSDNature.initializeRegistry();
+		// initialize the model creation factory registry
+		SmartMDSDModelFactory.initializeFactoryRegistry();
 	}
 
 	@Override
@@ -53,5 +60,4 @@ public class Activator extends AbstractUIPlugin {
 	public static Activator getDefault() {
 		return plugin;
 	}
-
 }

@@ -11,7 +11,7 @@
             allowMultiple="false"
             category="org.eclipse.smartmdsd.navigator.views"
             class="org.eclipse.smartmdsd.navigator.SmartMDSDProjectExplorer"
-            icon="icons/logo16.png"
+            icon="icons/project.gif"
             id="org.eclipse.smartmdsd.navigator.view"
             name="SmartMDSD Project Explorer"
             restorable="true">

@@ -16,15 +16,9 @@ package org.eclipse.smartmdsd.ui.natures;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.smartmdsd.ui.factories.AbstractSelectedModelsFactory;
-import org.eclipse.smartmdsd.ui.factories.BehaviorModelsFactory;
-import org.eclipse.smartmdsd.ui.factories.ComponentModelsFactory;
-import org.eclipse.smartmdsd.ui.factories.DomainModelsFactory;
-import org.eclipse.smartmdsd.ui.factories.SystemModelsFactory;
 
 public enum SmartMDSDNatureEnum {
 	DomainModelsNature (org.eclipse.smartmdsd.ui.natures.DomainModelsNature.NATURE_ID),
@@ -72,16 +66,6 @@ public enum SmartMDSDNatureEnum {
 			case ComponentNature: return new ComponentNature();
 			case SystemNature: return new SystemNature();
 			case BehaviorNature: return new BehaviorNature();
-		}
-		return null;
-	}
-	
-	public AbstractSelectedModelsFactory createModelsFactory(final IProject project, final IFolder modelFolder) {
-		switch(this) {
-			case DomainModelsNature: return new DomainModelsFactory(project, modelFolder);
-			case ComponentNature: return new ComponentModelsFactory(project, modelFolder);
-			case SystemNature: return new SystemModelsFactory(project, modelFolder);
-			case BehaviorNature: return new BehaviorModelsFactory(project, modelFolder);
 		}
 		return null;
 	}

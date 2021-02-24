@@ -23,8 +23,12 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -35,11 +39,12 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.eclipse.smartmdsd.ui.Activator;
+import org.eclipse.smartmdsd.ui.ISmartMDSDProjectCustomizer;
 import org.eclipse.smartmdsd.ui.preferences.SmartMDSDPreferencesPage;
 import org.eclipse.smartmdsd.ui.builder.CDTProjectHelpers;
-import org.eclipse.smartmdsd.ui.factories.AbstractSelectedModelsFactory;
 import org.eclipse.smartmdsd.ui.factories.JavaProjectFactory;
 import org.eclipse.smartmdsd.ui.factories.ModelingProjectFactory;
+import org.eclipse.smartmdsd.ui.factories.SmartMDSDModelFactory;
 import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
 import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureHelpers;
 
@@ -102,7 +107,7 @@ public abstract class AbstractProjectCreationWizard extends Wizard implements IN
 			@Override
 			protected void execute(IProgressMonitor monitor)
 					throws CoreException, InvocationTargetException, InterruptedException {
-				SubMonitor subMonitor = SubMonitor.convert(monitor, "Project Creation Wizard", 350);
+				SubMonitor subMonitor = SubMonitor.convert(monitor, "Project Creation Wizard", 400);
 
 				// get the specified settings from the wizard pages
 				String projectName = pageOne.getProjectName();
@@ -144,7 +149,7 @@ public abstract class AbstractProjectCreationWizard extends Wizard implements IN
 					modelFolder.create(true, true, subMonitor.split(10));
 
 					// create model factory (specified in derived classes)
-					AbstractSelectedModelsFactory modelsFactory = getCurrentNatureEnum().createModelsFactory(project, modelFolder);
+					SmartMDSDModelFactory modelsFactory = new SmartMDSDModelFactory(project, modelFolder);
 					// the actual creation of specific model types is delegated to the specific models factory
 					modelsFactory.createSelectedModels(selectedModelTypes, subMonitor.split(50));
 					modelsFactory.openSelectedModelsInEditor(workbench, selectedModelTypes);
@@ -157,6 +162,8 @@ public abstract class AbstractProjectCreationWizard extends Wizard implements IN
 					
 					// call project customization method (implemented in derived classes)
 					customizeProject(project, modelFolder, subMonitor.split(50));
+					
+					callProjectCustomizationExtensionPoints(project, subMonitor.split(50));
 				}
 				subMonitor.done();
 			}
@@ -193,5 +200,33 @@ public abstract class AbstractProjectCreationWizard extends Wizard implements IN
 		projectHandle.open(IResource.BACKGROUND_REFRESH, subMonitor.split(10));
 		
 		return projectHandle;
+	}
+	
+	private void callProjectCustomizationExtensionPoints(final IProject project, IProgressMonitor monitor) {
+		IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor("org.eclipse.smartmdsd.ui.SmartMDSDProjectCreationEP");
+		try {
+			// for each extension
+			for(IConfigurationElement ext: config) {
+				// get the "class" object from the extension (which should implement the AbstractGenerator interface)
+				Object obj = ext.createExecutableExtension("class");
+				if(obj instanceof ISmartMDSDProjectCustomizer) {
+					ISmartMDSDProjectCustomizer project_customizer = (ISmartMDSDProjectCustomizer)obj;
+					ISafeRunnable runnable = new ISafeRunnable() {
+						@Override
+						public void handleException(Throwable exception) {
+							exception.printStackTrace();
+						}
+						@Override
+						public void run() throws Exception {
+							project_customizer.customizeProject(project, monitor);
+						}
+					};
+					// execute generator
+					SafeRunner.run(runnable);
+				}
+			}
+		} catch (CoreException ex) {
+			System.out.println(ex.getMessage());
+		}
 	}
 }

@@ -31,9 +31,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
-import org.eclipse.smartmdsd.ui.natures.ComponentNature;
-import org.eclipse.smartmdsd.ui.natures.DomainModelsNature;
-import org.eclipse.smartmdsd.ui.natures.SystemNature;
+import org.eclipse.smartmdsd.ui.models.SmartMDSDModelingLanguage;
+import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
 
 public class AutoCodeGenerationSwitchHandler extends AbstractHandler 
 {
@@ -51,14 +50,10 @@ public class AutoCodeGenerationSwitchHandler extends AbstractHandler
 			System.out.println("Automated code-generation deactivated!");
 		}
 		
-		for(DomainModelsNature.DSL language: DomainModelsNature.DSL.values()) {
-			setAutobuildValue(language.getLanguageID(), newState);
-		}
-		for(ComponentNature.DSL language: ComponentNature.DSL.values()) {
-			setAutobuildValue(language.getLanguageID(), newState);
-		}
-		for(SystemNature.DSL language: SystemNature.DSL.values()) {
-			setAutobuildValue(language.getLanguageID(), newState);
+		for(SmartMDSDNatureEnum nature: SmartMDSDNatureEnum.values()) {
+			for(SmartMDSDModelingLanguage language: nature.createSmartMDSDNatureObject().getAllSupportedLanguages()) {
+				setAutobuildValue(language.getXtextEditorID(), newState);
+			}
 		}
 		
 		if(newState == true) {
@@ -66,6 +61,7 @@ public class AutoCodeGenerationSwitchHandler extends AbstractHandler
 				fullBuildWorkspace();
 			}
 		}
+		
 		return null;
 	}
 	

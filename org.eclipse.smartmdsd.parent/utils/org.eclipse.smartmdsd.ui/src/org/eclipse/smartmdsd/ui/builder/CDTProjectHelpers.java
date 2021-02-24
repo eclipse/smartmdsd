@@ -62,7 +62,7 @@ public class CDTProjectHelpers {
 		return cfgs;
 	}
 	
-    public static boolean isSmartMDSDBuilderActive(IProject project) {
+    public static boolean isSmartMDSDBuilderActiveFor(IProject project) {
     	boolean hasSmartMDSDBuilder = false;
 		IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
 		IConfiguration configs[] = buildInfo.getManagedProject().getConfigurations();
@@ -75,6 +75,18 @@ public class CDTProjectHelpers {
     	return hasSmartMDSDBuilder;
     }
 	
+    public static IBuilder getSmartMDSDBuilderOf(IProject project) {
+		IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
+		IConfiguration configs[] = buildInfo.getManagedProject().getConfigurations();
+		for(IConfiguration config: configs) {
+			// we check for the name instead of ID as the ID was not set correctly for older projects
+			if(config.getBuilder().getName().startsWith("SmartMDSD")) {
+				return config.getBuilder();
+			}
+		}
+		return null;
+    }
+    
 	public static IBuilder getSmartMDSDBuilder() {
 	    for(IBuilder builder: ManagedBuildManager.getRealBuilders()) {
 	    	if(builder.getId().equals(SmartMDSDManagedBuildConfigurator.BUILDER_ID)) {
@@ -210,11 +222,11 @@ public class CDTProjectHelpers {
 					includePathSettings.add(new CIncludePathEntry(smartInclude, ICSettingEntry.LOCAL));
 					
 					if(useKernelIncludes == true) {
-						String apiInclude = "${SMART_ROOT_ACE}/include/SmartSoft_CD_API";
+						String apiInclude = "/usr/include/SmartSoft_CD_API";
 						includePathSettings.add(new CIncludePathEntry(apiInclude, ICSettingEntry.LOCAL));
-						String kernelInclude = "${SMART_ROOT_ACE}/include/AceSmartSoftKernel";
+						String kernelInclude = "/usr/include/AceSmartSoftKernel";
 						includePathSettings.add(new CIncludePathEntry(kernelInclude, ICSettingEntry.LOCAL));
-						String kernelMWInclude = "${SMART_ROOT_ACE}/include/AceSmartSoftKernel/middlewareMapping";
+						String kernelMWInclude = "/usr/include/AceSmartSoftKernel/middlewareMapping";
 						includePathSettings.add(new CIncludePathEntry(kernelMWInclude, ICSettingEntry.LOCAL));
 					}
 					

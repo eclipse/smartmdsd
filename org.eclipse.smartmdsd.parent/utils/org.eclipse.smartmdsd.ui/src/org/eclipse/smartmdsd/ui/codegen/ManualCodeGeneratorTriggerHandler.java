@@ -13,6 +13,8 @@
  ********************************************************************************/
 package org.eclipse.smartmdsd.ui.codegen;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -26,10 +28,12 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.model.BaseWorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.ui.progress.IProgressService;
 
 /**
  * This class implements a generic code generator for SmartMDSD project types (specified by the related SmartMDSD project nature, 
@@ -78,8 +82,18 @@ public class ManualCodeGeneratorTriggerHandler extends AbstractHandler {
 			currentResource = getProjectFromDialog(window);
 		}
 		if(currentResource != null) {
-			ManualCodeGeneratorWorkspaceJob codeGeneratorJob = new ManualCodeGeneratorWorkspaceJob(currentResource, window);
-			codeGeneratorJob.schedule();
+			ManualCodeGeneratorWorspaceOperation code_generator_operation = new ManualCodeGeneratorWorspaceOperation(currentResource);
+			// Use the progess service to execute the runnable
+			IProgressService service = PlatformUI.getWorkbench().getProgressService();
+			try {
+				boolean doFork = true;
+				boolean cancelable = true;
+				service.run(doFork, cancelable, code_generator_operation);
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		return Status.OK_STATUS;
 	}

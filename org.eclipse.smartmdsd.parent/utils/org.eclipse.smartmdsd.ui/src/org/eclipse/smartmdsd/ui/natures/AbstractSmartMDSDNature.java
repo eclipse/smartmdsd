@@ -13,13 +13,21 @@
  ********************************************************************************/
 package org.eclipse.smartmdsd.ui.natures;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.smartmdsd.ui.builder.CDTProjectHelpers;
+import org.eclipse.smartmdsd.ui.models.SmartMDSDModelingLanguage;
+import org.eclipse.smartmdsd.ui.models.SmartMDSDModelingLanguageRegistry;
+import org.eclipse.ui.IEditorDescriptor;
+import org.eclipse.ui.IEditorRegistry;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * This is a base class for all project-natures implemented in the SmartMDSD Toolchain.
@@ -32,8 +40,12 @@ import org.eclipse.smartmdsd.ui.builder.CDTProjectHelpers;
  *
  */
 public abstract class AbstractSmartMDSDNature implements IProjectNature {
+	// implement these abstract methods in derived classes
+	public abstract String getNatureID();
+	public abstract List<String> getImportedProjectNatureIds();
+
 	protected IProject project;
-	
+
 	@Override
 	public void configure() throws CoreException {
 		if(project != null) {
@@ -58,9 +70,36 @@ public abstract class AbstractSmartMDSDNature implements IProjectNature {
 		this.project = project;
 	}
 	
-	// implement these methods in derived classes
-	public abstract LanguageInterface getLanguageInterfaceOf(String languageName);
-	public abstract LanguageInterface getLanguageInterfaceFrom(IResource modelResource);
-	public abstract LanguageInterface[] getAllSupportedLanguages();
-	public abstract List<String> getImportedProjectNatureIds();
+	
+	protected static Map<String, SmartMDSDModelingLanguageRegistry> languages_registry = new HashMap<String, SmartMDSDModelingLanguageRegistry>();
+	public static void initializeRegistry() {
+		for(SmartMDSDNatureEnum nature: SmartMDSDNatureEnum.values()) {
+			languages_registry.put(nature.getId(), new SmartMDSDModelingLanguageRegistry(nature));
+		}
+	}
+	
+	public SmartMDSDModelingLanguage getLanguage(String languageName) {
+		return languages_registry.get(getNatureID()).getLanguage(languageName);
+	}
+	
+	public SmartMDSDModelingLanguage getLanguageFrom(IResource modelResource) {
+		try {
+			IProject project = modelResource.getProject();
+			if(project.hasNature(getNatureID())) {
+				IEditorRegistry editorRegistry = PlatformUI.getWorkbench().getEditorRegistry();
+				IEditorDescriptor editor = editorRegistry.getDefaultEditor(modelResource.getName());
+				if(editor != null) {
+					// this can be null if resource-type is unknown
+					return languages_registry.get(getNatureID()).getLanguageFrom(editor.getId());
+				}
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Collection<SmartMDSDModelingLanguage> getAllSupportedLanguages() {
+		return languages_registry.get(getNatureID()).getAllLanguages();
+	}
 }
