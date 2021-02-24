@@ -15,6 +15,7 @@ package org.eclipse.smartmdsd.sirius.utils;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -32,6 +33,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -67,7 +69,14 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.TwoPaneElementSelector;
 import org.eclipse.ui.handlers.IHandlerService;
+import org.eclipse.xtext.resource.IContainer;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osgi.framework.Bundle;
+
+import com.google.inject.Injector;
 
 public class DiagramHelperServices {
 	public static String getProjectName(EObject obj) {
@@ -79,6 +88,31 @@ public class DiagramHelperServices {
 		System.out.println("Object.eClass(): "+object.eClass());
 		return object;
 	}
+	
+	public static Collection<EObject> geXtextIndexEObjetcsByType(Injector injector, EObject context, EClass type) {
+    	Collection<EObject> objects = new ArrayList<EObject>();
+    	// get resource description from current "context"
+    	ResourceDescriptionsProvider rdp = injector.getInstance(ResourceDescriptionsProvider.class);
+    	IResourceDescriptions descriptions = rdp.getResourceDescriptions(context.eResource());
+    	IResourceDescription description = descriptions.getResourceDescription(context.eResource().getURI());
+    	// get all visible containers
+    	IContainer.Manager manager = injector.getInstance(IContainer.Manager.class);
+    	List<IContainer> containters = manager.getVisibleContainers(description, descriptions);
+    	for(IContainer container: containters) {
+    		// get object descriptions filtered by EClass type
+    		Iterable<IEObjectDescription> objectDescriptions = container.getExportedObjectsByType(type);
+    		for(IEObjectDescription objectDescription: objectDescriptions) {
+    			EObject serviceRepoProxy = objectDescription.getEObjectOrProxy();
+    			if(serviceRepoProxy.eIsProxy()) {
+    				EObject serviceRepo = context.eResource().getResourceSet().getEObject(objectDescription.getEObjectURI(), true);
+    				objects.add(serviceRepo);
+    			} else {
+    				objects.add(serviceRepoProxy);
+    			}
+    		}
+    	}
+    	return objects;
+    }
 	
 	public static EObject openRepresentation(EObject obj, String representationName) {
 		for(Session session: SessionManager.INSTANCE.getSessions()) {
