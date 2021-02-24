@@ -13,5 +13,11 @@
             class="org.eclipse.smartmdsd.ecore.service.serviceDefinition.ServiceDefinitionPackage"
             genModel="model/serviceDefinition.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.smartmdsd.ui.SmartMDSDModelFactoryEP">
+      <ModelFactory
+            class="org.eclipse.smartmdsd.ecore.service.serviceDefinition.SmartMDSDServiceDefinitionFactory">
+      </ModelFactory>
+   </extension>
 
 </plugin>

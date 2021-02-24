@@ -13,5 +13,11 @@
             class="org.eclipse.smartmdsd.ecore.behavior.taskRealization.TaskRealizationPackage"
             genModel="model/taskRealization.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.smartmdsd.ui.SmartMDSDModelFactoryEP">
+      <ModelFactory
+            class="org.eclipse.smartmdsd.ecore.behavior.taskRealization.SmartMDSDTaskRealizationFactory">
+      </ModelFactory>
+   </extension>
 
 </plugin>

@@ -13,5 +13,11 @@
             class="org.eclipse.smartmdsd.ecore.service.skillDefinition.SkillDefinitionPackage"
             genModel="model/skillDefinition.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.smartmdsd.ui.SmartMDSDModelFactoryEP">
+      <ModelFactory
+            class="org.eclipse.smartmdsd.ecore.service.skillDefinition.SmartMDSDSkillDefinitionFactory">
+      </ModelFactory>
+   </extension>
 
 </plugin>

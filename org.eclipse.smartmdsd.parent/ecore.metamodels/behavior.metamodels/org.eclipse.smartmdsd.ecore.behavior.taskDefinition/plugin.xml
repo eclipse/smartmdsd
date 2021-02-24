@@ -13,5 +13,11 @@
             class="org.eclipse.smartmdsd.ecore.behavior.taskDefinition.TaskDefinitionPackage"
             genModel="model/taskDefinition.genmodel"/>
    </extension>
+   <extension
+         point="org.eclipse.smartmdsd.ui.SmartMDSDModelFactoryEP">
+      <ModelFactory
+            class="org.eclipse.smartmdsd.ecore.behavior.taskDefinition.SmartMDSDTaskDefinitionFactory">
+      </ModelFactory>
+   </extension>
 
 </plugin>
