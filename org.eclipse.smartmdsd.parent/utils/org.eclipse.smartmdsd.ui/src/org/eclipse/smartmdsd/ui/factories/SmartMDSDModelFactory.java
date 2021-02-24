@@ -114,29 +114,28 @@ public class SmartMDSDModelFactory extends XtextResourceFactory {
 		SmartMDSDModelingLanguage language = project_nature.getLanguage(languageName);
 		ISmartMDSDModelFactory factory = registry.get(language.getEPackage().getNsURI());
 		
-		// collect parent resources recursively (if there are any at all)
-		List<Resource> parentResources = new ArrayList<Resource>();
-		Collection<EPackage> parentPackages = factory.getParentEPackages();
-		if(parentPackages != null) {
-			for(EPackage parentPackage: parentPackages) {
-				if(processedLangauges.contains(parentPackage.getName())) {
-					// the language of the parent package has already been processed in the current recursion stack
-					// we must not process it again, as this would lead to an infinite recursion cycle and by that
-					// to a stack overflow. A dependency cycle typically results from a poor design of model
-					// references. For example if Model A references Model B, and Model B back-references Model A.
-					// The cycle can be also more hidden, spanning over multiple references in several models until
-					// the cycle loop is closed, so it is good to check for them in any case.
-					System.err.println("A dependency cycle detected, skip dependnecy loading to prefent a stack overflow.");
-				} else {
-					// recursively call resource creation for all parent packages and collect the results
-					parentResources.add(loadOrCreateResource(parentPackage.getName(), processedLangauges));
-				}
-			}
-		}
-		
 		// try loading the resource
 		Resource resource = loadEMFResource(language.getInjector());
 		if(resource == null || !resource.isLoaded()) {
+			// collect parent resources recursively (if there are any at all)
+			List<Resource> parentResources = new ArrayList<Resource>();
+			Collection<EPackage> parentPackages = factory.getParentEPackages();
+			if(parentPackages != null) {
+				for(EPackage parentPackage: parentPackages) {
+					if(processedLangauges.contains(parentPackage.getName())) {
+						// the language of the parent package has already been processed in the current recursion stack
+						// we must not process it again, as this would lead to an infinite recursion cycle and by that
+						// to a stack overflow. A dependency cycle typically results from a poor design of model
+						// references. For example if Model A references Model B, and Model B back-references Model A.
+						// The cycle can be also more hidden, spanning over multiple references in several models until
+						// the cycle loop is closed, so it is good to check for them in any case.
+						System.err.println("A dependency cycle detected, skip dependnecy loading to prefent a stack overflow.");
+					} else {
+						// recursively call resource creation for all parent packages and collect the results
+						parentResources.add(loadOrCreateResource(parentPackage.getName(), processedLangauges));
+					}
+				}
+			}
 			// create a new resource
 			resource = createNewXtextResource(language.getInjector(), parentResources);
 			// collect parent model objects
