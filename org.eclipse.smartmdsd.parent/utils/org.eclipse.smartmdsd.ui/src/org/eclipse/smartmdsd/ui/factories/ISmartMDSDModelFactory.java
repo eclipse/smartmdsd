@@ -76,7 +76,7 @@ public interface ISmartMDSDModelFactory {
 	 * implementation looks like this:
 	 * 
 	 * MyRootObject object = MyModelFactory.eINSTANCE.createMyRootObject();
-	 * object.setName("SomeDefaultName");
+	 * object.setName(projectName);
 	 * ...
 	 * return object;
 	 * 
@@ -92,8 +92,9 @@ public interface ISmartMDSDModelFactory {
 	 * 
 	 * @see getParentEPackages()
 	 * 
+	 * @param projectName the project-name can be used for naming the root element
 	 * @param parentModels the related models required for the creation of the default model
 	 * @return the default model's root object
 	 */
-	EObject createDefaultModel(Collection<EObject> parentModels);
+	EObject createDefaultModel(String projectName, Collection<EObject> parentModels);
 }

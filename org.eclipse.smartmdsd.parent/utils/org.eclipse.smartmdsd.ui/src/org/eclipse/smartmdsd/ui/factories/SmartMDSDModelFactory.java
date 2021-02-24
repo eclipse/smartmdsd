@@ -145,7 +145,7 @@ public class SmartMDSDModelFactory extends XtextResourceFactory {
 				parentModels.add(parent.getContents().get(0));
 			}
 			// create the default model using the factory
-			EObject model = factory.createDefaultModel(parentModels);
+			EObject model = factory.createDefaultModel(getProject().getName(), parentModels);
 			// save the model resource
 			saveEMFModelInResource(model, resource);
 		}
