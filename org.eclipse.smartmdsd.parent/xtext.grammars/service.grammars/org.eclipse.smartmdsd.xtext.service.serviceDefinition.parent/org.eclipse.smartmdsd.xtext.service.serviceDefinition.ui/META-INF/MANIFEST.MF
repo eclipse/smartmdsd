@@ -3,7 +3,7 @@ Automatic-Module-Name: org.eclipse.smartmdsd.xtext.service.serviceDefinition.ui
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipse.smartmdsd.xtext.service.serviceDefinition.ui
 Bundle-Vendor: Servicerobotics Ulm
-Bundle-Version: 3.4.0.qualifier
+Bundle-Version: 3.5.0.qualifier
 Bundle-SymbolicName: org.eclipse.smartmdsd.xtext.service.serviceDefinition.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.smartmdsd.xtext.service.serviceDefinition,
@@ -21,7 +21,8 @@ Require-Bundle: org.eclipse.smartmdsd.xtext.service.serviceDefinition,
  org.eclipse.compare,
  org.eclipse.xtext.builder,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
- org.eclipse.xtend.lib;bundle-version="2.14.0";resolution:=optional
+ org.eclipse.xtend.lib;bundle-version="2.14.0";resolution:=optional,
+ org.eclipse.smartmdsd.ui;bundle-version="2.0.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.smartmdsd.xtext.service.serviceDefinition.ui.quickfix,

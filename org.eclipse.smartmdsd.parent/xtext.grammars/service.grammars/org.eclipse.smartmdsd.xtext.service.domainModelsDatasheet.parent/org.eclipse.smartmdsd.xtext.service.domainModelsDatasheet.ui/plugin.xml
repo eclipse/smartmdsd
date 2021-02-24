@@ -431,4 +431,10 @@
 			type="text">
 		</fileTypes>
 	</extension>
+ <extension
+       point="org.eclipse.smartmdsd.ui.SmartMDSDModelContributionEP">
+    <XtextContribution
+          class="org.eclipse.smartmdsd.xtext.service.domainModelsDatasheet.ui.SmartMDSDDomainModelsDSContribution">
+    </XtextContribution>
+ </extension>
 </plugin>
