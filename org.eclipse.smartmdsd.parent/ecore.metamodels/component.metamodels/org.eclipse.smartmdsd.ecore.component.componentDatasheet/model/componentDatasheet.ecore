@@ -6,7 +6,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.smartmdsd.ecore.component.componentDefinition/model/componentDefinition.ecore#//ComponentDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        changeable="false" volatile="true" transient="true" derived="true"/>
+        changeable="false" volatile="true" transient="true" unsettable="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ComponentDatasheetDefaultProperties">
     <eLiterals name="HardwareRequirement" value="1"/>
@@ -17,6 +17,6 @@
         eType="ecore:EClass ../../org.eclipse.smartmdsd.ecore.base.genericDatasheet/model/genericDatasheet.ecore#//DatasheetProperty"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        changeable="false" volatile="true" transient="true" derived="true"/>
+        changeable="false" volatile="true" transient="true" unsettable="true" derived="true"/>
   </eClassifiers>
 </ecore:EPackage>

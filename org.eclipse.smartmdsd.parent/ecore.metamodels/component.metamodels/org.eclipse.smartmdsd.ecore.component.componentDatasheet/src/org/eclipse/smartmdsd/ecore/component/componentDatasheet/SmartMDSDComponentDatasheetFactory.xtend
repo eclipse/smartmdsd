@@ -20,6 +20,7 @@ import java.util.Collections
 import org.eclipse.smartmdsd.ecore.component.componentDefinition.ComponentDefinitionPackage
 import org.eclipse.smartmdsd.ecore.component.componentDefinition.ComponentDefinition
 import org.eclipse.smartmdsd.ecore.base.genericDatasheet.GenericDatasheetUtils
+import org.eclipse.smartmdsd.ecore.component.componentDefinition.ComponentDefModel
 
 class SmartMDSDComponentDatasheetFactory implements ISmartMDSDModelFactory {
 	override getEPackage() {
@@ -33,8 +34,8 @@ class SmartMDSDComponentDatasheetFactory implements ISmartMDSDModelFactory {
 	override createDefaultModel(String projectName, Collection<EObject> parentModels) {
 		var ComponentDefinition component = null;
 		for(parent: parentModels) {
-			if(parent instanceof ComponentDefinition) {
-				component = parent
+			if(parent instanceof ComponentDefModel) {
+				component = parent.component
 			}
 		}
 		

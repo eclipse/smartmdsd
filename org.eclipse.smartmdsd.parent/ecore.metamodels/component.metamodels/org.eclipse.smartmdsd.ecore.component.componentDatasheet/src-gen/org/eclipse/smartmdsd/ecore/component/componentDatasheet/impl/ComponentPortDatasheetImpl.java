@@ -174,6 +174,16 @@ public class ComponentPortDatasheetImpl extends AbstractDatasheetElementImpl imp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public boolean isSetName() {
+		return (port != null);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -256,7 +266,7 @@ public class ComponentPortDatasheetImpl extends AbstractDatasheetElementImpl imp
 		case ComponentDatasheetPackage.COMPONENT_PORT_DATASHEET__PROPERTIES:
 			return properties != null && !properties.isEmpty();
 		case ComponentDatasheetPackage.COMPONENT_PORT_DATASHEET__NAME:
-			return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
+			return isSetName();
 		}
 		return super.eIsSet(featureID);
 	}

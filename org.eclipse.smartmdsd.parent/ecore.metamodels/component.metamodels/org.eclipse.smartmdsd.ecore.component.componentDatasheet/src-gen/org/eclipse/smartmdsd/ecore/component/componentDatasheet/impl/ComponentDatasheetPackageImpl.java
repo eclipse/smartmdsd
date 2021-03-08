@@ -323,7 +323,7 @@ public class ComponentDatasheetPackageImpl extends EPackageImpl implements Compo
 				"component", null, 1, 1, ComponentDatasheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponentDatasheet_Name(), ecorePackage.getEString(), "name", null, 1, 1,
-				ComponentDatasheet.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				ComponentDatasheet.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				IS_DERIVED, IS_ORDERED);
 
 		initEClass(componentPortDatasheetEClass, ComponentPortDatasheet.class, "ComponentPortDatasheet", !IS_ABSTRACT,
@@ -335,7 +335,7 @@ public class ComponentDatasheetPackageImpl extends EPackageImpl implements Compo
 				"properties", null, 0, -1, ComponentPortDatasheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponentPortDatasheet_Name(), ecorePackage.getEString(), "name", null, 1, 1,
-				ComponentPortDatasheet.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				ComponentPortDatasheet.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals

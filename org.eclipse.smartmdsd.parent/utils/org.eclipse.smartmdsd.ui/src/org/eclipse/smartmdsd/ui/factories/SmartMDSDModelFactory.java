@@ -90,13 +90,15 @@ public class SmartMDSDModelFactory extends XtextResourceFactory {
 		IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
 		for(String languageName: selectedModelTypes) {
 			SmartMDSDModelingLanguage dsl = project_nature.getLanguage(languageName);
-			// open model file in related editor
-			String fileName = getProject().getName() + "." + dsl.getModelFileExtension();
-			IFile modelFile = getModelFolder().getFile(fileName);
-			try {
-				IDE.openEditor(page, modelFile);
-			} catch (PartInitException e) {
-				e.printStackTrace();
+			if(dsl.getSiriusViewpointName().isEmpty()) {
+				// open model file in related editor
+				String fileName = getProject().getName() + "." + dsl.getModelFileExtension();
+				IFile modelFile = getModelFolder().getFile(fileName);
+				try {
+					IDE.openEditor(page, modelFile);
+				} catch (PartInitException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

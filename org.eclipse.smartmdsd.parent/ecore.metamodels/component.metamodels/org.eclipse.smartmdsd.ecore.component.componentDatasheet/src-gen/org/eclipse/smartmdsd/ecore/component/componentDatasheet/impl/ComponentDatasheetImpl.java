@@ -139,6 +139,16 @@ public class ComponentDatasheetImpl extends GenericDatasheetModelImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public boolean isSetName() {
+		return (component != null);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -195,7 +205,7 @@ public class ComponentDatasheetImpl extends GenericDatasheetModelImpl implements
 		case ComponentDatasheetPackage.COMPONENT_DATASHEET__COMPONENT:
 			return component != null;
 		case ComponentDatasheetPackage.COMPONENT_DATASHEET__NAME:
-			return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
+			return isSetName();
 		}
 		return super.eIsSet(featureID);
 	}
