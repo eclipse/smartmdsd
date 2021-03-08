@@ -2,6 +2,10 @@
 
 This file contains the release notes for the SmartMDSD Toolchain version 3.x. For each release, it provides important information to users to support them in switching from one specific version the previous version. This includes information and instructions how to migrate content from one version to another.
 
+## v3.16
+
+This release does not require any user intervention. All changes are purely internal and neither is it required to modify projects created with a previos release, nor are there any changes in the user interface.
+
 ## v3.15
 
 This release is mostly concerned around a few bug-fixes and some internal restructuring (including splitting the main feature into two features). At the user-interface these changes are not visible though.

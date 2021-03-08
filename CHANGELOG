@@ -1,3 +1,8 @@
+SmartMDSD Toolchain v3.16
+	* Refined implementation of the SmartMDSD UI plugin (new version 2.0) which allows a much more flexible DSL plugin integration
+	* A few minor bug-fixes
+-- Mo, 08 Mar. 2021
+
 SmartMDSD Toolchain v3.15
 	* The main feature org.eclipse.smartmdsd has been split into two features org.eclipse.smartmdsd.base and org.eclipse.smartmdsd.toolchain to support more fine grained attachement points for external projects
 	* Create a composite update site that allows installing the two features either together or separately
