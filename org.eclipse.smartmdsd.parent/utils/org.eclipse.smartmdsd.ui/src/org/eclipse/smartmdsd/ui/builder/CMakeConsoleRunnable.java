@@ -60,7 +60,7 @@ public class CMakeConsoleRunnable implements IWorkspaceRunnable {
 		this.buildConfigurationName = buildConfigurationName;
 		this.console = CUIPlugin.getDefault().getConsoleManager(CONSOLE_NAME, CONSOLE_ID).getConsole(project);
 		this.console.start(project);
-		this.cmakeStatus = new MultiStatus(CONSOLE_ID, IStatus.INFO, "");
+		this.cmakeStatus = new MultiStatus(CONSOLE_ID, IStatus.INFO, "", null);
 	}
 	
 	public void printInfoLine(String text) throws CoreException {
@@ -120,12 +120,12 @@ public class CMakeConsoleRunnable implements IWorkspaceRunnable {
 			cmakeStatus = new MultiStatus(
 					CONSOLE_ID,
 					IStatus.ERROR,
-					"CMake of ["+project.getName()+"] canceled with Errors!");
+					"CMake of ["+project.getName()+"] canceled with Errors!", null);
 		} else {
 			cmakeStatus = new MultiStatus(
 					CONSOLE_ID,
 					IStatus.OK,
-					"CMake of ["+project.getName()+"] successfully finished!");
+					"CMake of ["+project.getName()+"] successfully finished!", null);
 			printInfoLine("CMake of ["+project.getName()+"] successfully finished!\n");
 			// unpin the CMake console tab, so other consoles can be displayed
 			setCMakeConsolePinned(false);
