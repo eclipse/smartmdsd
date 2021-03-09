@@ -65,8 +65,10 @@ fi
 echo "extracting eclipse modeling tools archive..."
 tar -xzf eclipse-modeling-${PLATFORM}-R-linux-gtk-x86_64.tar.gz
 
+echo "cleaning up previous build..."
+rm -rf eclipse-smartmdsd-*
+
 echo "creating the output directory: ${OUTPUT_DIRECTORY}"
-rm -rf ${OUTPUT_DIRECTORY}
 mv eclipse ${OUTPUT_DIRECTORY}
 
 cd ${OUTPUT_DIRECTORY}
