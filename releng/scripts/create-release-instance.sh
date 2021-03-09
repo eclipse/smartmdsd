@@ -32,8 +32,23 @@ RELEASE_VERSION=${FEATURE_JAR:${#JAR_PREFIX}:4}
 # this is the output directory name
 OUTPUT_DIRECTORY="eclipse-smartmdsd-v${RELEASE_VERSION}-${PLATFORM}"
 
+# the type of the build for publishing
+BUILD_TYPE="releases"
+
+# this is the base download URI for all the SmartMDSD donwload files
+SMARTMDSD_BASE_URI="download.eclipse.org/smartmdsd/updates"
+
+# this is the constructed URI for the specific release
+SMARTMDSD_RELEASE_URI="${SMARTMDSD_BASE_URI}/${BUILD_TYPE}/v${RELEASE_VERSION}/${PLATFORM}"
+
+# the output directory
+SMARTMDSD_UPLOAD_PATH="/home/data/httpd/${SMARTMDSD_RELEASE_URI}"
+
 # this is the SmartMDSD P2 repository URL where the SmartMDSD plugins are searched for installation
-SMARTMDSD_REPO_URL="https://download.eclipse.org/smartmdsd/updates/releases/v${RELEASE_VERSION}/${PLATFORM}/"
+SMARTMDSD_REPO_URL="https://${SMARTMDSD_RELEASE_URI}"
+
+# the smartmdsd SSH account
+SMARTMDSD_SSH_ACCOUNT="genie.smartmdsd@projects-storage.eclipse.org"
 
 # this is the main SmartMDSD feature that will be installed
 SMARTMDSD_FEATURE="org.eclipse.smartmdsd.toolchain.feature.group"
@@ -84,4 +99,13 @@ cd ..
 echo "creating a tar.gz archive for the installed Eclipse instance..."
 tar -czf ${OUTPUT_DIRECTORY}.tar.gz ${OUTPUT_DIRECTORY}
 
-echo "ALL FINISHED! SmartMDSD Toolchain is installed into the folder $OUTPUT_DIRECTORY"
+if [[ -z "$JENKINS_HOME" ]]
+then
+  echo "non-jenkins build, skip uploading archive"
+else
+  echo "uploading the ${OUTPUT_DIRECTORY}.tar.gz archive to ${SMARTMDSD_REPO_URL}..."
+  ssh ${SMARTMDSD_SSH_ACCOUNT} mkdir -p ${SMARTMDSD_UPLOAD_PATH}
+  scp ${OUTPUT_DIRECTORY}.tar.gz ${SMARTMDSD_SSH_ACCOUNT}:${SMARTMDSD_UPLOAD_PATH}
+fi
+
+echo "ALL FINISHED! SmartMDSD archive has been uploaded to ${SMARTMDSD_REPO_URL}"
