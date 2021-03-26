@@ -128,13 +128,15 @@ public class ModelingProjectFactory {
 	public static EList<DRepresentationDescriptor> getRepresentationsFor(IResource modelFile, Session session) throws CoreException {
 		IProject project = modelFile.getProject();
 		AbstractSmartMDSDNature nature = SmartMDSDNatureHelpers.getFirstSmartMDSDNatureFrom(project);
-		SmartMDSDModelingLanguage dsl = nature.getLanguageFrom(modelFile);
-		if(dsl != null) {
-			String viewpointName = dsl.getSiriusViewpointName();
-			if(viewpointName != null) {
-				for(DView view : session.getOwnedViews()) {
-					if(view.getViewpoint().getName().equals(viewpointName)) {
-						return view.getOwnedRepresentationDescriptors();
+		if(nature != null) {
+			SmartMDSDModelingLanguage dsl = nature.getLanguageFrom(modelFile);
+			if(dsl != null) {
+				String viewpointName = dsl.getSiriusViewpointName();
+				if(viewpointName != null) {
+					for(DView view : session.getOwnedViews()) {
+						if(view.getViewpoint().getName().equals(viewpointName)) {
+							return view.getOwnedRepresentationDescriptors();
+						}
 					}
 				}
 			}
