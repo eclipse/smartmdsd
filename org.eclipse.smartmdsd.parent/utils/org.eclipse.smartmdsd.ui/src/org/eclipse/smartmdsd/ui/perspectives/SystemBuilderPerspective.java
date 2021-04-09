@@ -22,18 +22,22 @@ public class SystemBuilderPerspective extends AbstractSmartMDSDPerspective {
 	public static final String PERSPECTIVE_ID = "org.eclipse.smartmdsd.ui.perspectives.systemBuilder";
 	
 	@Override
-	protected void defineCustomActions(IPageLayout layout) {
+	public void addCustomActions(IPageLayout layout) {
 		layout.addNewWizardShortcut(WizardNewSystemProject.WIZARD_ID);
 	}
 
 	@Override
-	protected void defineCustomLayout(IPageLayout layout) {
+	public void adjustBaseLayout(IPageLayout layout) {
 		
 	}
 
 	@Override
-	protected void addBottomViews(IFolderLayout bottom) {
+	public void addBottomViews(IFolderLayout bottom) {
 		bottom.addView("org.eclipse.smartmdsd.sirius.system.componentArchitecture.design.SystemParamView");
 	}
 
+	@Override
+	public SmartMDSDPerspectiveEnum getSmartMDSDPerspective() {
+		return SmartMDSDPerspectiveEnum.getFromID(PERSPECTIVE_ID);
+	}
 }

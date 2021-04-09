@@ -22,19 +22,22 @@ public class BehaviorDeveloperPerspective extends AbstractSmartMDSDPerspective {
 	public static final String PERSPECTIVE_ID = "org.eclipse.smartmdsd.ui.perspectives.behaviorDeveloper";
 	
 	@Override
-	protected void defineCustomActions(IPageLayout layout) {
+	public void addCustomActions(IPageLayout layout) {
 		layout.addNewWizardShortcut(WizardNewBehaviorProject.WIZARD_ID);
+	}
+
+	@Override
+	public void adjustBaseLayout(IPageLayout layout) {
 		
 	}
 
 	@Override
-	protected void defineCustomLayout(IPageLayout layout) {
+	public void addBottomViews(IFolderLayout bottom) {
 		
 	}
 
 	@Override
-	protected void addBottomViews(IFolderLayout bottom) {
-		
+	public SmartMDSDPerspectiveEnum getSmartMDSDPerspective() {
+		return SmartMDSDPerspectiveEnum.getFromID(PERSPECTIVE_ID);
 	}
-
 }

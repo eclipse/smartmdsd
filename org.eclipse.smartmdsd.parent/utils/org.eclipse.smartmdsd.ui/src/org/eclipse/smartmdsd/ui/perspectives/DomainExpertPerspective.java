@@ -22,18 +22,22 @@ public class DomainExpertPerspective extends AbstractSmartMDSDPerspective {
 	public static final String PERSPECTIVE_ID = "org.eclipse.smartmdsd.ui.perspectives.domainExpert";
 	
 	@Override
-	protected void defineCustomActions(IPageLayout layout) {
+	public void addCustomActions(IPageLayout layout) {
 		layout.addNewWizardShortcut(WizardNewDomainModelsProject.WIZARD_ID);
 	}
 
 	@Override
-	protected void defineCustomLayout(IPageLayout layout) {
+	public void adjustBaseLayout(IPageLayout layout) {
 		
 	}
 
 	@Override
-	protected void addBottomViews(IFolderLayout bottom) {
+	public void addBottomViews(IFolderLayout bottom) {
 		
 	}
 
+	@Override
+	public SmartMDSDPerspectiveEnum getSmartMDSDPerspective() {
+		return SmartMDSDPerspectiveEnum.getFromID(PERSPECTIVE_ID);
+	}
 }
