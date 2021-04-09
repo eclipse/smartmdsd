@@ -22,8 +22,12 @@ import org.eclipse.smartmdsd.ui.builder.CDTProjectHelpers;
 import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
 
 public class WizardNewComponentProject extends AbstractProjectCreationWizard {
-
+	
 	public static final String WIZARD_ID = "org.eclipse.smartmdsd.ui.wizards.component";
+
+	public WizardNewComponentProject() {
+		super("New Component Project (Tier 3)");
+	}
 	
 	@Override
 	protected WizardNewProjectCreationPage createFirstPage() {

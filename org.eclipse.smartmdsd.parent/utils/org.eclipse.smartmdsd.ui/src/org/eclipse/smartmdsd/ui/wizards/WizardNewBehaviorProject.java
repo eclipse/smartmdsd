@@ -26,6 +26,10 @@ import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
 public class WizardNewBehaviorProject extends AbstractProjectCreationWizard {
 
 	public static final String WIZARD_ID = "org.eclipse.smartmdsd.ui.wizards.behavior";
+
+	public WizardNewBehaviorProject() {
+		super("New Behavior Project (Tier 3)");
+	}
 	
 	@Override
 	protected WizardNewProjectCreationPage createFirstPage() {
