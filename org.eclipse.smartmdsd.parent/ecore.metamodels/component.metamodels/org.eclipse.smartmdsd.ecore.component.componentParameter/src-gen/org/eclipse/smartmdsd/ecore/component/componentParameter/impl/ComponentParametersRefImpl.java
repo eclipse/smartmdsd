@@ -89,10 +89,20 @@ public class ComponentParametersRefImpl extends DerivedComponentElementImpl impl
 	 */
 	@Override
 	public String getName() {
-		if (slave != null) {
-			return getSlave().getName();
+		if (parameter != null) {
+			return getParameter().getName();
 		}
 		return "";
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public boolean isSetName() {
+		return (parameter != null);
 	}
 
 	/**

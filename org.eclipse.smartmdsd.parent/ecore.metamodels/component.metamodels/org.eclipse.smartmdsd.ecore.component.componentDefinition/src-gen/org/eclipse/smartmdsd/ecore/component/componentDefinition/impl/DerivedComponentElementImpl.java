@@ -80,6 +80,18 @@ public abstract class DerivedComponentElementImpl extends AbstractComponentEleme
 	 * @generated
 	 */
 	@Override
+	public boolean isSetName() {
+		// TODO: implement this method to return whether the 'Name' attribute is set
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case ComponentDefinitionPackage.DERIVED_COMPONENT_ELEMENT__NAME:
@@ -97,7 +109,7 @@ public abstract class DerivedComponentElementImpl extends AbstractComponentEleme
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case ComponentDefinitionPackage.DERIVED_COMPONENT_ELEMENT__NAME:
-			return NAME_EDEFAULT == null ? getName() != null : !NAME_EDEFAULT.equals(getName());
+			return isSetName();
 		}
 		return super.eIsSet(featureID);
 	}

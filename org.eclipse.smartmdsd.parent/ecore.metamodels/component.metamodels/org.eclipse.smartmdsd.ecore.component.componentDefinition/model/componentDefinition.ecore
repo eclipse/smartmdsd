@@ -88,6 +88,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="DerivedComponentElement" abstract="true"
       eSuperTypes="#//AbstractComponentElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        changeable="false" volatile="true" transient="true" derived="true"/>
+        changeable="false" volatile="true" transient="true" unsettable="true" derived="true"/>
   </eClassifiers>
 </ecore:EPackage>

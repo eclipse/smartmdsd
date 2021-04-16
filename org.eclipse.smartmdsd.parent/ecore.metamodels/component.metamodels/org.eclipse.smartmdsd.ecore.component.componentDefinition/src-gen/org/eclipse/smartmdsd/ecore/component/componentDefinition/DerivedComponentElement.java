@@ -35,10 +35,21 @@ public interface DerivedComponentElement extends AbstractComponentElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #isSetName()
 	 * @see org.eclipse.smartmdsd.ecore.component.componentDefinition.ComponentDefinitionPackage#getDerivedComponentElement_Name()
-	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model unsettable="true" required="true" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	String getName();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.smartmdsd.ecore.component.componentDefinition.DerivedComponentElement#getName <em>Name</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Name</em>' attribute is set.
+	 * @see #getName()
+	 * @generated
+	 */
+	boolean isSetName();
 
 } // DerivedComponentElement
