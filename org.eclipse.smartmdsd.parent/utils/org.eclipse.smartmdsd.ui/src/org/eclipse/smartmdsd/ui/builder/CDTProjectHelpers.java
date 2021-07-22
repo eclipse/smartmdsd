@@ -145,12 +145,21 @@ public class CDTProjectHelpers {
 			cProjectDescription.createConfiguration(ManagedBuildManager.CFG_DATA_PROVIDER_ID,
 					configurationClone.getConfigurationData());
 		}
+		// activate the provided build type, i.e. Debug/Release
+		//IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
+		//buildInfo.setDefaultConfiguration(activeBuildType);
+		ICConfigurationDescription[] configs = cProjectDescription.getConfigurations();
+		if (configs != null && configs.length > 0) {
+			for (ICConfigurationDescription config : configs) {
+				if (config.getName().equals(activeBuildType)) {
+					System.out.println("set active build type: "+config.getName());
+					config.setActive();
+					break;
+				}
+			}
+		}
 		subMonitor.split(20);
 		CoreModel.getDefault().setProjectDescription(project, cProjectDescription);
-
-		// activate the provided build type, i.e. Debug/Release
-		IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
-		buildInfo.setDefaultConfiguration(activeBuildType);
 	}
 	
     public static void setSmartMDSDCdtBuilderFor(IProject project) {
