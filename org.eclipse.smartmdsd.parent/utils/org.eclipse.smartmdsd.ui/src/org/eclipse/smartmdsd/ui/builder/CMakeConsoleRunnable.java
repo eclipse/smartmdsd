@@ -168,7 +168,7 @@ public class CMakeConsoleRunnable implements IWorkspaceRunnable {
 			if(ros_dir.getName().contentEquals("melodic")) {
 				python_version = "2.7";
 			}
-			environmentVariables[index++] = "PYTHONPATH="+ros_dir.getPath()+"/lib/python"+python_version+"/dist-packages";
+			environmentVariables[index++] = "PYTHONPATH="+ros_dir.getPath()+"/lib/python"+python_version+"/dist-packages:/usr/lib/python"+python_version+"/dist-packages";
 		}
 		
 		return environmentVariables;
