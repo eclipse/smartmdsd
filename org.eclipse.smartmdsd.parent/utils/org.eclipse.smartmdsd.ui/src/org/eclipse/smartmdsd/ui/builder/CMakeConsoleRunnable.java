@@ -165,7 +165,7 @@ public class CMakeConsoleRunnable implements IWorkspaceRunnable {
 			environmentVariables[index++] = "ROS_ROOT="+ros_dir.getPath()+"/share/ros";
 			environmentVariables[index++] = "ROS_PACKAGE_PATH="+ros_dir.getPath()+"/share";
 			String python_version = "3";
-			if(ros_dir.getName().contentEquals("melodic")) {
+			if(ros_dir.getName().contentEquals("melodic") || ros_dir.getName().contentEquals("kinetic")) {
 				python_version = "2.7";
 			}
 			environmentVariables[index++] = "PYTHONPATH="+ros_dir.getPath()+"/lib/python"+python_version+"/dist-packages:/usr/lib/python"+python_version+"/dist-packages";
