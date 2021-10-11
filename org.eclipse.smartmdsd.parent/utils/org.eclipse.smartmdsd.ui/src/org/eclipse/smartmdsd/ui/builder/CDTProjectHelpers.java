@@ -145,14 +145,11 @@ public class CDTProjectHelpers {
 			cProjectDescription.createConfiguration(ManagedBuildManager.CFG_DATA_PROVIDER_ID,
 					configurationClone.getConfigurationData());
 		}
-		// activate the provided build type, i.e. Debug/Release
-		//IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
-		//buildInfo.setDefaultConfiguration(activeBuildType);
+		// activate the specified build type, i.e. Debug/Release
 		ICConfigurationDescription[] configs = cProjectDescription.getConfigurations();
 		if (configs != null && configs.length > 0) {
 			for (ICConfigurationDescription config : configs) {
 				if (config.getName().equals(activeBuildType)) {
-					System.out.println("set active build type: "+config.getName());
 					config.setActive();
 					break;
 				}
@@ -301,5 +298,27 @@ public class CDTProjectHelpers {
 	public static void triggerCdtIndexRebuildFor(String projectName) {
 		ICProject cproject = CoreModel.getDefault().getCModel().getCProject(projectName);
 		CCorePlugin.getIndexManager().reindex(cproject);
+	}
+	
+	public static void setActiveBuildTypeFor(IProject project, String activeBuildType) throws CoreException {
+		ICProjectDescriptionManager mngr = CoreModel.getDefault().getProjectDescriptionManager();
+		ICProjectDescription cProjectDescription = mngr.getProjectDescription(project);
+		ICConfigurationDescription[] configs = cProjectDescription.getConfigurations();
+		boolean settings_changed = false;
+		if (configs != null && configs.length > 0) {
+			for (ICConfigurationDescription config : configs) {
+				if (config.getName().equals(activeBuildType)) {
+					if(!config.isActive()) {
+						config.setActive();
+						settings_changed = true;
+						System.out.println("change active build type to '"+config.getName()+"' for project "+project.getName());
+					}
+					break;
+				}
+			}
+		}
+		if(settings_changed) {
+			CoreModel.getDefault().setProjectDescription(project, cProjectDescription);
+		}
 	}
 }

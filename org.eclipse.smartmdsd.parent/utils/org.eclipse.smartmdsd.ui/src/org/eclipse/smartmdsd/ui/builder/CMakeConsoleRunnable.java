@@ -85,6 +85,14 @@ public class CMakeConsoleRunnable implements IWorkspaceRunnable {
 		// collect CMake arguments
 		List<String> cmakeArgimentsList = new ArrayList<String>();
 		cmakeArgimentsList.add("-DBUILD_DEPENDENCIES=OFF");
+		
+		String defaultBuildType = Activator.getDefault().getPreferenceStore().getString(SmartMDSDPreferencesPage.PROP_CMAKE_BUILD_TYPE);
+		if(!buildConfigurationName.contentEquals(defaultBuildType)) {
+			// change the build configuration type to the configured default type
+			// TODO: this will only take effect when the next build is triggered (while this is inconvenient, it seems not to be overly harmful)
+			CDTProjectHelpers.setActiveBuildTypeFor(project, defaultBuildType);
+			buildConfigurationName = defaultBuildType;
+		}
 		cmakeArgimentsList.add("-DCMAKE_BUILD_TYPE="+buildConfigurationName);
 		
 		String ros_distro_dir = Activator.getDefault().getPreferenceStore().getString(SmartMDSDPreferencesPage.PROP_ROS_DISTRIBUTION_DIR);
