@@ -19,8 +19,6 @@ import org.eclipse.cdt.managedbuilder.makegen.IManagedBuilderMakefileGenerator;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -93,11 +91,22 @@ public class SmartMDSDManagedBuildConfigurator implements IManagedBuilderMakefil
 			return status;
 		}
 		
-		// Create the CMake console that can execute the "cmake .." command and redirect its message to the console
-		CMakeConsoleRunnable cmakeRunnable = new CMakeConsoleRunnable(project, buildConfigurationName);
-		// trigger execution of the cmakeRunnable
-		ResourcesPlugin.getWorkspace().run(cmakeRunnable, project, IWorkspace.AVOID_UPDATE, null);		
-		// return the cmake run status (which is either OK or ERROR)
-		return cmakeRunnable.getStatus();
+		String defaultBuildType = Activator.getDefault().getPreferenceStore().getString(SmartMDSDPreferencesPage.PROP_CMAKE_BUILD_TYPE);
+		if(!buildConfigurationName.contentEquals(defaultBuildType)) {
+			CDTProjectHelpers.setActiveBuildTypeFor(project, defaultBuildType);
+		}
+		
+		// the old CMakeConsoleRunnable has been replaced by a more powerful and more flexible implementation (see SmartMDSDBuildRunner)
+//		// Create the CMake console that can execute the "cmake .." command and redirect its message to the console
+//		CMakeConsoleRunnable cmakeRunnable = new CMakeConsoleRunnable(project, buildConfigurationName);
+//		// trigger execution of the cmakeRunnable
+//		ResourcesPlugin.getWorkspace().run(cmakeRunnable, project, IWorkspace.AVOID_UPDATE, null);		
+//		// return the cmake run status (which is either OK or ERROR)
+//		return cmakeRunnable.getStatus();
+		
+		return new MultiStatus(
+				ManagedBuilderCorePlugin.getUniqueIdentifier(),
+				IStatus.OK,
+				"", null);
 	}
 }

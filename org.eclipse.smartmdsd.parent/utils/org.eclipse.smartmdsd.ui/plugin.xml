@@ -739,7 +739,7 @@
    <extension
          point="org.eclipse.cdt.managedbuilder.core.buildDefinitions">
       <builder
-            arguments="--build . --"
+            buildRunner="org.eclipse.smartmdsd.ui.builder.SmartMDSDBuildRunner"
             buildfileGenerator="org.eclipse.smartmdsd.ui.builder.SmartMDSDManagedBuildConfigurator"
             cleanBuildTarget="clean"
             command="cmake"
