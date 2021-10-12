@@ -96,6 +96,7 @@ public class SmartMDSDManagedBuildConfigurator implements IManagedBuilderMakefil
 			CDTProjectHelpers.setActiveBuildTypeFor(project, defaultBuildType);
 		}
 		
+		// the old CMakeConsoleRunnable has been replaced by a more powerful and more flexible implementation (see SmartMDSDBuildRunner)
 //		// Create the CMake console that can execute the "cmake .." command and redirect its message to the console
 //		CMakeConsoleRunnable cmakeRunnable = new CMakeConsoleRunnable(project, buildConfigurationName);
 //		// trigger execution of the cmakeRunnable
@@ -106,6 +107,6 @@ public class SmartMDSDManagedBuildConfigurator implements IManagedBuilderMakefil
 		return new MultiStatus(
 				ManagedBuilderCorePlugin.getUniqueIdentifier(),
 				IStatus.OK,
-				"CMake of ["+project.getName()+"] successfully finished!", null);
+				"", null);
 	}
 }
