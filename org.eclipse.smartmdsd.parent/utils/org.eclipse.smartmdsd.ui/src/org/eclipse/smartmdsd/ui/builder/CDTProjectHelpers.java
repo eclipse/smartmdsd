@@ -39,6 +39,7 @@ import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.IManagedProject;
 import org.eclipse.cdt.managedbuilder.core.IToolChain;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
+import org.eclipse.cdt.ui.CUIPlugin;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -320,5 +321,9 @@ public class CDTProjectHelpers {
 		if(settings_changed) {
 			CoreModel.getDefault().setProjectDescription(project, cProjectDescription);
 		}
+	}
+	
+	public static String getCdtBuildMessages(IProject project) {
+		return CUIPlugin.getDefault().getConsoleManager().getConsoleDocument(project).get();
 	}
 }
