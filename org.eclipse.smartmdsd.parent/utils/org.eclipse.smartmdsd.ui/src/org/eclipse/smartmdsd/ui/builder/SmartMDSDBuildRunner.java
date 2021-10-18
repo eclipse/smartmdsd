@@ -48,6 +48,7 @@ public class SmartMDSDBuildRunner extends AbstractBuildRunner {
 			IProgressMonitor monitor) throws CoreException 
 	{
 		boolean rebuild_required = false;
+		String defaultBuildType = Activator.getDefault().getPreferenceStore().getString(SmartMDSDPreferencesPage.PROP_CMAKE_BUILD_TYPE);
 		switch(kind) {
 		case IncrementalProjectBuilder.CLEAN_BUILD:
 			printInfoMessage(console, "Clean project "+project.getName());
@@ -61,11 +62,11 @@ public class SmartMDSDBuildRunner extends AbstractBuildRunner {
 			break;
 		case IncrementalProjectBuilder.FULL_BUILD:
 		case IncrementalProjectBuilder.INCREMENTAL_BUILD:
-			printInfoMessage(console, "Configure CMake for project "+project.getName());
-			if(configureCMake(project, builder, console, monitor) == true) {
+			printInfoMessage(console, "Configure CMake ("+defaultBuildType+") for project "+project.getName());
+			if(configureCMake(project, builder, defaultBuildType, console, monitor) == true) {
 				printInfoMessage(console, "CMake finished successfully!\n");
-				printInfoMessage(console, "Build project "+project.getName());
-				if(buildProject(project, builder, builder.getIncrementalBuildTarget(), console, monitor) == true) {
+				printInfoMessage(console, "Build project "+project.getName()+" ("+defaultBuildType+")");
+				if(buildProject(project, builder, builder.getIncrementalBuildTarget(), defaultBuildType, console, monitor) == true) {
 					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 					printInfoMessage(console, "Project "+project.getName()+" has built successfully!");
 				} else {
@@ -92,17 +93,19 @@ public class SmartMDSDBuildRunner extends AbstractBuildRunner {
 		}
 	}
 
-	private boolean configureCMake(IProject project, IBuilder builder, IConsole console, IProgressMonitor monitor) throws CoreException {
+	private boolean configureCMake(IProject project, IBuilder builder, String build_type, IConsole console, IProgressMonitor monitor) throws CoreException {
 		List<String> cmakeArgumentsList = new ArrayList<String>();
 		cmakeArgumentsList.add("-DBUILD_DEPENDENCIES=OFF");
-		
-		String defaultBuildType = Activator.getDefault().getPreferenceStore().getString(SmartMDSDPreferencesPage.PROP_CMAKE_BUILD_TYPE);
-		cmakeArgumentsList.add("-DCMAKE_BUILD_TYPE="+defaultBuildType);
-		
-		String ros_distro_dir = Activator.getDefault().getPreferenceStore().getString(SmartMDSDPreferencesPage.PROP_ROS_DISTRIBUTION_DIR);
-		File ros_dir = new File(ros_distro_dir);
-		if(ros_dir.exists()) {
-			cmakeArgumentsList.add("-DCMAKE_PREFIX_PATH="+ros_dir.getPath());
+
+		File ros_dir = null;
+		if(!Platform.getOS().equals(Platform.OS_WIN32)) {
+			cmakeArgumentsList.add("-DCMAKE_BUILD_TYPE="+build_type);
+			
+			String ros_distro_dir = Activator.getDefault().getPreferenceStore().getString(SmartMDSDPreferencesPage.PROP_ROS_DISTRIBUTION_DIR);
+			ros_dir = new File(ros_distro_dir);
+			if(ros_dir.exists()) {
+				cmakeArgumentsList.add("-DCMAKE_PREFIX_PATH="+ros_dir.getPath());
+			}
 		}
 	
 		String[] environmentVariables = calculateEnvironmentVariables(project, ros_dir);
@@ -120,14 +123,17 @@ public class SmartMDSDBuildRunner extends AbstractBuildRunner {
 		return cmakeProcess.exitValue() == 0;
 	}
 	
-	private boolean buildProject(IProject project, IBuilder builder, String buildTarget, IConsole console, IProgressMonitor monitor) throws CoreException {
+	private boolean buildProject(IProject project, IBuilder builder, String build_target, String build_type, IConsole console, IProgressMonitor monitor) throws CoreException {
 		List<String> buildArgumentsList = new ArrayList<String>();
 
 		buildArgumentsList.add("--build");
 		buildArgumentsList.add(".");
 		buildArgumentsList.add("--target");
-		buildArgumentsList.add(buildTarget);
-		if (Platform.getOS().equals(Platform.OS_LINUX)) {
+		buildArgumentsList.add(build_target);
+		if(Platform.getOS().equals(Platform.OS_WIN32)) {
+			buildArgumentsList.add("--config");
+			buildArgumentsList.add(build_type);
+		} else if (Platform.getOS().equals(Platform.OS_LINUX)) {
 			buildArgumentsList.add("--");
 		}
 		buildArgumentsList.add(builder.getArguments());
@@ -187,7 +193,7 @@ public class SmartMDSDBuildRunner extends AbstractBuildRunner {
 		Integer index = 0;
 		int env_size = environment.size();
 
-		if(ros_dir.exists()) {
+		if(ros_dir != null && ros_dir.exists()) {
 			env_size = env_size + 3;
 		}
 		
@@ -196,7 +202,7 @@ public class SmartMDSDBuildRunner extends AbstractBuildRunner {
 		for(Map.Entry<String, String> entry: environment.entrySet()) {
 			if(entry.getKey().contentEquals("SMART_PACKAGE_PATH")) {
 				environmentVariables[index] = entry.getKey() + "=" + entry.getValue() + ":" + workspacePath;
-			} else if(entry.getKey().equals("PATH") && ros_dir.exists()) {
+			} else if(entry.getKey().equals("PATH") && ros_dir != null && ros_dir.exists()) {
 				environmentVariables[index] = entry.getKey() + "=" + ros_dir.getPath()+"/bin:" + entry.getValue();
 			} else {
 				environmentVariables[index] = entry.getKey() + "=" + entry.getValue();
@@ -204,7 +210,7 @@ public class SmartMDSDBuildRunner extends AbstractBuildRunner {
 			index++;
 		}
 		
-		if(ros_dir.exists()) {
+		if(ros_dir != null && ros_dir.exists()) {
 			// add ROS main environment variables:
 			environmentVariables[index++] = "ROS_ROOT="+ros_dir.getPath()+"/share/ros";
 			environmentVariables[index++] = "ROS_PACKAGE_PATH="+ros_dir.getPath()+"/share";
