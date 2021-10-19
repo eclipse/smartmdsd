@@ -19,7 +19,7 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.console.IConsoleConstants;
 
-public abstract class AbstractSmartMDSDPerspective implements IPerspectiveFactory {
+public abstract class AbstractSmartMDSDPerspective implements IPerspectiveFactory, ISmartMDSDPerspectiveCustomization {
 
 	public static final String NAVIGATOR_VIEW_ID = "org.eclipse.smartmdsd.navigator.view";
 	
@@ -48,7 +48,11 @@ public abstract class AbstractSmartMDSDPerspective implements IPerspectiveFactor
         layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
         layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
         
-        defineCustomActions(layout);
+        addCustomActions(layout);
+        
+        for(ISmartMDSDPerspectiveCustomization external_customization: SmartMDSDPerspectiveCustomizationsRegistry.getCustomizationsFor(getSmartMDSDPerspective())) {
+        	external_customization.addCustomActions(layout);
+        }
     }
 
     /**
@@ -62,7 +66,11 @@ public abstract class AbstractSmartMDSDPerspective implements IPerspectiveFactor
         layout.addView(NAVIGATOR_VIEW_ID, IPageLayout.LEFT, (float) 0.25, editorArea);
         layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.BOTTOM, 0.50f, NAVIGATOR_VIEW_ID);
 
-        defineCustomLayout(layout);
+        adjustBaseLayout(layout);
+        
+        for(ISmartMDSDPerspectiveCustomization external_customization: SmartMDSDPerspectiveCustomizationsRegistry.getCustomizationsFor(getSmartMDSDPerspective())) {
+        	external_customization.adjustBaseLayout(layout);
+        }
         
         // Place problem, properties and advance views to bottom of editor area.
         final IFolderLayout bottom = layout.createFolder("bottom", IPageLayout.BOTTOM, (float) 0.65, editorArea); //$NON-NLS-1$
@@ -71,10 +79,9 @@ public abstract class AbstractSmartMDSDPerspective implements IPerspectiveFactor
         bottom.addView(IPageLayout.ID_PROBLEM_VIEW);
         bottom.addView(IConsoleConstants.ID_CONSOLE_VIEW);
         bottom.addView(IPageLayout.ID_PROGRESS_VIEW);
+        
+        for(ISmartMDSDPerspectiveCustomization external_customization: SmartMDSDPerspectiveCustomizationsRegistry.getCustomizationsFor(getSmartMDSDPerspective())) {
+        	external_customization.addBottomViews(bottom);
+        }
     }
-
-    // implement these methods in derived classes
-    protected abstract void defineCustomActions(final IPageLayout layout);
-    protected abstract void defineCustomLayout(final IPageLayout layout);
-    protected abstract void addBottomViews(final IFolderLayout bottom);
 }

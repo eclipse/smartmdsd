@@ -4,6 +4,7 @@
    <extension-point id="SmartMDSDProjectCreationEP" name="SmartMDSDProjectCreation" schema="schema/SmartMDSDProjectCreationEP.exsd"/>
    <extension-point id="SmartMDSDModelContributionEP" name="SmartMDSDModelContribution" schema="schema/SmartMDSDModelContributionEP.exsd"/>
    <extension-point id="SmartMDSDModelFactoryEP" name="SmartMDSDModelFactory" schema="schema/SmartMDSDModelFactoryEP.exsd"/>
+   <extension-point id="SmartMDSDPerspectiveCustomizationEP" name="SmartMDSDPerspectiveCustomization" schema="schema/SmartMDSDPerspectiveCustomizationEP.exsd"/>
    <extension
          point="org.eclipse.ui.commands">
       <category
@@ -630,8 +631,8 @@
          </command>
          <command
                commandId="org.eclipse.ui.newWizard"
-               icon="icons/logo16.png"
-               label="SmartMDSD Model"
+               icon="icons/M-project.png"
+               label="Robotics Model"
                style="push">
             <parameter
                   name="newWizardId"
@@ -738,7 +739,7 @@
    <extension
          point="org.eclipse.cdt.managedbuilder.core.buildDefinitions">
       <builder
-            arguments="--build . --"
+            buildRunner="org.eclipse.smartmdsd.ui.builder.SmartMDSDBuildRunner"
             buildfileGenerator="org.eclipse.smartmdsd.ui.builder.SmartMDSDManagedBuildConfigurator"
             cleanBuildTarget="clean"
             command="cmake"
@@ -829,9 +830,9 @@
             category="org.eclipse.smartmdsd.ui.wizards"
             class="org.eclipse.smartmdsd.ui.wizards.WizardNewSmartMDSDModel"
             hasPages="true"
-            icon="icons/logo16.png"
+            icon="icons/M-project.png"
             id="org.eclipse.smartmdsd.ui.wizards.individualModel"
-            name="SmartMDSD Model"
+            name="Robotics Model"
             project="false">
       </wizard>
    </extension>

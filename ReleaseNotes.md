@@ -2,9 +2,15 @@
 
 This file contains the release notes for the SmartMDSD Toolchain version 3.x. For each release, it provides important information to users to support them in switching from one specific version the previous version. This includes information and instructions how to migrate content from one version to another.
 
+## v3.17
+
+This release does not require any user intervention. All changes are purely internal and it is not required to modify projects created with a previous release.
+
+The SmartMDSD Build Console has been refined. It now displays both outputs - from the CMake run and from the build run - combined in the same console window (previously there were two separate windows, that had to be switched manually). This is a small yet useful quality-of-life improvement.
+
 ## v3.16
 
-This release does not require any user intervention. All changes are purely internal and neither is it required to modify projects created with a previos release, nor are there any changes in the user interface.
+This release does not require any user intervention. All changes are purely internal and neither is it required to modify projects created with a previous release, nor are there any changes in the user interface.
 
 ## v3.15
 

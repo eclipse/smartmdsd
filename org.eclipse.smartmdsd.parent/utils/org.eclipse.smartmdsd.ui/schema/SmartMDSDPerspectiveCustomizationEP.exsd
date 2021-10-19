@@ -3,10 +3,10 @@
 <schema targetNamespace="org.eclipse.smartmdsd.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.eclipse.smartmdsd.ui" id="SmartMDSDProjectCreationEP" name="SmartMDSDProjectCreation"/>
+         <meta.schema plugin="org.eclipse.smartmdsd.ui" id="SmartMDSDPerspectiveCustomizationEP" name="SmartMDSDPerspectiveCustomization"/>
       </appinfo>
       <documentation>
-         This extension point allows hooking into the project creation process to further customize the newly created project.
+         This extension point customizes the SmartMDSD Perspective views.
       </documentation>
    </annotation>
 
@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <choice minOccurs="1" maxOccurs="unbounded">
-            <element ref="project_customizer"/>
+            <element ref="perspective_customizer"/>
          </choice>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,7 +47,7 @@
       </complexType>
    </element>
 
-   <element name="project_customizer">
+   <element name="perspective_customizer">
       <complexType>
          <attribute name="class" type="string">
             <annotation>
@@ -55,7 +55,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.smartmdsd.ui.ISmartMDSDProjectCustomizer"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.smartmdsd.ui.perspectives.ISmartMDSDPerspectiveCustomization"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -67,7 +67,7 @@
          <meta.section type="since"/>
       </appinfo>
       <documentation>
-         3.17
+         2.1.0
       </documentation>
    </annotation>
 

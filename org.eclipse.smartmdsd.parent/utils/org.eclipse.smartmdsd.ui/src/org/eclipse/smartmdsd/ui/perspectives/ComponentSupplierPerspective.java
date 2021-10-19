@@ -22,18 +22,22 @@ public class ComponentSupplierPerspective extends AbstractSmartMDSDPerspective {
 	public static final String PERSPECTIVE_ID = "org.eclipse.smartmdsd.ui.perspectives.componentSupplier";
 	
 	@Override
-	protected void defineCustomActions(IPageLayout layout) {
+	public void addCustomActions(IPageLayout layout) {
 		layout.addNewWizardShortcut(WizardNewComponentProject.WIZARD_ID);
 	}
 
 	@Override
-	protected void defineCustomLayout(IPageLayout layout) {
+	public void adjustBaseLayout(IPageLayout layout) {
 		
 	}
 
 	@Override
-	protected void addBottomViews(IFolderLayout bottom) {
+	public void addBottomViews(IFolderLayout bottom) {
 		bottom.addView("org.eclipse.smartmdsd.sirius.component.design.ComponentParamView");
 	}
 
+	@Override
+	public SmartMDSDPerspectiveEnum getSmartMDSDPerspective() {
+		return SmartMDSDPerspectiveEnum.getFromID(PERSPECTIVE_ID);
+	}
 }

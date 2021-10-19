@@ -40,7 +40,7 @@ public interface ISmartMDSDXtextContribution extends ISmartMDSDModelContribution
 	boolean isDefaultLanguage();
 	
 	/**
-	 * This methid returns the Xtext editor ID.
+	 * This method returns the Xtext editor ID.
 	 * 
 	 * The Xtext editor ID is implemented in the
 	 * Xtext UI plugin within the src-gen folder

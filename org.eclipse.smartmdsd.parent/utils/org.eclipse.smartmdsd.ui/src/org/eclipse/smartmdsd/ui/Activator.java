@@ -15,6 +15,7 @@ package org.eclipse.smartmdsd.ui;
 
 import org.eclipse.smartmdsd.ui.factories.SmartMDSDModelFactory;
 import org.eclipse.smartmdsd.ui.natures.AbstractSmartMDSDNature;
+import org.eclipse.smartmdsd.ui.perspectives.SmartMDSDPerspectiveCustomizationsRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -44,6 +45,8 @@ public class Activator extends AbstractUIPlugin {
 		AbstractSmartMDSDNature.initializeRegistry();
 		// initialize the model creation factory registry
 		SmartMDSDModelFactory.initializeFactoryRegistry();
+		// initialize the perspective customization registry
+		SmartMDSDPerspectiveCustomizationsRegistry.initialize();
 	}
 
 	@Override

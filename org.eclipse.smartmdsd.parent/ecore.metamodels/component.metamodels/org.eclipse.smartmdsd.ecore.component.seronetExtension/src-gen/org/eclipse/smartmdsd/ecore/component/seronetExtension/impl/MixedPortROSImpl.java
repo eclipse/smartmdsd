@@ -82,6 +82,16 @@ public class MixedPortROSImpl extends DerivedComponentElementImpl implements Mix
 		}
 		return "";
 	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public boolean isSetName() {
+		return (port != null);
+	}
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -25,6 +25,10 @@ import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
 public class WizardNewDomainModelsProject extends AbstractProjectCreationWizard {
 
 	public static final String WIZARD_ID = "org.eclipse.smartmdsd.ui.wizards.domainModels";
+
+	public WizardNewDomainModelsProject() {
+		super("New Domain-Models Project (Tier 2)");
+	}
 	
 	@Override
 	protected WizardNewProjectCreationPage createFirstPage() {

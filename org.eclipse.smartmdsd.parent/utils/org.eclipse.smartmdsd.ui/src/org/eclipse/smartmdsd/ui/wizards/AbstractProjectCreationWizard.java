@@ -38,6 +38,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.dialogs.WizardNewProjectReferencePage;
+import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.smartmdsd.ui.Activator;
 import org.eclipse.smartmdsd.ui.ISmartMDSDProjectCustomizer;
 import org.eclipse.smartmdsd.ui.preferences.SmartMDSDPreferencesPage;
@@ -58,8 +59,9 @@ public abstract class AbstractProjectCreationWizard extends Wizard implements IN
 	protected ISelection selection;
 
 	
-	public AbstractProjectCreationWizard() {
+	public AbstractProjectCreationWizard(String windowTitle) {
 		super();
+		setWindowTitle(windowTitle);
 		setNeedsProgressMonitor(true);
 	}
 	
@@ -122,7 +124,7 @@ public abstract class AbstractProjectCreationWizard extends Wizard implements IN
 				IProject project = createProject(projectName, projectLocation, referencedProjects, subMonitor.split(10));
 				
 				// add Xtext project nature by default (as every SmartMDSD project will have some Xtext models)
-				SmartMDSDNatureHelpers.addProjectNature(project, "org.eclipse.xtext.ui.shared.xtextNature", subMonitor.split(10));
+				SmartMDSDNatureHelpers.addProjectNature(project, XtextProjectHelper.NATURE_ID, subMonitor.split(10));
 				
 				// create a JavaProject (which provides a proper Xtext cross-references resolution based on the Java classpath)
 				JavaProjectFactory.createJavaProject(project, referencedProjects, modelFolderName, subMonitor.split(10));

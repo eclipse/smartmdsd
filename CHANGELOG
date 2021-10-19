@@ -1,3 +1,10 @@
+SmartMDSD Toolchain v3.17
+	* Refined implementation of the SmartMDSD build console
+	* Update maven scripts to work with the new Eclipse infrastrucure
+	* Add a SmartMDSD perspective customization extension point
+	* A few minor bug-fixes
+-- Tu, 19 Oct. 2021
+
 SmartMDSD Toolchain v3.16
 	* Refined implementation of the SmartMDSD UI plugin (new version 2.0) which allows a much more flexible DSL plugin integration
 	* A few minor bug-fixes
