@@ -9,7 +9,7 @@ else
 fi
 
 # the type of the build for publishing
-BUILD_TYPE="nightly"
+BUILD_TYPE="development"
 
 # the nightly release is cleared with every build
 RELEASE_VERSION="3.x"
