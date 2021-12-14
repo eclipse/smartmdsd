@@ -48,7 +48,7 @@ public class WizardNewDomainModelsProject extends AbstractProjectCreationWizard 
 		// since the domain models do not have any graphical representations, we just open all
 		// created textual models
 		SmartMDSDModelFactory modelsFactory = new SmartMDSDModelFactory(project, modelFolder);
-		modelsFactory.openSelectedModelsInEditor(workbench, pageTwo.getSelectedModelTypes());
+		modelsFactory.openSelectedModelsInEditor(pageTwo.getSelectedModelTypes());
 	}
 
 	@Override

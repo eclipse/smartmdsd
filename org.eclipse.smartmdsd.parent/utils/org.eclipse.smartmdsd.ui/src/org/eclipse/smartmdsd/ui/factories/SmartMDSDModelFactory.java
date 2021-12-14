@@ -22,19 +22,24 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.smartmdsd.ui.models.SmartMDSDModelingLanguage;
 import org.eclipse.smartmdsd.ui.natures.AbstractSmartMDSDNature;
 import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureHelpers;
-import org.eclipse.ui.IWorkbench;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
 public class SmartMDSDModelFactory extends XtextResourceFactory {
@@ -86,21 +91,38 @@ public class SmartMDSDModelFactory extends XtextResourceFactory {
 		return allResourcesCreated;
 	}
 	
-	public void openSelectedModelsInEditor(IWorkbench workbench, List<String> selectedModelTypes) {
-		IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
-		for(String languageName: selectedModelTypes) {
-			SmartMDSDModelingLanguage dsl = project_nature.getLanguage(languageName);
-			if(dsl.getSiriusViewpointName().isEmpty()) {
-				// open model file in related editor
-				String fileName = getProject().getName() + "." + dsl.getModelFileExtension();
-				IFile modelFile = getModelFolder().getFile(fileName);
-				try {
-					IDE.openEditor(page, modelFile);
-				} catch (PartInitException e) {
-					e.printStackTrace();
-				}
+	public void openSelectedModelsInEditor(List<String> selectedModelTypes) {
+		final IProject project = getProject();
+		// the opening of the model-editors has to be done in an extra workspace job in order to guarantee
+		// that the project has been fully created and its resources are in sync 
+		WorkspaceJob job = new WorkspaceJob("Open Selected Model Editors") {
+			@Override
+			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
+				project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+				Display.getDefault().syncExec(new Runnable() {
+					@Override
+					public void run() {
+						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+						for(String languageName: selectedModelTypes) {
+							SmartMDSDModelingLanguage dsl = project_nature.getLanguage(languageName);
+							if(dsl.getSiriusViewpointName().isEmpty()) {
+								// open model file in related editor
+								String fileName = project.getName() + "." + dsl.getModelFileExtension();
+								IFile modelFile = getModelFolder().getFile(fileName);
+								try {
+									IDE.openEditor(page, modelFile);
+								} catch (PartInitException e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					}
+				});
+				return Status.OK_STATUS;
 			}
-		}
+		};
+		job.setRule(project);
+		job.schedule();
 	}
 
 	private Resource loadOrCreateResource(String languageName, List<String> processedLangauges) {
