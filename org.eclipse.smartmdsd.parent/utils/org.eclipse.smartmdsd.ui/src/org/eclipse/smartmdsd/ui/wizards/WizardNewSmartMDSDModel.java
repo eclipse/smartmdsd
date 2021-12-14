@@ -77,7 +77,7 @@ public class WizardNewSmartMDSDModel extends Wizard implements INewWizard {
 						List<String> selectedModelTypes = pageTwo.getSelectedModelTypes();
 						boolean creationSucceeded = modelsFactory.createSelectedModels(selectedModelTypes, monitor);
 						if(creationSucceeded) {
-							modelsFactory.openSelectedModelsInEditor(workbench, selectedModelTypes);
+							modelsFactory.openSelectedModelsInEditor(selectedModelTypes);
 							Session session = ModelingProjectFactory.getProjectSession(selectedProject, monitor);
 							if(session != null) {
 								ModelingProjectFactory.selectViewpoints(selectedProject, session, selectedModelTypes, monitor);

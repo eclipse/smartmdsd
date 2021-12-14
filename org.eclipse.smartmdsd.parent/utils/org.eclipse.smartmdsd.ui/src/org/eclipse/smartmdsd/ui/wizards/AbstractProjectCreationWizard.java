@@ -154,7 +154,12 @@ public abstract class AbstractProjectCreationWizard extends Wizard implements IN
 					SmartMDSDModelFactory modelsFactory = new SmartMDSDModelFactory(project, modelFolder);
 					// the actual creation of specific model types is delegated to the specific models factory
 					modelsFactory.createSelectedModels(selectedModelTypes, subMonitor.split(50));
-					modelsFactory.openSelectedModelsInEditor(workbench, selectedModelTypes);
+					
+					// we don't open textual model files from here anymore because due to an eclipse bug
+					// the textual models will be opened read-only
+					// instead the graphical models will be opened three lines below and if necessary
+					// the respective project specific customizer opens the textual models
+					// modelsFactory.openSelectedModelsInEditor(selectedModelTypes);
 					
 					if(subMonitor.isCanceled()) return;
 					

@@ -21,6 +21,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
+import org.eclipse.smartmdsd.ui.factories.SmartMDSDModelFactory;
 import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
 
 public class WizardNewBehaviorProject extends AbstractProjectCreationWizard {
@@ -53,6 +54,11 @@ public class WizardNewBehaviorProject extends AbstractProjectCreationWizard {
 		IFile cmake = smartsoft.getFile("CMakeLists.txt");
 		String cmake_string = "cmake_minimum_required(VERSION 3.5)\nproject("+project.getName()+")";
 		cmake.create(new ByteArrayInputStream(cmake_string.getBytes()), true, monitor);
+		
+		// since the behavior models do not have any graphical representations, we just open all
+		// created textual models
+		SmartMDSDModelFactory modelsFactory = new SmartMDSDModelFactory(project, modelFolder);
+		modelsFactory.openSelectedModelsInEditor(pageTwo.getSelectedModelTypes());
 	}
 
 	@Override
