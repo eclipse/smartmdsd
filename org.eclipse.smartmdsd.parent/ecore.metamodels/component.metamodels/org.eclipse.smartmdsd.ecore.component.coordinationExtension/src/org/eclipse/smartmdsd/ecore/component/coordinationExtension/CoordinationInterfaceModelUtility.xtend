@@ -11,17 +11,17 @@
  * Contributors:
  *   Matthias Lutz, Alex Lotz, Dennis Stampfer
  ********************************************************************************/
-package org.eclipse.smartmdsd.xtend.behavior.generator.domainModels
+package org.eclipse.smartmdsd.ecore.component.coordinationExtension
+
+import java.util.HashSet
+import java.util.Collection
 
 import org.eclipse.smartmdsd.ecore.service.serviceDefinition.ServiceDefinitionModelUtility
-import org.eclipse.smartmdsd.ecore.service.serviceDefinition.CoordinationServiceDefinition
 import org.eclipse.smartmdsd.ecore.service.communicationObject.CommunicationObject
-import java.util.Collection
-import java.util.HashSet
 import org.eclipse.smartmdsd.ecore.service.serviceDefinition.CommunicationServiceUsage
+import org.eclipse.smartmdsd.ecore.service.serviceDefinition.CoordinationServiceDefinition
 
 class CoordinationInterfaceModelUtility extends ServiceDefinitionModelUtility {
-	
 	def static Collection<CommunicationObject> getAllCommObjects(CommunicationServiceUsage commServiceUsage) {
 		return commServiceUsage.uses.allCommObjects
 	}
@@ -31,5 +31,4 @@ class CoordinationInterfaceModelUtility extends ServiceDefinitionModelUtility {
 		coordServiceDef.services.forEach[objects.addAll(it.allCommObjects)]
 		return objects
 	}
-		
 }

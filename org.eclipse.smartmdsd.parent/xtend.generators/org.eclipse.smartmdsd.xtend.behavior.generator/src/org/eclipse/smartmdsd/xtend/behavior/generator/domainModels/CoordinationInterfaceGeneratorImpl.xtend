@@ -28,8 +28,10 @@ import org.eclipse.smartmdsd.ecore.service.communicationPattern.SendPattern
 import org.eclipse.smartmdsd.xtend.smartsoft.generator.commObj.CommObjectGenHelpers
 import org.eclipse.smartmdsd.ecore.service.serviceDefinition.CommunicationServiceUsage
 import org.eclipse.smartmdsd.ecore.service.communicationPattern.QueryPattern
-import org.eclipse.smartmdsd.ecore.service.serviceDefinition.ServiceDefRepository
 import org.eclipse.smartmdsd.xtend.behavior.generator.ExtendedOutputConfigurationProvider
+import java.util.HashSet
+import org.eclipse.smartmdsd.ecore.service.communicationObject.CommObjectsRepository
+import org.eclipse.smartmdsd.ecore.component.coordinationExtension.CoordinationInterfaceModelUtility
 
 class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 	
@@ -101,10 +103,12 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 	
 	#include <map>
 	#include <string>
-	#include <string.h>
+	#include <ace/OS.h>
 	
 	extern 	std::string queryParam(const std::string& server, const std::string& param);
 	extern 	std::string setState(const std::string& server, const std::string& state);
+	extern	std::string getState(const std::string& server);
+	extern 	std::string waitForLifeCycleState(const std::string& server, const std::string& state);
 	extern  int appedEvent(const std::string& event);
 	
 	typedef struct
@@ -117,7 +121,7 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 	
 	struct ciLessLibC : public std::binary_function<std::string, std::string, bool> {
 	    bool operator()(const std::string &lhs, const std::string &rhs) const {
-	        return strcasecmp(lhs.c_str(), rhs.c_str()) < 0 ;
+	        return ACE_OS::strcasecmp(lhs.c_str(), rhs.c_str()) < 0 ;
 	    }
 	};
 	
@@ -147,7 +151,15 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 	
 	# find SmartSoft package
 	#FIND_SMARTSOFT(3.0)
-	FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE}/modules)
+	FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE} PATH_SUFFIXES modules)
+	
+	«FOR repo: coordServiceDef.usedCommObjRepositories»
+		«IF repo.name != coordServiceDef.currentProjectName»
+			# find dependency «repo.name»
+			FIND_PACKAGE(«repo.name» PATHS $ENV{SMART_ROOT_ACE}/modules)
+			FIND_PACKAGE(«repo.name»JSON PATHS $ENV{SMART_ROOT_ACE}/modules)
+		«ENDIF»
+	«ENDFOR»
 	
 	# these are the regular includes (add your own includes, if needed)
 	INCLUDE_DIRECTORIES(
@@ -168,7 +180,11 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 	
 	# SmartSoftKernel is one of the default dependencies for each component
 	TARGET_LINK_LIBRARIES(${PROJECT_NAME} AceSmartSoftKernel)
-	TARGET_LINK_LIBRARIES(${PROJECT_NAME} «(coordServiceDef.eContainer as ServiceDefRepository).name.toFirstUpper»)
+	
+	«FOR repo: coordServiceDef.usedCommObjRepositories»
+		# link library«repo.name»
+		TARGET_LINK_LIBRARIES(${PROJECT_NAME} «repo.name» «repo.name»JSON)
+	«ENDFOR»
 	
 	# automatically install the component target
 	# automatically run "make install" after regular "make" for the communication object
@@ -177,6 +193,21 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 	# install component executable target
 	INSTALL(TARGETS ${PROJECT_NAME} DESTINATION lib)
 	'''
+	
+	def getUsedCommObjRepositories(CoordinationServiceDefinition coordServiceDef) {
+		var repos = new HashSet<CommObjectsRepository>();
+		for(obj : CoordinationInterfaceModelUtility.getAllCommObjects(coordServiceDef)) {
+			val parent = obj.eContainer
+			if(parent instanceof CommObjectsRepository) {
+				repos.add(parent)
+			}
+		}
+		return repos;
+	}
+	
+	def getCurrentProjectName(CoordinationServiceDefinition coordServiceDef) {
+		coordServiceDef.eResource.URI.segment(1)
+	}
 	
 	/////////////////////////////////
 	// CoordinationInterfaceSlave
@@ -303,7 +334,7 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 			void addNewModuleInstance(const std::string& name);
 			int initCiInstance(SmartACE::SmartComponent * component, const std::string& ciInstanceName, const std::map< std::string, CiConnection, ciLessLibC> &ciConnectionsMap);
 			int finiCiInstance(const std::string& ciInstanceName);
-			std::string switchCi(const std::string& ciInstanceName, const std::string& componentName, const std::string& componentInstanceName, const std::string& service, const std::string& inString);
+			std::string switchCi(const std::string& ciInstanceName, const std::string& componentName, const std::string& componentInstanceName, const std::string& service, const std::string& parameter, const std::string& eventMode);
 		
 		 };
 		#endif /* «coordServiceDef.name.toUpperCase»CORE_H_ */
@@ -315,10 +346,8 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 	 */
 	 def compileCoordinationInterfaceSlaveCoreSource(CoordinationServiceDefinition coordServiceDef) '''
 		#include "«coordServiceDef.name.toFirstUpper»Core.hh"
-		#include <cstdio>
 		#include <string>
-		#include <cstring>
-		#include <cstdlib>
+		#include <ace/OS.h>
 		
 		#include <smartNumericCorrelationId.h>
 
@@ -423,7 +452,7 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 			}
 		}
 		
-		std::string «coordServiceDef.name.toFirstUpper»Core::switchCi(const std::string& ciInstanceName, const std::string& componentName, const std::string& componentInstanceName, const std::string& service, const std::string& inString){
+		std::string «coordServiceDef.name.toFirstUpper»Core::switchCi(const std::string& ciInstanceName, const std::string& componentName, const std::string& componentInstanceName, const std::string& service, const std::string& parameter, const std::string& eventMode){
 			std::map<std::string, «coordServiceDef.name.toFirstUpper»>::const_iterator iter = ciInstanceMap.find(ciInstanceName);
 			
 			if(ciInstanceName == "NIL" && ciInstanceMap.size() == 1){
@@ -433,37 +462,43 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 			
 			if(iter != ciInstanceMap.end()){
 				
-				std::cout<<"switch«coordServiceDef.name» - compInstName: "<<componentInstanceName<<" inString: "<<inString<<" service: "<<service<<std::endl;
+				//std::cout<<"switch«coordServiceDef.name» - compInstName: "<<componentInstanceName<<" parameter: "<<parameter<<" service: "<<service<<std::endl;
 				
 				std::ostringstream outString;
 				outString << "(error (unknown error))";
 			
 					
 					// param
-					if(strcasecmp(service.c_str(), "param") == 0 )
+					if(ACE_OS::strcasecmp(service.c_str(), "param") == 0 )
 					{
-						outString.str(queryParam(componentInstanceName, inString));
+						outString.str(queryParam(componentInstanceName, parameter));
 					}
-					if(strcasecmp(service.c_str(), "state") == 0 )
+					if(ACE_OS::strcasecmp(service.c_str(), "state") == 0 )
 					{
-						outString.str(setState(componentInstanceName, inString));
+						outString.str(setState(componentInstanceName, parameter));
+					}
+					if(ACE_OS::strcasecmp(service.c_str(), "getstate") == 0 )
+					{
+						outString.str(getState(componentInstanceName));
+					}
+					if(ACE_OS::strcasecmp(service.c_str(), "waitforlifecyclestate") == 0 )
+					{
+						outString.str(waitForLifeCycleState(componentInstanceName, parameter));
 					}
 					«FOR service : coordServiceDef.services.sortBy(e | e.name)»
 						«var pattern = ComponentDefinitionModelUtility.getPattern(service.uses)»
 						«IF pattern instanceof PushPattern»
 						//PUSH IS NOT USED!
 						«ELSEIF pattern instanceof QueryPattern»
-						if(strcasecmp(service.c_str(), "«service.name»") == 0 )
+						if(ACE_OS::strcasecmp(service.c_str(), "«service.name»") == 0 )
 						{
 							«pattern.requestType.fullyQualifiedNameCpp» request;
 							«pattern.answerType.fullyQualifiedNameCpp» answer;
 							
 							Smart::StatusCode status;
-							request = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»QueryHandler->handleRequest(inString);
+							request = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»QueryHandler->handleRequest(parameter);
 							
-							std::cout << "vor status = «service.name»Client->query(request,answer);\n";
 							status = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»Client->query(request,answer);
-							std::cout << "nach status = «service.name»Client->query(request,answer);\n";
 							outString.str("");
 							switch (status)
 							{
@@ -488,12 +523,12 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 							} // switch(status)
 						}
 						«ELSEIF pattern instanceof SendPattern»
-						if(strcasecmp(service.c_str(), "«service.name»") == 0 )
+						if(ACE_OS::strcasecmp(service.c_str(), "«service.name»") == 0 )
 						{
 							«pattern.dataType.fullyQualifiedNameCpp» com;
 							
 							Smart::StatusCode status;
-							com = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»SendHandler->handleSend(inString);
+							com = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»SendHandler->handleSend(parameter);
 
 							// everything is ok
 							status = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»Client->send(com);
@@ -518,25 +553,16 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 							}
 						}
 						«ELSEIF pattern instanceof EventPattern»
-						if(strcasecmp(service.c_str(), "«service.name»-activate") == 0 )
+						if(ACE_OS::strcasecmp(service.c_str(), "«service.name»-activate") == 0 )
 						{
 							Smart::StatusCode status;
 							Smart::EventIdPtr id = nullptr;
-							char *input  = (char *)NULL;
-							char *pointer = (char *)NULL;
-							char *param1  = (char *)NULL;
 							
-							pointer = input = strdup(inString.c_str());
-							do
-							{
-								param1 = strsep(&input," ()\"\n");
-							} while ((param1 != NULL) && (strlen(param1)==0));
-								
 							«pattern.activationType.fullyQualifiedNameCpp» param;
-							param = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»EventHandlerCore->activateEventParam(input);
+							param = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»EventHandlerCore->activateEventParam(parameter);
 								
 							// CONTINOUS
-							if( strcasecmp(param1, "CONTINUOUS") == 0 )
+							if( ACE_OS::strcasecmp(eventMode.c_str(), "CONTINUOUS") == 0 )
 							{
 								status = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»Client->activate(Smart::continuous, param, id);
 								outString.str("");
@@ -561,7 +587,7 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 							} // CONTINOUS
 								
 							// SINGLE
-							else if( strcasecmp(param1, "SINGLE") == 0 )
+							else if( ACE_OS::strcasecmp(eventMode.c_str(), "SINGLE") == 0 )
 							{
 								status = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»Client->activate(Smart::single, param, id);
 								outString.str("");
@@ -587,25 +613,22 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 						}
 								
 						// goal event deactivate
-						if(strcasecmp(service.c_str(), "«service.name»-deactivate") == 0)
+						if(ACE_OS::strcasecmp(service.c_str(), "«service.name»-deactivate") == 0)
 						{
 							Smart::StatusCode status;
-							char *input  = (char *)NULL;
-							char *pointer = (char *)NULL;
-							char *param1  = (char *)NULL;
-								
-							pointer = input = strdup(inString.c_str());
-							do
-							{
-								param1 = strsep(&input," ()\"\n");
-							} while ((param1 != NULL) && (strlen(param1)==0));
-								
-							std::string str(param1);
-							// remove " "
-							str = str.substr(1, str.length()-2);
-							// TODO: <alex> this seems to be quite a hack, as ID is not always an int and will not work with other middlewares as ACE
-							Smart::EventIdPtr id = std::make_shared<Smart::NumericCorrelationId>(atoi( param1 ));
-								
+							
+							Smart::EventIdPtr id = NULL;
+							
+							try {
+								// TODO: <alex> this seems to be quite a hack, as ID is not always an int and will not work with other middlewares as ACE
+								id = std::make_shared<Smart::NumericCorrelationId>(std::stoi( parameter ));
+							}
+							catch (...) {
+								std::cout<<"[FleetManagerCoordinationServiceCore] id int conversion error!"<<std::endl;
+								outString << "(error (unknown error))";
+								return outString.str();
+							}
+							
 							status = iter->second.«coordServiceDef.name.toFirstLower»«service.name.toFirstLower»Client->deactivate(id);
 							outString.str("");
 							switch(status)
@@ -675,9 +698,9 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 
 		//SWITCH FUNCTION
 		
-		extern "C" std::string switch«coordServiceDef.name»(const std::string& ciInstanceName, const std::string& componentName, const std::string& componentInstanceName, const std::string& service, const std::string& inString)
+		extern "C" std::string switch«coordServiceDef.name»(const std::string& ciInstanceName, const std::string& componentName, const std::string& componentInstanceName, const std::string& service, const std::string& parameter, const std::string& eventMode)
 		{
-			return «coordServiceDef.name.toUpperCase»_MODULE::instance()->switchCi(ciInstanceName,componentName,componentInstanceName,service,inString);
+			return «coordServiceDef.name.toUpperCase»_MODULE::instance()->switchCi(ciInstanceName,componentName,componentInstanceName,service,parameter,eventMode);
 		}
 	 '''
 	 
@@ -748,9 +771,24 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 		}
 				
 		void «coordServiceDefName.toFirstUpper»«port.name.toFirstUpper»EventHandlerCore::handleEvent(const Smart::EventIdPtr &id, const «pattern.eventType.fullyQualifiedNameCpp» &r) {
-			std::cout<<"Event CORE Called!"<<std::endl;
 			std::string resultString;
 			resultString = userHandler.handleEvent(r);
+			
+			///////////////////////////////////////////
+			/////////// ESCAPE " in user data
+			std::string toSearch = "\"";
+			std::string replaceStr = "\\\"";
+			// Get the first occurrence
+		    size_t pos = resultString.find(toSearch);
+		    // Repeat till end is reached
+		    while( pos != std::string::npos)
+		    {
+		        // Replace this occurrence of Sub String
+		    	resultString.replace(pos, toSearch.size(), replaceStr);
+		        // Get the next occurrence from the current position
+		        pos =resultString.find(toSearch, pos + replaceStr.size());
+		    }
+		    ///////////////////////////////////////////
 			
 			std::ostringstream eventResult;
 			eventResult<< "(";
@@ -802,25 +840,24 @@ class CoordinationInterfaceGeneratorImpl extends AbstractGenerator {
 	 
   	def compileQuerySource(CommunicationServiceUsage port, QueryPattern pattern, String coordServiceDefName) '''
 		#include "«coordServiceDefName.toFirstUpper»«port.name.toFirstUpper + "QueryHandler.hh"»"
-		  
+		
+		#include "«pattern.requestType.repoNamespace»JSON/«pattern.requestType.userClassName»JSON.hh"
+		#include "«pattern.answerType.repoNamespace»JSON/«pattern.answerType.userClassName»JSON.hh"
+		
 		«pattern.requestType.fullyQualifiedNameCpp» «coordServiceDefName.toFirstUpper»«port.name.toFirstUpper»QueryHandler::handleRequest(const std::string& inString){
-
 			«pattern.requestType.fullyQualifiedNameCpp» request;
-			//fill the request commObject with the data provided via the inString (from TCL)
-			//e.g. request.setLisp(inString);
-
+			// parse the inString into an nlohmann::json object
+			nlohmann::json data = nlohmann::json::parse(inString);
+			// convert the parsed nlohmann::json object into the request communication object
+			«pattern.requestType.repoNamespace»IDL::from_json(data, request.set());
+			// return the coverted result object
 			return request;
 		}
 
 		std::string «coordServiceDefName.toFirstUpper»«port.name.toFirstUpper»QueryHandler::handleAnswer(const «pattern.answerType.fullyQualifiedNameCpp»& answer){
-			
-			std::string outString;
-			//fill the outString (to TCL) with the data provided via the answer commObject
-			//e.g. 
-			//std::ostringstream ss;
-			//ss << "("<< std::setprecision( 2 ) << answer_data<<")";
-			//outString = ss.str();
-			return outString;
+			nlohmann::json data;
+			«pattern.answerType.repoNamespace»IDL::to_json(answer.get(), data);
+			return data.dump();
 		}
 	  '''
 	 

@@ -36,6 +36,7 @@ class CommObjGenerator2Impl extends AbstractGenerator {
 //	@Inject extension DebianPackageGenerator
 	@Inject extension DocumentationGenerator
 	@Inject extension CommunicationObjectUtility
+	@Inject extension CommObjectCiGenerator
 	
 	override doGenerate(Resource input, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		for(repo: input.allContents.toIterable.filter(typeof(CommObjectsRepository)))
@@ -69,6 +70,8 @@ class CommObjGenerator2Impl extends AbstractGenerator {
 //			fsa.generateFile("BuildSettings.cmake", repo.generateBuildSettingsCmake)
 //			fsa.generateFile("ModuleProjectSettings.cmake.in", repo.generateModuleProjectSettings)
 //			fsa.generateFile("ModuleBuildSettings.cmake.in", repo.generateModuleBuildSettings)
+
+			fsa.generateFile("ci-info.json", repo.generateCiInfo)
 			
 			
 			/*

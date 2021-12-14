@@ -24,8 +24,10 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.mwe.utils.DirectoryCleaner;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
@@ -56,14 +58,21 @@ public class GeneratorHelper {
 		OutputConfiguration config = getOutputConfiguration(outputConfigName, specificInjector);
 		if(config != null) {
 			String folderStr = config.getOutputDirectory();
-			IFolder ifolder = specificProject.getFolder(folderStr);
-			// create folder if it does not yet exist
+			IPath path = new Path(folderStr);
+			// create folder with its potential intermediate folders if they do not yet exist
 			try {
 				IProgressMonitor monitor = new NullProgressMonitor();
-				if(!ifolder.exists()) {
-					ifolder.create(true, true, monitor);
+				IFolder current_folder = specificProject.getFolder(path.segment(0));
+				if(!current_folder.exists()) {
+					current_folder.create(true, true, monitor);
 				}
-				ifolder.setDerived(config.isSetDerivedProperty(), monitor);
+				for(int segment_idx=1; segment_idx<path.segmentCount(); segment_idx++) {
+					current_folder = current_folder.getFolder(path.segment(segment_idx));
+					if(!current_folder.exists()) {
+						current_folder.create(true, true, monitor);
+					}	
+				}
+				current_folder.setDerived(config.isSetDerivedProperty(), monitor);
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}
@@ -78,7 +87,7 @@ public class GeneratorHelper {
 		OutputConfiguration config = getOutputConfiguration(outputConfigName, specificInjector);
 		if(config != null) {
 			String folderStr = config.getOutputDirectory();
-			IFolder ifolder = specificProject.getFolder(folderStr);
+			IFolder ifolder = specificProject.getFolder(new Path(folderStr));
 			// create folder if it does not yet exist
 			try {
 				IProgressMonitor monitor = new NullProgressMonitor();
@@ -87,6 +96,24 @@ public class GeneratorHelper {
 				}
 			} catch (CoreException e) {
 				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void deleteSubfolder(String outputConfigName, String subFolderPath) {
+		OutputConfiguration config = getOutputConfiguration(outputConfigName, injector);
+		if(config != null) {
+			String baseFolderStr = config.getOutputDirectory();
+			IFolder baseFolder = project.getFolder(baseFolderStr);
+			if(baseFolder.exists()) {
+				IFolder subFolder = baseFolder.getFolder(new Path(subFolderPath));
+				if(subFolder.exists()) {
+					try {
+						subFolder.delete(true, new NullProgressMonitor());
+					} catch (CoreException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 	}
@@ -119,7 +146,7 @@ public class GeneratorHelper {
 		OutputConfiguration config = getOutputConfiguration(outputConfigName, specificInjector);
 		if(config!= null) {
 			// get project folder
-			IFolder genFolder = specificProject.getFolder(config.getOutputDirectory());
+			IFolder genFolder = specificProject.getFolder(new Path(config.getOutputDirectory()));
 			
 			// create folder if it does not yet exist
 			try {
@@ -167,7 +194,7 @@ public class GeneratorHelper {
 				fsa.setOutputPath(config.getName(), specificProject.getLocation().toString());
 			} else {
 				String outputDirectory = config.getOutputDirectory();
-				IFolder f = specificProject.getFolder(outputDirectory);	
+				IFolder f = specificProject.getFolder(new Path(outputDirectory));	
 				fsa.setOutputPath(config.getName(), f.getLocation().toString());
 			}
 		}
@@ -188,7 +215,7 @@ public class GeneratorHelper {
 				if(config.getName().equals(ExtendedOutputConfigurationProvider.PROJECT_ROOT_FOLDER)) {
 					specificProject.refreshLocal(2, monitor);
 				} else {
-					specificProject.getFolder(config.getOutputDirectory()).refreshLocal(2, monitor);
+					specificProject.getFolder(new Path(config.getOutputDirectory())).refreshLocal(2, monitor);
 				}
 			} catch (CoreException e) {
 				e.printStackTrace();

@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Toolify Code Generators
+Bundle-SymbolicName: eu.toolify.xtend.generators;singleton:=true
+Bundle-Version: 1.2.1.qualifier
+Automatic-Module-Name: eu.toolify.xtend.generators
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Toolify Robotics GmbH
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.commands,
+ org.eclipse.core.resources,
+ org.eclipse.ui.workbench,
+ org.eclipse.emf.mwe.utils,
+ org.eclipse.xtext,
+ org.eclipse.xtext.util,
+ org.eclipse.xtext.generator,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.smartmdsd.ui,
+ org.eclipse.smartmdsd.xtend.smartsoft.generator,
+ org.eclipse.smartmdsd.ecore.service.communicationObject,
+ org.eclipse.smartmdsd.xtext.service.communicationObject

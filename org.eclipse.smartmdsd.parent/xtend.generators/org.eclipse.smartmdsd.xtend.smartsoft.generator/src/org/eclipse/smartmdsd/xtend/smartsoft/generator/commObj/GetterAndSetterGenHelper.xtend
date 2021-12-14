@@ -105,7 +105,7 @@ class GetterAndSetterGenHelper {
 						return false;
 					}
 					inline bool insert«el.name.toFirstUpper»VectorAtPos(const size_t &pos, const std::vector<«pt.compileCppType»> &data) {
-						if(pos < «instanceName».«el.name».size()) {
+						if(pos <= «instanceName».«el.name».size()) {
 							«instanceName».«el.name».insert(«instanceName».«el.name».begin()+pos, data.begin(), data.end());
 							return true;
 						}

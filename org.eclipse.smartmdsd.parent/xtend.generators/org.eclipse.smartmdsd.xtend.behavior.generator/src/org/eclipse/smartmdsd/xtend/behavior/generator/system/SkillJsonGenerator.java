@@ -36,7 +36,7 @@ public class SkillJsonGenerator extends AbstractGenerator {
 		GeneratorHelper genHelper = new GeneratorHelper(injector,resource);
 
 		// create the datasheet folder (if not already created)
-		genHelper.createFolder(IFileSystemAccess.DEFAULT_OUTPUT);
+		genHelper.createFolder(IFileSystemAccess2.DEFAULT_OUTPUT);
 		
 		// clean-up the "datasheet/src-gen" directory
 		genHelper.invokeDirectoryCleaner(IFileSystemAccess2.DEFAULT_OUTPUT);
