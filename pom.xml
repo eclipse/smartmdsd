@@ -25,8 +25,8 @@
 
 	<properties>
 		<!-- These are the shared version definitions -->
-		<eclipse-platform>2020-09</eclipse-platform>
-		<tycho-version>1.7.0</tycho-version>
+		<eclipse-platform>2021-12</eclipse-platform>
+		<tycho-version>2.3.0</tycho-version>
 		<maven.compiler.version>3.1.0</maven.compiler.version>
 		<eclipse.maven.cbi.version>1.3.2</eclipse.maven.cbi.version>
 		<!-- Here are some default property configurations -->
@@ -60,18 +60,11 @@
 							<goal>plugin-source</goal>
 						</goals>
 					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho.extras</groupId>
-				<artifactId>tycho-source-feature-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<executions>
 					<execution>
-						<id>source-feature</id>
+						<id>feature-source</id>
 						<phase>package</phase>
 						<goals>
-							<goal>source-feature</goal>
+							<goal>feature-source</goal>
 						</goals>
 					</execution>
 				</executions>
