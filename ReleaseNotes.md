@@ -6,6 +6,8 @@ This file contains the release notes for the SmartMDSD Toolchain version 3.x. Fo
 
 This release updates the Eclipse base installation from previously 2020-09 to the newest Eclipse **2021-12** (aka Eclipse **4.22**). While there should not be any major/apparent changes in the UI, there might be some improvements in the overall behavior and GUIs as all the standard Eclipse plugins have been updated to their newest stable versions. If you are interested in the general Eclipse updates, please fillow this link: [Eclipse IDE 2021-12](https://www.eclipse.org/eclipseide/2021-12/).
 
+You can use your old Eclipse workspaces. When you load an old workspace with the new Eclipse version, a popup window will warn that the workspace has been created with an older version and ask if you like to update it the new version. Please accept this request (it should work for most old workspaces), or create a new workspace if you want to keep the old workspace ungchanged (as there is no easy way to revert the update).
+
 Other than that, this release consist of several internal bug fixes, specifically within the code generators for DomainModels, which should be fully compatible with projects created with older versions. Just execute the code generator for your old projects, and you are good to go.
 
 An annoying bug has been fixed where newly created models have initially opened in read-only mode, particularly when creating a new robotics project.
