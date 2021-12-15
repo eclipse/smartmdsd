@@ -1,3 +1,10 @@
+SmartMDSD Toolchain v3.18
+	* Upgrade base Eclipse to 2021-12
+	* Fix annoying bug where models were initially opened in read-only mode when a new project is created
+	* Update DomainModel code generators to reflect the latest bug-fixes and other improvements
+-- Wed, 15 Dez. 2021
+
+
 SmartMDSD Toolchain v3.17
 	* Refined implementation of the SmartMDSD build console
 	* Update maven scripts to work with the new Eclipse infrastrucure
