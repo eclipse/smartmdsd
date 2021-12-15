@@ -1,8 +1,10 @@
 #!/bin/bash
 
+CURRENTLY_MIRRORED_VERSION=2021-12
+
 if [[ -z "$PLATFORM" ]]
 then
-  PLATFORM=2020-09
+  PLATFORM=$CURRENTLY_MIRRORED_VERSION
   echo "Using default Eclipse platform: $PLATFORM"
 else
   echo "Using Eclipse platform: $PLATFORM"
@@ -57,7 +59,11 @@ SMARTMDSD_FEATURE="org.eclipse.smartmdsd.toolchain.feature.group"
 ECLIPSE_MODELING_TOOLS_ARCHIVE="eclipse-modeling-${PLATFORM}-R-linux-gtk-x86_64.tar.gz"
 
 # this is the full download URL for downloading the Eclipse Modeling Tools archive
-ECLIPSE_DOWNLOAD_URL="https://archive.eclipse.org/technology/epp/downloads/release/${PLATFORM}/R/${ECLIPSE_MODELING_TOOLS_ARCHIVE}"
+if [[ "$PLATFORM" == "$CURRENTLY_MIRRORED_VERSION" ]]; then
+  ECLIPSE_DOWNLOAD_URL="http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/technology/epp/downloads/release/${PLATFORM}/R/${ECLIPSE_MODELING_TOOLS_ARCHIVE}"
+else
+  ECLIPSE_DOWNLOAD_URL="https://archive.eclipse.org/technology/epp/downloads/release/${PLATFORM}/R/${ECLIPSE_MODELING_TOOLS_ARCHIVE}"
+fi
 
 # this is the base Eclipse repository URL used to find all additionally required dependencies for installation
 ECLIPSE_REPO_URL="https://download.eclipse.org/releases/${PLATFORM}"
