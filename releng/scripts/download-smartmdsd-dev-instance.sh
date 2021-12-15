@@ -9,7 +9,7 @@ then
 fi
 
 # this is the used Eclipse base version
-ECLIPSE_BASE_VERSION=2020-09
+ECLIPSE_BASE_VERSION=2021-12
 
 # the name of the Eclipse Modeling Tools archive
 ECLIPSE_MODELING_TOOLS_ARCHIVE="eclipse-modeling-${ECLIPSE_BASE_VERSION}-R-linux-gtk-x86_64.tar.gz"
@@ -21,7 +21,7 @@ ECLIPSE_DOWNLOAD_URL="https://archive.eclipse.org/technology/epp/downloads/relea
 ECLIPSE_REPO_URL="https://download.eclipse.org/releases/${ECLIPSE_BASE_VERSION}"
 
 # this is an additional repository providing Maven/Tycho connectors
-SONATYPE_TYCHO_REPO_URL="https://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.8.1/N/0.8.1.201704211436/"
+SONATYPE_TYCHO_REPO_URL="https://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.9.0/N/0.9.0.201811261502/"
 
 # these dependencies will be installed in addition to the SmartMDSD base plugins
 ADDITIONAL_DEPENDENCIES="
@@ -29,7 +29,6 @@ org.eclipse.cdt.sdk.feature.group
 org.eclipse.m2e.feature.feature.group
 org.eclipse.xtext.sdk.feature.group
 org.eclipse.sirius.specifier.feature.group
-org.eclipse.sirius.runtime.ide.xtext.feature.group
 org.eclipse.sirius.specifier.properties.feature.feature.group
 "
 
