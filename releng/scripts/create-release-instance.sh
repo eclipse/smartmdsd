@@ -57,7 +57,7 @@ SMARTMDSD_FEATURE="org.eclipse.smartmdsd.toolchain.feature.group"
 ECLIPSE_MODELING_TOOLS_ARCHIVE="eclipse-modeling-${PLATFORM}-R-linux-gtk-x86_64.tar.gz"
 
 # this is the full download URL for downloading the Eclipse Modeling Tools archive
-ECLIPSE_DOWNLOAD_URL="http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/technology/epp/downloads/release/${PLATFORM}/R/${ECLIPSE_MODELING_TOOLS_ARCHIVE}"
+ECLIPSE_DOWNLOAD_URL="https://archive.eclipse.org/technology/epp/downloads/release/${PLATFORM}/R/${ECLIPSE_MODELING_TOOLS_ARCHIVE}"
 
 # this is the base Eclipse repository URL used to find all additionally required dependencies for installation
 ECLIPSE_REPO_URL="https://download.eclipse.org/releases/${PLATFORM}"

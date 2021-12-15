@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.smartmdsd.toolchain"
       label="%featureName"
-      version="3.17.0.qualifier"
+      version="3.18.0.qualifier"
       provider-name="%providerName"
       license-feature="org.eclipse.license"
       license-feature-version="0.0.0">
@@ -664,6 +664,13 @@
 
    <plugin
          id="org.eclipse.smartmdsd.ecore.component.componentDependencyGraphExtension.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.toolify.xtend.generators"
          download-size="0"
          install-size="0"
          version="0.0.0"
