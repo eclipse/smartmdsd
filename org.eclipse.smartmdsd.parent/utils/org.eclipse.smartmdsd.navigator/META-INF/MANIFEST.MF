@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SmartMDSD-Navigator
 Bundle-SymbolicName: org.eclipse.smartmdsd.navigator;singleton:=true
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.1.1.qualifier
 Bundle-Activator: org.eclipse.smartmdsd.navigator.Activator
 Require-Bundle: com.google.inject,
  org.eclipse.jface,

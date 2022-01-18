@@ -47,6 +47,8 @@ public class Activator extends AbstractUIPlugin {
 		SmartMDSDModelFactory.initializeFactoryRegistry();
 		// initialize the perspective customization registry
 		SmartMDSDPerspectiveCustomizationsRegistry.initialize();
+		// initialize the import contribution registry
+		SmartMDSDProjectImportContributionRegistry.initialize();
 	}
 
 	@Override

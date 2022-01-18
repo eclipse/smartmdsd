@@ -13,15 +13,8 @@
  ********************************************************************************/
 package org.eclipse.smartmdsd.ui.wizards;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.ui.dialogs.WizardNewProjectReferencePage;
-import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
 
 public class FilteredProjectReferencePage extends WizardNewProjectReferencePage {
@@ -40,33 +33,6 @@ public class FilteredProjectReferencePage extends WizardNewProjectReferencePage 
      */
 	@Override
 	protected IStructuredContentProvider getContentProvider() {
-		return new WorkbenchContentProvider() {
-			@Override
-			public Object[] getChildren(Object element) {
-				if (!(element instanceof IWorkspace)) {
-					return new Object[0];
-				}
-				IProject[] projects = ((IWorkspace) element).getRoot().getProjects();
-				if (projects != null) {
-					List<IProject> filteredProjects = new ArrayList<IProject>();
-					try {
-						List<String> relatedProjectNatureIds = currentNatureEnum.createSmartMDSDNatureObject().getImportedProjectNatureIds();
-						for (IProject project : projects) {
-							if (project.isOpen()) {
-								for(String natureId: relatedProjectNatureIds) {
-									if(project.hasNature(natureId) == true) {
-										filteredProjects.add(project);
-									}
-								}
-							}
-						}
-					} catch (CoreException e) {
-						e.printStackTrace();
-					}
-					return filteredProjects.toArray();
-				}
-				return projects == null ? new Object[0] : projects;
-			}
-		};
+		return new SmartMDSDFilteredProjectImportContentProvider(currentNatureEnum);
     }
 }

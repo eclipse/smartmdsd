@@ -5,6 +5,7 @@
    <extension-point id="SmartMDSDModelContributionEP" name="SmartMDSDModelContribution" schema="schema/SmartMDSDModelContributionEP.exsd"/>
    <extension-point id="SmartMDSDModelFactoryEP" name="SmartMDSDModelFactory" schema="schema/SmartMDSDModelFactoryEP.exsd"/>
    <extension-point id="SmartMDSDPerspectiveCustomizationEP" name="SmartMDSDPerspectiveCustomization" schema="schema/SmartMDSDPerspectiveCustomizationEP.exsd"/>
+   <extension-point id="SmartMDSDProjectImportContributionEP" name="SmartMDSDProjectImportContribution" schema="schema/SmartMDSDProjectImportContributionEP.exsd"/>
    <extension
          point="org.eclipse.ui.commands">
       <category

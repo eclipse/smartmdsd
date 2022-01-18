@@ -13,7 +13,6 @@
  ********************************************************************************/
 package org.eclipse.smartmdsd.navigator.imports;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,11 +39,9 @@ import org.eclipse.sirius.ext.base.Option;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.dialogs.ListSelectionDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.smartmdsd.ui.factories.JavaProjectFactory;
-import org.eclipse.smartmdsd.ui.natures.AbstractSmartMDSDNature;
-import org.eclipse.smartmdsd.ui.natures.SmartMDSDNatureEnum;
+import org.eclipse.smartmdsd.ui.wizards.SmartMDSDFilteredProjectImportContentProvider;
 
 public class ManageProjectImportsCommandHandler extends AbstractHandler {
 	@Override
@@ -62,14 +59,14 @@ public class ManageProjectImportsCommandHandler extends AbstractHandler {
 			
 			IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 			ILabelProvider workbencLbelProvider = new WorkbenchLabelProvider();
+			String dialogTitle = "Imported Projects Selection";
 			String dialogMessage = "Select project-references";
-			IStructuredContentProvider filteredContentProvider = createFilteredContentProvider(selectedProject);
+			IStructuredContentProvider filteredContentProvider = new SmartMDSDFilteredProjectImportContentProvider(selectedProject);
 			
 			
 			// create and open a ListSelectionDialog using an own ModelImportContentProvider
-			ListSelectionDialog dialog = new ListSelectionDialog(window.getShell(), workspaceRoot,
-					filteredContentProvider, workbencLbelProvider, dialogMessage);
-			dialog.setTitle("Imported Projects Selection");
+			ListSelectionDialog dialog = ListSelectionDialog.of(workspaceRoot).title(dialogTitle).message(dialogMessage)
+					.contentProvider(filteredContentProvider).labelProvider(workbencLbelProvider).create(window.getShell());
 			if(preselectedProjects != null) {
 				dialog.setInitialElementSelections(preselectedProjects);
 			}
@@ -126,46 +123,4 @@ public class ManageProjectImportsCommandHandler extends AbstractHandler {
 		};
 		job.schedule();
 	}
-	
-    /**
-     * Returns a content provider for the filtered project-list potentially to be referenced. 
-     * It will return all projects in the workspace that have a certain project nature.
-     *
-     * @return the content provider
-     */
-	protected IStructuredContentProvider createFilteredContentProvider(IProject selectedProject) {
-		return new WorkbenchContentProvider() {
-			@Override
-			public Object[] getChildren(Object element) {
-				if (!(element instanceof IWorkspaceRoot)) {
-					return new Object[0];
-				}
-				IProject[] allWorkspaceProjects = ((IWorkspaceRoot) element).getProjects();
-				if (allWorkspaceProjects != null) {
-					List<IProject> filteredProjects = new ArrayList<IProject>();
-					try {
-						for(SmartMDSDNatureEnum currentNatureEnum: SmartMDSDNatureEnum.values()) {
-							AbstractSmartMDSDNature currentNatureObject = currentNatureEnum.getSmartMDSDNatureFrom(selectedProject);
-							if(currentNatureObject != null) {
-								List<String> relatedProjectNatureIds = currentNatureObject.getImportedProjectNatureIds();
-								for (IProject project : allWorkspaceProjects) {
-									if (project.isOpen()) {
-										for(String natureId: relatedProjectNatureIds) {
-											if(project.hasNature(natureId) == true) {
-												filteredProjects.add(project);
-											}
-										}
-									}
-								}
-							}
-						}
-					} catch (CoreException e) {
-						e.printStackTrace();
-					}
-					return filteredProjects.toArray();
-				}
-				return new Object[0];
-			}
-		};
-    }
 }
