@@ -63,10 +63,13 @@ public class ManageProjectImportsCommandHandler extends AbstractHandler {
 			String dialogMessage = "Select project-references";
 			IStructuredContentProvider filteredContentProvider = new SmartMDSDFilteredProjectImportContentProvider(selectedProject);
 			
-			
 			// create and open a ListSelectionDialog using an own ModelImportContentProvider
-			ListSelectionDialog dialog = ListSelectionDialog.of(workspaceRoot).title(dialogTitle).message(dialogMessage)
-					.contentProvider(filteredContentProvider).labelProvider(workbencLbelProvider).create(window.getShell());
+			// TODO: the deprecated constructor has to be used for backwards compatibility with Eclipse 2020-09 (the newer interface is not yet implemented there)
+			ListSelectionDialog dialog = new ListSelectionDialog(window.getShell(), workspaceRoot,
+					filteredContentProvider, workbencLbelProvider, dialogMessage);
+//			ListSelectionDialog dialog = ListSelectionDialog.of(workspaceRoot).title(dialogTitle).message(dialogMessage)
+//			.contentProvider(filteredContentProvider).labelProvider(workbencLbelProvider).create(window.getShell());
+			dialog.setTitle(dialogTitle);
 			if(preselectedProjects != null) {
 				dialog.setInitialElementSelections(preselectedProjects);
 			}
