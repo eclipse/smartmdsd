@@ -76,6 +76,8 @@ public class SmartMDSDFilteredProjectImportContentProvider extends WorkbenchCont
 						}
 					}
 					filteredProjects.addAll(SmartMDSDProjectImportContributionRegistry.getFilteredProjectImports(root, currentNatureObject.getNatureID(), currentProject));
+				} else if(currentProject != null) {
+					filteredProjects.addAll(SmartMDSDProjectImportContributionRegistry.getFilteredProjectImports(root, "", currentProject));
 				}
 			} catch (CoreException e) {
 				e.printStackTrace();

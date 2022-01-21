@@ -49,7 +49,13 @@ public class SmartMDSDProjectImportContributionRegistry {
 			IProject[] allWorkspaceProjects = root.getProjects();
 			if (allWorkspaceProjects != null) {
 				for(ISmartMDSDProjectImportContribution contribution: registry) {
-					if(current_nature_id.contentEquals(contribution.getParentProjectNature())) {
+					boolean parent_nature_matches = false;
+					if(current_project != null && current_project.hasNature(contribution.getParentProjectNature())) {
+						parent_nature_matches = true;
+					} else if(current_nature_id.contentEquals(contribution.getParentProjectNature())) {
+						parent_nature_matches = true;
+					}
+					if(parent_nature_matches == true) {
 						for(String imported_nature: contribution.getImportedProjectNatures()) {
 							for(IProject candidate: allWorkspaceProjects) {
 								if(candidate.hasNature(imported_nature) && candidate != current_project) {
