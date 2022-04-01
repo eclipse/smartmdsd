@@ -186,6 +186,9 @@ class SmartInputHandler {
 		
 		class «handler.nameClass»Core
 		:	public Smart::InputTaskTrigger<«handler.input.inputHandlerCommObject»>
+		«IF handler.activeQueue»
+		,	public SmartACE::Task
+		«ENDIF»
 		«FOR obs: handler.observers.sortBy[it.nameClass]»
 		,	public «obs.subject.nodeObserverInterfaceClassName»
 		«ENDFOR»
@@ -195,9 +198,6 @@ class SmartInputHandler {
 		«ENDFOR»
 		{
 		private:
-			Smart::StatusCode updateStatus;
-			«handler.input.inputHandlerCommObject» lastUpdate;
-			
 			«FOR inLink: handler.inputLinks.sortBy[it.name]»
 				Smart::StatusCode «inLink.inputPort.nameInstance»Status;
 				«inLink.inputPort.inputHandlerCommObject» «inLink.inputPort.nameInstance»Object;
@@ -205,6 +205,24 @@ class SmartInputHandler {
 			
 			virtual void updateAllCommObjects();
 			
+			«IF handler.activeQueue»
+			// implementing active-queue handler
+			std::atomic<bool> signalled_to_stop;
+			std::mutex handler_mutex;
+			std::condition_variable handler_cond_var;
+			std::list<«handler.input.inputHandlerCommObject»> request_queue;
+			// inputs are pushed to the request_queue
+			virtual void handle_input(const «handler.input.inputHandlerCommObject»& input);
+			// inputs are processed from within the thread, thus implementing an active FIFO request-queue
+			virtual int task_execution() override;
+			// override the default stop behavior to also release the active request queue
+			virtual int stop(const bool wait_till_stopped=true) override
+			{
+				signalled_to_stop = true;
+				handler_cond_var.notify_all();
+				return SmartACE::Task::stop();
+			}
+			«ELSE»
 			// internal input handling method
 			virtual void handle_input(const «handler.input.inputHandlerCommObject»& input) {
 				this->updateAllCommObjects();
@@ -215,6 +233,7 @@ class SmartInputHandler {
 				// call implementation of base class
 				Smart::InputTaskTrigger<«handler.input.inputHandlerCommObject»>::handle_input(input);
 			}
+			«ENDIF»
 			
 		«handler.compileNodeSubjectHeader»
 			
@@ -266,11 +285,52 @@ class SmartInputHandler {
 				,	«inLink.inputPort.nameInstance»Status(Smart::SMART_DISCONNECTED)
 				,	«inLink.inputPort.nameInstance»Object()
 			«ENDFOR»
-		{  
-			updateStatus = Smart::SMART_NODATA;
+		{
+			«IF handler.activeQueue»
+				signalled_to_stop = false;
+				this->start();
+			«ENDIF»
 		}
 		«handler.nameClass»Core::~«handler.nameClass»Core()
-		{  }
+		{  
+			«IF handler.activeQueue»
+				this->stop();
+			«ENDIF»
+		}
+		
+		«IF handler.activeQueue»
+			// inputs are pushed to the request_queue
+			void «handler.nameClass»Core::handle_input(const «handler.input.inputHandlerCommObject» &input) {
+				std::unique_lock<std::mutex> scoped_lock(handler_mutex);
+				request_queue.push_back(input);
+				scoped_lock.unlock();
+				
+				handler_cond_var.notify_all();
+			}
+			// inputs are processed from within the thread, thus implementing an active FIFO request-queue
+			int «handler.nameClass»Core::task_execution() {
+				while(!signalled_to_stop) {
+					std::unique_lock<std::mutex> scoped_lock(handler_mutex);
+					if(request_queue.empty()) {
+						handler_cond_var.wait(scoped_lock);
+						if(signalled_to_stop)
+							return 0;
+					}
+					«handler.input.inputHandlerCommObject» input = request_queue.front();
+					request_queue.pop_front();
+					scoped_lock.unlock();
+					
+					this->updateAllCommObjects();
+					// call the input handler method (which has to be implemented in derived classes)
+					this->on_«handler.input.name»(input);
+					// notify all attached interaction observers
+					this->notify_all_interaction_observers();
+					// call implementation of base class
+					Smart::InputTaskTrigger<«handler.input.inputHandlerCommObject»>::handle_input(input);
+				}
+				return 0;
+			}
+		«ENDIF»
 		
 		void «handler.nameClass»Core::updateAllCommObjects() {
 			«FOR input: handler.inputLinks.map[inputPort].sortBy[it.name]»

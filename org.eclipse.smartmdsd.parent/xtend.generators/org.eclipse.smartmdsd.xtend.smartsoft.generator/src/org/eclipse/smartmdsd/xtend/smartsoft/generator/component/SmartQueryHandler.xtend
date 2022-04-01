@@ -59,6 +59,14 @@ class SmartQueryHandler {
 			
 	#include "aceSmartSoft.hh"
 	
+	«IF handler.activeQueue»
+	#include <list>
+	#include <memory>
+	#include <mutex>
+	#include <atomic>
+	#include <condition_variable>
+	«ENDIF»
+	
 	«FOR obj : ComponentDefinitionModelUtility.getAllCommObjects(handler).sortBy[it.name]»
 		#include <«obj.userClassHeaderFileNameFQN»>
 	«ENDFOR»
@@ -77,6 +85,9 @@ class SmartQueryHandler {
 	class «handler.nameClass»Core 
 	:	public Smart::IInputHandler<std::pair<Smart::QueryIdPtr,«handler.answerPort.communicationObjects.get("Request").fullyQualifiedNameCpp»>>
 	,	public Smart::TaskTriggerSubject
+	«IF handler.isActiveQueue»
+	,	public SmartACE::Task
+	«ENDIF»
 	«FOR obs: handler.observers.sortBy[it.nameClass]»
 	,	public «obs.subject.nodeObserverInterfaceClassName»
 	«ENDFOR»
@@ -85,9 +96,29 @@ class SmartQueryHandler {
 	«ENDFOR»
 	{
 	private:
-	virtual void handle_input(const std::pair<Smart::QueryIdPtr,«handler.answerPort.communicationObjects.get("Request").fullyQualifiedNameCpp»> &input) override {
-		this->handleQuery(input.first, input.second);
-	}
+		«IF handler.activeQueue»
+		// implementing active-queue handler
+		std::atomic<bool> signalled_to_stop;
+		std::mutex handler_mutex;
+		std::condition_variable handler_cond_var;
+		std::list<std::pair<Smart::QueryIdPtr,«handler.answerPort.communicationObjects.get("Request").fullyQualifiedNameCpp»>> request_queue;
+		// inputs are pushed to the request_queue
+		virtual void handle_input(const std::pair<Smart::QueryIdPtr,«handler.answerPort.communicationObjects.get("Request").fullyQualifiedNameCpp»> &input) override;
+		// inputs are processed from within the thread, thus implementing an active FIFO request-queue
+		virtual int task_execution() override;
+		// override the default stop behavior to also release the active request queue
+		virtual int stop(const bool wait_till_stopped=true) override
+		{
+			signalled_to_stop = true;
+			handler_cond_var.notify_all();
+			return SmartACE::Task::stop();
+		}
+		«ELSE»
+		// inputs are directly propagated to the implementation (passive handler)
+		virtual void handle_input(const std::pair<Smart::QueryIdPtr,«handler.answerPort.communicationObjects.get("Request").fullyQualifiedNameCpp»> &input) override {
+			this->handleQuery(input.first, input.second);
+		}
+		«ENDIF»
 	
 	«FOR inLink: handler.inputLinks.sortBy[it.name]»
 		Smart::StatusCode «inLink.inputPort.nameInstance»Status;
@@ -125,7 +156,7 @@ class SmartQueryHandler {
 		using IQueryServer = Smart::IQueryServerPattern<«handler.answerPort.getCommObjectCppList(true)»>;
 		using QueryId = Smart::QueryIdPtr;
 		«handler.nameClass»Core(IQueryServer *server);
-		virtual ~«handler.nameClass»Core() = default;
+		virtual ~«handler.nameClass»Core();
 		
 	protected:
 		IQueryServer *server;
@@ -161,8 +192,46 @@ class SmartQueryHandler {
 	,	«inLink.inputPort.nameInstance»Object()
 	«ENDFOR»
 	{
-		
+		«IF handler.activeQueue»
+			signalled_to_stop = false;
+			this->start();
+		«ENDIF»
 	}
+	
+	«handler.nameClass»Core::~«handler.nameClass»Core()
+	{
+		«IF handler.activeQueue»
+			this->stop();
+		«ENDIF»
+	}
+	
+	«IF handler.activeQueue»
+		// inputs are pushed to the request_queue
+		void «handler.nameClass»Core::handle_input(const std::pair<Smart::QueryIdPtr,«handler.answerPort.communicationObjects.get("Request").fullyQualifiedNameCpp»> &input) {
+			std::unique_lock<std::mutex> scoped_lock(handler_mutex);
+			request_queue.push_back(input);
+			scoped_lock.unlock();
+			
+			handler_cond_var.notify_all();
+		}
+		// inputs are processed from within the thread, thus implementing an active FIFO request-queue
+		int «handler.nameClass»Core::task_execution() {
+			while(!signalled_to_stop) {
+				std::unique_lock<std::mutex> scoped_lock(handler_mutex);
+				if(request_queue.empty()) {
+					handler_cond_var.wait(scoped_lock);
+					if(signalled_to_stop)
+						return 0;
+				}
+				std::pair<Smart::QueryIdPtr,«handler.answerPort.communicationObjects.get("Request").fullyQualifiedNameCpp»> input = request_queue.front();
+				request_queue.pop_front();
+				scoped_lock.unlock();
+				
+				this->handleQuery(input.first, input.second);
+			}
+			return 0;
+		}
+	«ENDIF»
 	
 	void «handler.nameClass»Core::updateAllCommObjects()
 	{
