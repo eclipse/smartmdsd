@@ -2,6 +2,10 @@
 
 This file contains the release notes for the SmartMDSD Toolchain version 3.x. For each release, it provides important information to users to support them in switching from one specific version the previous version. This includes information and instructions how to migrate content from one version to another.
 
+## v3.19
+
+This is a maintenance release with a small upgrade of the component code generator. The projects developed with a previous version can be used with the newer version. In case you want to use the new active input handlers, simply trigger the code generation for the respective component project and build the component binary.
+
 ## v3.18
 
 This release updates the Eclipse base installation from previously 2020-09 to the newest Eclipse **2021-12** (aka Eclipse **4.22**). While there should not be any major/apparent changes in the UI, there might be some improvements in the overall behavior and GUIs as all the standard Eclipse plugins have been updated to their newest stable versions. If you are interested in the general Eclipse updates, please fillow this link: [Eclipse IDE 2021-12](https://www.eclipse.org/eclipseide/2021-12/).
